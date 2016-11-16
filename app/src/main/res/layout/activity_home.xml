@@ -21,4 +21,13 @@
         android:layout_height="wrap_content"
         android:text="@string/button_arzang"
         android:onClick="switchToArzangTest"/>
+
+    <Button
+        android:text="Records"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="60dp"
+        android:id="@+id/btnRecordsTable" />
 </RelativeLayout>
