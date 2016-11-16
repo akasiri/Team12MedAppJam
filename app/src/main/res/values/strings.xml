@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MedAppJam</string>
+    <string name="button_arzang">Switch to Arzang\'s test view!</string>
 </resources>
