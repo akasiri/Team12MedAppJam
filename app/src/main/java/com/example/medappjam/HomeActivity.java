@@ -33,7 +33,18 @@ public class HomeActivity extends AppCompatActivity {
             }
 
 
-        });}
+        });
+
+        Button btnNumbersInput = (Button) findViewById(R.id.btnNumbersInput);
+        btnNumbersInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchNumbersInput(view);
+            }
+
+
+        });
+    }
 
     public void switchToArzangTest(View view) {
         Intent intent = new Intent(this, ArzangTest.class);
@@ -42,6 +53,11 @@ public class HomeActivity extends AppCompatActivity {
 
     public void launchRecordsTable(View view) {
         Intent intent = new Intent(this, RecordsTableActivity.class);
+        startActivity(intent);
+    }
+
+    public void launchNumbersInput(View view) {
+        Intent intent = new Intent(this, NumberInputActivity.class);
         startActivity(intent);
     }
 
