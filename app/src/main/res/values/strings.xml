@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">MedAppJam</string>
+    <string name="app_name">MyNurse</string>
+
+    <string name="settings">Settings</string>
+    <string name="profile_type1">Chronic Heart Failure</string>
+    <string name="profile_type2">Type 2</string>
+    <string name="profile_type3">Type3</string>
+    <string name="logout">Logout</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
