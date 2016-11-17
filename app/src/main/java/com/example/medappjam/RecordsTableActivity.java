@@ -9,6 +9,15 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import android.content.Intent;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 public class RecordsTableActivity extends AppCompatActivity {
@@ -18,6 +27,9 @@ public class RecordsTableActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    TextView  weight, hr, bp;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +39,33 @@ public class RecordsTableActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         Intent intent = getIntent();
+
+        weight = (TextView)findViewById(R.id.tvWeight1);
+        hr = (TextView)findViewById(R.id.tvNumbersHR);
+        bp = (TextView)findViewById(R.id.tvNumbersBP);
+
+        String data;
+        FileInputStream fin = null;
+        try {
+            fin = openFileInput("myNumbers.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        InputStreamReader insr = new InputStreamReader(fin);
+        BufferedReader bufferedReader = new BufferedReader(insr);
+        StringBuffer strbuff = new StringBuffer();
+        try {
+            while((data = bufferedReader.readLine())!=null){
+                strbuff.append(data +"\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+        
+        weight.setText(strbuff.toString());
+        weight.setVisibility(View.VISIBLE);
+
 
     }
 
@@ -65,5 +104,9 @@ public class RecordsTableActivity extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
     }
+
+
+
+
 }
 
