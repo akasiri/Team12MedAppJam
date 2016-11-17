@@ -21,4 +21,24 @@
         android:layout_height="wrap_content"
         android:text="@string/button_arzang"
         android:onClick="switchToArzangTest"/>
+
+    <Button
+        android:text="myRecords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="60dp"
+        android:id="@+id/btnRecordsTable" />
+
+    <Button
+        android:text="myNumbers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnRecordsTable"
+        android:layout_marginTop="18dp"
+        android:id="@+id/btnNumbersInput"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

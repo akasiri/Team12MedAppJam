@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="majortablerow">#74b298</color>
+    <color name="tableheader">#5c8e79</color>
+    <color name="minortablerow">#9fceba</color>
+    <color name="white">#FFFFFF</color>
 </resources>

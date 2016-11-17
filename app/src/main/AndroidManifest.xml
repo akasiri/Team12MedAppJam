@@ -17,6 +17,16 @@
         </activity>
         <activity android:name=".ArzangTest">
         </activity>
+        <activity
+            android:name=".RecordsTableActivity">
+
+        </activity>
+        
+        <activity
+            android:name=".NumberInputActivity">
+        </activity>
+        <meta-data
+            android:name="com.google.android.gms.version" />
     </application>
 
 </manifest>
