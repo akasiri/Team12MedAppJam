@@ -29,6 +29,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="60dp"
+        android:onClick="launchRecordsTable"
         android:id="@+id/btnRecordsTable" />
 
     <Button
@@ -38,6 +39,7 @@
         android:layout_below="@+id/btnRecordsTable"
         android:layout_marginTop="18dp"
         android:id="@+id/btnNumbersInput"
+        android:onClick="launchNumbersInput"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

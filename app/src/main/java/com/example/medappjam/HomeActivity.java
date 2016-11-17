@@ -24,26 +24,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Button fab = (Button) findViewById(R.id.btnRecordsTable);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchRecordsTable(view);
-
-            }
-
-
-        });
-
-        Button btnNumbersInput = (Button) findViewById(R.id.btnNumbersInput);
-        btnNumbersInput.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchNumbersInput(view);
-            }
-
-
-        });
     }
 
     public void switchToArzangTest(View view) {
