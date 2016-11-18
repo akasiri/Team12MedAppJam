@@ -27,7 +27,7 @@ public class NumberInputActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    EditText date, weight, hr, bp;
+    EditText date, weight, hr, systolic, diastolic;
     String strDate, strWeight, strHR, strBP;
 
     @Override
@@ -41,7 +41,8 @@ public class NumberInputActivity extends AppCompatActivity {
         date = (EditText)findViewById(R.id.etInputDate);
         weight = (EditText)findViewById(R.id.etInputWeight);
         hr = (EditText)findViewById(R.id.etInputHR);
-        bp = (EditText)findViewById(R.id.etInputBP);
+        systolic = (EditText)findViewById(R.id.etInputSystolic);
+        diastolic = (EditText)findViewById(R.id.etInputDiastolic);
 
     }
 
@@ -82,11 +83,13 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     public void writeNumbers(View view) throws IOException {
+        strDate = date.getText().toString() + "\n";
         strWeight = weight.getText().toString() + "\n";
         strHR = hr.getText().toString() + "\n";
-        strBP = bp.getText().toString() + "\n";
+        strBP = systolic.getText().toString() + "/" + diastolic.getText() + "\n";
         FileOutputStream fout = openFileOutput("myNumbers.txt", MODE_APPEND);
 
+        fout.write(strDate.getBytes());
         fout.write(strWeight.getBytes());
         fout.write(strHR.getBytes());
         fout.write(strBP.getBytes());

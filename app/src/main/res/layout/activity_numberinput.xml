@@ -13,7 +13,7 @@
             android:layout_height="match_parent" >
 
             <TextView
-                android:text="TextView"
+                android:text="Date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvNumberDate" />
@@ -24,7 +24,7 @@
                 android:inputType="textPersonName"
                 android:ems="10"
                 android:id="@+id/etInputDate"
-                android:text="dd/mm" />
+                android:hint="DD/MM" />
         </TableRow>
 
         <TableRow
@@ -32,7 +32,7 @@
             android:layout_height="match_parent" >
 
             <TextView
-                android:text="TextView"
+                android:text="Weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvNumbersWeight" />
@@ -40,7 +40,7 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/etInputWeight" />
         </TableRow>
@@ -50,17 +50,33 @@
             android:layout_height="match_parent" >
 
             <TextView
-                android:text="TextView"
+                android:text="Blood Pressure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvNumbersBP" />
 
             <EditText
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/etInputSystolic"
+                android:hint="Systolic"
+                android:layout_width="wrap_content" />
+
+            <TextView
+                android:text="/"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:id="@+id/tvBPSlash"
+                android:textAppearance="@style/TextAppearance.AppCompat" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
                 android:ems="10"
-                android:id="@+id/etInputBP" />
+                android:id="@+id/etInputDiastolic"
+                android:hint="Diastolic" />
         </TableRow>
 
         <TableRow
@@ -68,7 +84,7 @@
             android:layout_height="match_parent" >
 
             <TextView
-                android:text="TextView"
+                android:text="Heart Rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvNumbersHR" />
@@ -76,7 +92,7 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:ems="10"
                 android:id="@+id/etInputHR" />
         </TableRow>
