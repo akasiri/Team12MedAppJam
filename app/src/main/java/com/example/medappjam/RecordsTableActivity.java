@@ -271,7 +271,6 @@ public class RecordsTableActivity extends AppCompatActivity {
                 weightCount += Float.parseFloat(lines[i][1]);
                 hrCount += Integer.parseInt(lines[i][2]);
                 int index = lines[i][3].indexOf("/");
-                System.out.println("HERE!!!!!!!!!" + lines[i][3]);
                 systolicCount += Integer.parseInt(lines[i][3].substring(0,index));
                 diastolicCount += Integer.parseInt(lines[i][3].substring(index+1));
                 length ++;
