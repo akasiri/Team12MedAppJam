@@ -1,8 +1,10 @@
 package com.example.medappjam;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.android.gms.appindexing.Action;
@@ -86,13 +88,15 @@ public class RecordsTableActivity extends AppCompatActivity {
         client.disconnect();
     }
 
-    public void deleteRecords(View view) throws IOException {
+    public void deleteRecords() throws IOException {
 
         FileOutputStream fout = openFileOutput("myNumbers.txt", MODE_PRIVATE);
         fout.write("".getBytes());
         fout.close();
         Toast.makeText(getBaseContext(), "Data Deleted", Toast.LENGTH_LONG).show();
-
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 
@@ -140,7 +144,7 @@ public class RecordsTableActivity extends AppCompatActivity {
     TableLayout t1;
 
     TableLayout tl = (TableLayout) findViewById(R.id.mainTable);
-
+    tl.setBackgroundColor(Color.WHITE);
 
     TableRow tr_head = new TableRow(this);
     //tr_head.setId(10);
@@ -150,47 +154,52 @@ public class RecordsTableActivity extends AppCompatActivity {
     TableLayout.LayoutParams.MATCH_PARENT));
 
     TextView label_date = new TextView(this);
-    label_date.setWidth(250);
+    int headerTextSize = 18;
     label_date.setTextSize(15);
     //label_date.setId(20);
-    label_date.setText("DATE");
+    label_date.setText("Date");
     label_date.setTextColor(Color.WHITE);
+        label_date.setTextSize(headerTextSize);
     label_date.setPadding(10,10,10,10);
     tr_head.addView(label_date);// add the column to the table row here
 
     TextView label_weight = new TextView(this);
-    label_weight.setWidth(250);
+
     label_weight.setTextSize(15);
     // label_weight.setId(22);// define id that must be unique
     label_weight.setText("Weight"); // set the text for the header
     label_weight.setTextColor(Color.WHITE); // set the color
     label_weight.setPadding(10,10,10,10); // set the padding (if required)
+        label_weight.setTextSize(headerTextSize);
     tr_head.addView(label_weight); // add the column to the table row here
 
 
     TextView label_hr = new TextView(this);
-    label_hr.setWidth(250);
+
     label_hr.setTextSize(15);
     //  label_bp.setId(23);// define id that must be unique
     label_hr.setText("HR"); // set the text for the header
     label_hr.setTextColor(Color.WHITE); // set the color
     label_hr.setPadding(10,10,10,10); // set the padding (if required)
+        label_hr.setTextSize(headerTextSize);
     tr_head.addView(label_hr); // add the column to the table ro
 
 
     TextView label_bp = new TextView(this);
-    label_bp.setWidth(250);
+
     label_bp.setTextSize(15);
     //   label_hr.setId(24);// define id that must be unique
     label_bp.setText("BP"); // set the text for the header
     label_bp.setTextColor(Color.WHITE); // set the color
     label_bp.setPadding(10,10,10,10); // set the padding (if required)
+    label_bp.setTextSize(headerTextSize);
     tr_head.addView(label_bp); // add the column to the table ro
 
 
     tl.addView(tr_head,new TableLayout.LayoutParams(
-    TableLayout.LayoutParams.MATCH_PARENT,
-    TableLayout.LayoutParams.WRAP_CONTENT));
+    TableLayout.LayoutParams.WRAP_CONTENT,
+    TableLayout.LayoutParams.WRAP_CONTENT
+    ));
 
 
     count=0;
@@ -213,9 +222,10 @@ public class RecordsTableActivity extends AppCompatActivity {
                 tr.setBackgroundColor(Color.parseColor("#9fceba"));
             tr.setId(100 + count);
             tr.setLayoutParams(new TableLayout.LayoutParams(
-                    TableLayout.LayoutParams.MATCH_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT,
                     TableLayout.LayoutParams.WRAP_CONTENT));
 
+            int dataTextSize = 15;
 //Create four columns to add as table data
             // Create a TextView to add date
             TextView labelDATE = new TextView(this);
@@ -223,12 +233,14 @@ public class RecordsTableActivity extends AppCompatActivity {
             labelDATE.setText(date);
             labelDATE.setPadding(2, 0, 5, 0);
             labelDATE.setTextColor(Color.WHITE);
+            labelDATE.setTextSize(dataTextSize);
             tr.addView(labelDATE);
 
             TextView labelWEIGHT = new TextView(this);
             labelWEIGHT.setId(200 + count);
             labelWEIGHT.setText(weight);
             labelWEIGHT.setTextColor(Color.WHITE);
+            labelDATE.setTextSize(dataTextSize);
             tr.addView(labelWEIGHT);
 
             TextView labelBP = new TextView(this);
@@ -236,12 +248,14 @@ public class RecordsTableActivity extends AppCompatActivity {
             labelBP.setText(bp);
             labelBP.setPadding(2, 0, 5, 0);
             labelBP.setTextColor(Color.WHITE);
+            labelDATE.setTextSize(dataTextSize);
             tr.addView(labelBP);
 
             TextView labelHR = new TextView(this);
             labelHR.setId(200 + count);
             labelHR.setText(hr);
             labelHR.setTextColor(Color.WHITE);
+            labelDATE.setTextSize(dataTextSize);
             tr.addView(labelHR);
 
 
@@ -252,6 +266,7 @@ public class RecordsTableActivity extends AppCompatActivity {
             count++;
         }
     }
+
 
 }
 
@@ -277,15 +292,41 @@ public class RecordsTableActivity extends AppCompatActivity {
             }
             i++;
         }
-        AveWeight.setText(String.format("%5.1f", weightCount/length));
-        AveHR.setText(String.format("%d", hrCount/length));
-        AveBP.setText(String.format("%d/%d", (systolicCount/length), (diastolicCount/length)));
-
+        if(length != 0) {
+            AveWeight.setText(String.format("%5.1f", weightCount / length));
+            AveHR.setText(String.format("%d", hrCount / length));
+            AveBP.setText(String.format("%d/%d", (systolicCount / length), (diastolicCount / length)));
+        }
         return length;
     }
     public void backClick(View view){
         Intent intent = new Intent(this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    public void deleteClick(View view){
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        try {
+                            deleteRecords();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
     }
 }

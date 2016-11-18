@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -60,7 +61,7 @@
     <RelativeLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:gravity="center" >
@@ -68,7 +69,7 @@
         <Button
             android:text="Back"
             android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_height="65dp"
             android:id="@+id/btnRecordsBack"
             android:onClick="backClick"
             />
@@ -78,14 +79,14 @@
             android:layout_width="100dp"
             android:id="@+id/btnDeleteRecords"
             android:layout_toRightOf="@id/btnRecordsBack"
-            android:layout_height="50dp"
-            android:onClick="deleteRecords"/>
+            android:layout_height="65dp"
+            android:onClick="deleteClick"/>
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/content"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_above="@id/footer"
         android:layout_below="@id/header"
@@ -95,11 +96,10 @@
             android:id="@+id/scrollableContents"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="#005"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:backgroundTint="@color/white"
-            >
+            tools:visibility="visible">
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -108,7 +108,9 @@
                 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/mainTable">
+                    android:id="@+id/mainTable"
+                    android:stretchColumns="*"
+                    tools:background="@color/white">
 
                 </TableLayout>
             </LinearLayout>

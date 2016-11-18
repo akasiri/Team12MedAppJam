@@ -13,5 +13,8 @@
     <string name="password_warning_message_empty">Must input password</string>
     <string name="username_warning_message_empty">Must input username</string>
 
-    <array name = "record_data"></array>
+    <array name="record_data"></array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
