@@ -8,4 +8,13 @@
     <string name="logout">Logout</string>
 
     <string name="action_settings">Settings</string>
+    <string name="confirm_delete">Confirm account deletion</string>
+    <string name="confirm_delete_message">This action cannot be undone.</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="manage_account">Manage Account</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="change_password">Change Password</string>
+    <string name="edit_profiles">Add/Remove Profiles</string>
+    <string name="edit_provider_info">Edit Provider Information</string>
 </resources>

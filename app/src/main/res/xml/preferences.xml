@@ -1,39 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     <PreferenceCategory
-        android:title="Manage Account"
+        android:title="@string/manage_account"
         android:key="account_properties"
         android:persistent="false" >
 
         <Preference
-            android:title="Delete Account"
+            android:title="@string/delete_account"
             android:key="delete_account" />
         <Preference
-            android:title="Change Password"
+            android:title="@string/change_password"
             android:key="change_password" />
 
-        <PreferenceScreen
-            android:title="Add/Remove Profiles"
+        <Preference
+            android:title="@string/edit_profiles"
             android:key="profiles" >
-            <CheckBoxPreference
-                android:key="type1"
-                android:title="@string/profile_type1"
-                android:defaultValue="false"
-                />
-            <CheckBoxPreference
-                android:key="type2"
-                android:title="@string/profile_type2"
-                android:defaultValue="false"
-                />
-            <CheckBoxPreference
-                android:key="type3"
-                android:title="@string/profile_type3"
-                android:defaultValue="false"
-                />
-        </PreferenceScreen>
+        </Preference>
 
         <Preference
-            android:title="Edit Provider Information"
+            android:title="@string/edit_provider_info"
             android:key="edit_provider_info" />
 
     </PreferenceCategory>
