@@ -102,23 +102,29 @@ public class NumberInputActivity extends AppCompatActivity {
         osw.close();*/
         Toast.makeText(getBaseContext(), "Data saved", Toast.LENGTH_LONG).show();
     }
-    public void readMessage(View view) throws IOException {
+
+    public String readNumbers() throws IOException {
         String data;
-        FileInputStream fin = openFileInput("myNumbers.txt");
+        FileInputStream fin = null;
+        try {
+            fin = openFileInput("myNumbers.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         InputStreamReader insr = new InputStreamReader(fin);
         BufferedReader bufferedReader = new BufferedReader(insr);
         StringBuffer strbuff = new StringBuffer();
-        while((data = bufferedReader.readLine())!=null){
-            strbuff.append(data +"\n");
-        }
-        /*
-        TextView textView;
-        textView.setText(strbuff.toString());
-        textView.setVisibility(View.VISIBLE);
-        */
-        System.out.println(strbuff);
+        try {
+            while((data = bufferedReader.readLine())!=null){
+                strbuff.append(data +"\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
 
+        }
+        return strbuff.toString();
     }
+
 
 }
 

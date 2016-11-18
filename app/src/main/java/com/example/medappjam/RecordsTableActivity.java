@@ -1,5 +1,6 @@
 package com.example.medappjam;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -40,7 +43,7 @@ public class RecordsTableActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         Intent intent = getIntent();
 
-        weight = (TextView)findViewById(R.id.tvWeight1);
+//        weight = (TextView)findViewById(R.id.tvWeight1);
         hr = (TextView)findViewById(R.id.tvNumbersHR);
         bp = (TextView)findViewById(R.id.tvNumbersBP);
 
@@ -62,9 +65,106 @@ public class RecordsTableActivity extends AppCompatActivity {
             e.printStackTrace();
 
         }
-        
-        weight.setText(strbuff.toString());
-        weight.setVisibility(View.VISIBLE);
+
+   //     weight.setText(strbuff.toString());
+ //       weight.setVisibility(View.VISIBLE);
+
+
+
+
+        TableLayout t1;
+
+        TableLayout tl = (TableLayout) findViewById(R.id.mainTable);
+
+
+        TableRow tr_head = new TableRow(this);
+        //tr_head.setId(10);
+        tr_head.setBackgroundColor(Color.parseColor("#5c8e79"));
+        tr_head.setLayoutParams(new TableLayout.LayoutParams(
+                TableLayout.LayoutParams.FILL_PARENT,
+                TableLayout.LayoutParams.MATCH_PARENT));
+
+        TextView label_date = new TextView(this);
+        label_date.setWidth(250);
+        label_date.setTextSize(15);
+        //label_date.setId(20);
+        label_date.setText("DATE");
+        label_date.setTextColor(Color.WHITE);
+        label_date.setPadding(10, 10, 10, 10);
+        tr_head.addView(label_date);// add the column to the table row here
+
+        TextView label_weight = new TextView(this);
+        label_weight.setWidth(250);
+        label_weight.setTextSize(15);
+       // label_weight.setId(22);// define id that must be unique
+        label_weight.setText("Weight"); // set the text for the header
+        label_weight.setTextColor(Color.WHITE); // set the color
+        label_weight.setPadding(10, 10, 10, 10); // set the padding (if required)
+        tr_head.addView(label_weight); // add the column to the table row here
+
+
+        TextView label_bp = new TextView(this);
+        label_bp.setWidth(250);
+        label_bp.setTextSize(15);
+      //  label_bp.setId(23);// define id that must be unique
+        label_bp.setText("BP"); // set the text for the header
+        label_bp.setTextColor(Color.WHITE); // set the color
+        label_bp.setPadding(10, 10, 10, 10); // set the padding (if required)
+        tr_head.addView(label_bp); // add the column to the table ro
+
+
+        TextView label_hr = new TextView(this);
+        label_hr.setWidth(250);
+        label_hr.setTextSize(15);
+     //   label_hr.setId(24);// define id that must be unique
+        label_hr.setText("HR"); // set the text for the header
+        label_hr.setTextColor(Color.WHITE); // set the color
+        label_hr.setPadding(10, 10, 10, 10); // set the padding (if required)
+        tr_head.addView(label_hr); // add the column to the table ro
+
+
+        tl.addView(tr_head, new TableLayout.LayoutParams(
+                TableLayout.LayoutParams.FILL_PARENT,
+                TableLayout.LayoutParams.WRAP_CONTENT));
+
+
+
+        Integer count=1;
+        while (count < 31) {
+            String date = count + ".";
+            Double weight_kg = count  * 1.5;// get the second variable
+// Create the table row
+            TableRow tr = new TableRow(this);
+            if(count%2!=0) tr.setBackgroundColor(Color.parseColor("#74b298"));
+            else tr.setBackgroundColor(Color.parseColor("#9fceba"));
+            tr.setId(100+count);
+            tr.setLayoutParams(new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.FILL_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT));
+
+//Create two columns to add as table data
+            // Create a TextView to add date
+            TextView labelDATE = new TextView(this);
+            labelDATE.setId(200+count);
+            labelDATE.setText(date);
+            labelDATE.setPadding(2, 0, 5, 0);
+            labelDATE.setTextColor(Color.WHITE);
+            tr.addView(labelDATE);
+            TextView labelWEIGHT = new TextView(this);
+            labelWEIGHT.setId(200+count);
+            labelWEIGHT.setText(weight_kg.toString());
+            labelWEIGHT.setTextColor(Color.WHITE);
+            tr.addView(labelWEIGHT);
+
+// finally add this to the table row
+            tl.addView(tr, new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.FILL_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT));
+            count++;
+        }
+
+
+
 
 
     }
