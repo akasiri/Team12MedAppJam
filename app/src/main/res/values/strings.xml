@@ -2,4 +2,5 @@
     <string name="app_name">MedAppJam</string>
     <string name="button_arzang">Switch to Arzang\'s test view!</string>
     <string name="edit_message">This is an edit text field</string>
+    <array name = "record_data"></array>
 </resources>

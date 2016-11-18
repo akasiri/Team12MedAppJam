@@ -1,5 +1,6 @@
 package com.example.medappjam;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,22 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import android.content.Intent;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.PopupWindow;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class RecordsTableActivity extends AppCompatActivity {
@@ -18,6 +35,8 @@ public class RecordsTableActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    TextView weight, hr, bp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +46,7 @@ public class RecordsTableActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         Intent intent = getIntent();
-
+        readToTable();
     }
 
     /**
@@ -54,6 +73,7 @@ public class RecordsTableActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
         AppIndex.AppIndexApi.start(client, getIndexApiAction());
+
     }
 
     @Override
@@ -65,5 +85,173 @@ public class RecordsTableActivity extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
     }
+
+    public void deleteRecords(View view) throws IOException {
+
+        FileOutputStream fout = openFileOutput("myNumbers.txt", MODE_PRIVATE);
+        fout.write("".getBytes());
+        fout.close();
+        Toast.makeText(getBaseContext(), "Data Deleted", Toast.LENGTH_LONG).show();
+
+    }
+
+    public void readToTable(){
+    int count = 0;
+    String data;
+
+    FileInputStream fin = null;
+    try {fin = openFileInput("myNumbers.txt");}
+    catch(FileNotFoundException e) {e.printStackTrace();}
+        try {fin = openFileInput("myNumbers.txt");}
+        catch(FileNotFoundException e) {e.printStackTrace();}
+
+    InputStreamReader insr = new InputStreamReader(fin);
+    BufferedReader bufferedReader = new BufferedReader(insr);
+    StringBuffer strbuff = new StringBuffer();
+    String[] lines = new String[30];
+
+    int outCount = 0;
+    int subCount = 0;
+    try {
+        while ((data = bufferedReader.readLine()) != null) {
+               /* if (subCount == 4) {
+                    subCount = 0;
+                    outCount++;
+                }
+                lines[0][1]="1";
+                lines[0][2]="2";
+                lines[0][3]="3";
+                lines[outCount][subCount] = data;
+                    System.out.println(lines[outCount][subCount]);
+                    subCount++;*/
+
+            lines[outCount] = data;
+            System.out.println(lines[outCount]);
+            outCount++;
+
+        }
+    }
+
+    catch(IOException e)
+    {e.printStackTrace();}
+
+    //     weight.setText(strbuff.toString());
+    //       weight.setVisibility(View.VISIBLE);
+
+
+    TableLayout t1;
+
+    TableLayout tl = (TableLayout) findViewById(R.id.mainTable);
+
+
+    TableRow tr_head = new TableRow(this);
+    //tr_head.setId(10);
+    tr_head.setBackgroundColor(Color.parseColor("#5c8e79"));
+    tr_head.setLayoutParams(new TableLayout.LayoutParams(
+    TableLayout.LayoutParams.FILL_PARENT,
+    TableLayout.LayoutParams.MATCH_PARENT));
+
+    TextView label_date = new TextView(this);
+    label_date.setWidth(250);
+    label_date.setTextSize(15);
+    //label_date.setId(20);
+    label_date.setText("DATE");
+    label_date.setTextColor(Color.WHITE);
+    label_date.setPadding(10,10,10,10);
+    tr_head.addView(label_date);// add the column to the table row here
+
+    TextView label_weight = new TextView(this);
+    label_weight.setWidth(250);
+    label_weight.setTextSize(15);
+    // label_weight.setId(22);// define id that must be unique
+    label_weight.setText("Weight"); // set the text for the header
+    label_weight.setTextColor(Color.WHITE); // set the color
+    label_weight.setPadding(10,10,10,10); // set the padding (if required)
+    tr_head.addView(label_weight); // add the column to the table row here
+
+
+    TextView label_bp = new TextView(this);
+    label_bp.setWidth(250);
+    label_bp.setTextSize(15);
+    //  label_bp.setId(23);// define id that must be unique
+    label_bp.setText("BP"); // set the text for the header
+    label_bp.setTextColor(Color.WHITE); // set the color
+    label_bp.setPadding(10,10,10,10); // set the padding (if required)
+    tr_head.addView(label_bp); // add the column to the table ro
+
+
+    TextView label_hr = new TextView(this);
+    label_hr.setWidth(250);
+    label_hr.setTextSize(15);
+    //   label_hr.setId(24);// define id that must be unique
+    label_hr.setText("HR"); // set the text for the header
+    label_hr.setTextColor(Color.WHITE); // set the color
+    label_hr.setPadding(10,10,10,10); // set the padding (if required)
+    tr_head.addView(label_hr); // add the column to the table ro
+
+
+    tl.addView(tr_head,new TableLayout.LayoutParams(
+    TableLayout.LayoutParams.FILL_PARENT,
+    TableLayout.LayoutParams.WRAP_CONTENT));
+
+
+    count=0;
+    ArrayList<String> splitLine = new ArrayList<>();
+    while(count<30)
+
+    {
+        if (lines.length >= count) {
+            String date = count + ".";
+            String weight = lines[count];
+            String hr = lines[count];
+            String bp = lines[count];
+
+
+// Create the table row
+            TableRow tr = new TableRow(this);
+            if (count % 2 != 0) tr.setBackgroundColor(Color.parseColor("#74b298"));
+            else tr.setBackgroundColor(Color.parseColor("#9fceba"));
+            tr.setId(100 + count);
+            tr.setLayoutParams(new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.FILL_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT));
+
+//Create four columns to add as table data
+            // Create a TextView to add date
+            TextView labelDATE = new TextView(this);
+            labelDATE.setId(200 + count);
+            labelDATE.setText(date);
+            labelDATE.setPadding(2, 0, 5, 0);
+            labelDATE.setTextColor(Color.WHITE);
+            tr.addView(labelDATE);
+
+            TextView labelWEIGHT = new TextView(this);
+            labelWEIGHT.setId(200 + count);
+            labelWEIGHT.setText(weight);
+            labelWEIGHT.setTextColor(Color.WHITE);
+            tr.addView(labelWEIGHT);
+
+            TextView labelBP = new TextView(this);
+            labelBP.setId(200 + count);
+            labelBP.setText(bp);
+            labelBP.setPadding(2, 0, 5, 0);
+            labelBP.setTextColor(Color.WHITE);
+            tr.addView(labelBP);
+
+            TextView labelHR = new TextView(this);
+            labelHR.setId(200 + count);
+            labelHR.setText(hr);
+            labelHR.setTextColor(Color.WHITE);
+            tr.addView(labelHR);
+
+
+// finally add this to the table row
+            tl.addView(tr, new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.FILL_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT));
+            count++;
+        }
+    }
 }
 
+}
