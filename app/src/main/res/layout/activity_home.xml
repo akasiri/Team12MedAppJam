@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_home"
     android:layout_width="match_parent"
@@ -11,34 +12,50 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.medappjam.HomeActivity">
 
+    <Button
+        android:text="MYNumbers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="117dp"
+        android:id="@+id/button1" />
+    <Button
+        android:text="MyProviders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="68dp"
+        android:id="@+id/button2" />
+
+    <Button
+        android:text="LOG OUT!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/button3" />
+
+    <ImageView
+        app:srcCompat="@drawable/logo"
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <TextView
+        android:text="HI!"
+        android:textSize="35sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+        android:layout_above="@+id/button1"
+        android:layout_marginBottom="2dp"
+        android:id="@+id/textView2"
+        android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_arzang"
-        android:onClick="switchToArzangTest"/>
-
-    <Button
-        android:text="myRecords"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="60dp"
-        android:id="@+id/btnRecordsTable" />
-
-    <Button
-        android:text="myNumbers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnRecordsTable"
-        android:layout_marginTop="18dp"
-        android:id="@+id/btnNumbersInput"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 </RelativeLayout>
+
