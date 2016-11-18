@@ -108,26 +108,24 @@ public class RecordsTableActivity extends AppCompatActivity {
     InputStreamReader insr = new InputStreamReader(fin);
     BufferedReader bufferedReader = new BufferedReader(insr);
     StringBuffer strbuff = new StringBuffer();
-    String[] lines = new String[30];
+    String[][] lines = new String[30][4];
 
     int outCount = 0;
     int subCount = 0;
     try {
         while ((data = bufferedReader.readLine()) != null) {
-               /* if (subCount == 4) {
+               if (subCount == 4) {
                     subCount = 0;
                     outCount++;
                 }
-                lines[0][1]="1";
-                lines[0][2]="2";
-                lines[0][3]="3";
                 lines[outCount][subCount] = data;
                     System.out.println(lines[outCount][subCount]);
-                    subCount++;*/
 
-            lines[outCount] = data;
+
+            lines[outCount][subCount] = data;
             System.out.println(lines[outCount]);
-            outCount++;
+            subCount++;
+
 
         }
     }
@@ -201,10 +199,10 @@ public class RecordsTableActivity extends AppCompatActivity {
 
     {
         if (lines.length >= count) {
-            String date = count + ".";
-            String weight = lines[count];
-            String hr = lines[count];
-            String bp = lines[count];
+            String date = lines[count][0];
+            String weight = lines[count][1];
+            String bp = lines[count][2];
+            String hr = lines[count][3];
 
 
 // Create the table row

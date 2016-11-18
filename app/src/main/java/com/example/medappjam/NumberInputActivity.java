@@ -82,11 +82,13 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     public void writeNumbers(View view) throws IOException {
+        strDate = date.getText().toString() + "\n";
         strWeight = weight.getText().toString() + "\n";
         strHR = hr.getText().toString() + "\n";
         strBP = bp.getText().toString() + "\n";
         FileOutputStream fout = openFileOutput("myNumbers.txt", MODE_APPEND);
 
+        fout.write(strDate.getBytes());
         fout.write(strWeight.getBytes());
         fout.write(strHR.getBytes());
         fout.write(strBP.getBytes());
