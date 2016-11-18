@@ -1,30 +1,21 @@
 package com.example.medappjam;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
-import android.content.Intent;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Created by Kristen on 11/16/2016.
@@ -91,39 +82,19 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     public void writeNumbers(View view) throws IOException {
-        strWeight = weight.getText().toString();
-        System.out.println(strWeight);
-        FileOutputStream fout = openFileOutput("myNumbers.txt", MODE_PRIVATE);
+        strWeight = weight.getText().toString() + "\n";
+        strHR = hr.getText().toString() + "\n";
+        strBP = bp.getText().toString() + "\n";
+        FileOutputStream fout = openFileOutput("myNumbers.txt", MODE_APPEND);
+
         fout.write(strWeight.getBytes());
+        fout.write(strHR.getBytes());
+        fout.write(strBP.getBytes());
         fout.close();
-        /*OutputStreamWriter osw = new OutputStreamWriter(fout);
-        osw.write(strWeight);
-        osw.flush();
-        osw.close();*/
         Toast.makeText(getBaseContext(), "Data saved", Toast.LENGTH_LONG).show();
     }
 
-    public String readNumbers() throws IOException {
-        String data;
-        FileInputStream fin = null;
-        try {
-            fin = openFileInput("myNumbers.txt");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        InputStreamReader insr = new InputStreamReader(fin);
-        BufferedReader bufferedReader = new BufferedReader(insr);
-        StringBuffer strbuff = new StringBuffer();
-        try {
-            while((data = bufferedReader.readLine())!=null){
-                strbuff.append(data +"\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
 
-        }
-        return strbuff.toString();
-    }
 
 
 }
