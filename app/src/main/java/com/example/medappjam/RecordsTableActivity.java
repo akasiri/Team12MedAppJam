@@ -48,7 +48,11 @@ public class RecordsTableActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         Intent intent = getIntent();
-        readToTable();
+        try {
+            readToTable();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -100,7 +104,7 @@ public class RecordsTableActivity extends AppCompatActivity {
     }
 
 
-    public void readToTable(){
+    public void readToTable() throws IOException {
     int count;
     String data;
 
@@ -113,25 +117,27 @@ public class RecordsTableActivity extends AppCompatActivity {
     InputStreamReader insr = new InputStreamReader(fin);
     BufferedReader bufferedReader = new BufferedReader(insr);
     StringBuffer strbuff = new StringBuffer();
-    String[][] lines = new String[30][4];
+    String[] temp = new String[4];
+    ArrayList<String> lines = new ArrayList<>();
 
 
     int outCount = 0;
     int subCount = 0;
+    StringBuffer dataStr = new StringBuffer();
     try {
         while ((data = bufferedReader.readLine()) != null) {
-               if (subCount == 4) {
-                    subCount = 0;
-                    outCount++;
-                }
-                lines[outCount][subCount] = data;
-                    System.out.println(lines[outCount][subCount]);
-
-
-            lines[outCount][subCount] = data;
-            System.out.println(lines[outCount]);
-            subCount++;
-
+            if (subCount < 3) {
+                dataStr.append(data + ",");
+                subCount++;
+            }
+            else {
+                dataStr.append(data);
+                lines.add(outCount, dataStr.toString());
+                System.out.println(lines.get(outCount));
+                dataStr.delete(0, dataStr.length());
+                subCount = 0;
+                outCount++;
+            }
 
         }
     }
@@ -203,15 +209,14 @@ public class RecordsTableActivity extends AppCompatActivity {
 
 
     count=0;
-    ArrayList<String> splitLine = new ArrayList<>();
-    while(count<length)
-
-    {
-        if (lines.length >= count) {
-            String date = lines[count][0];
-            String weight = lines[count][1];
-            String bp = lines[count][2];
-            String hr = lines[count][3];
+    while(count<length) {
+        if (lines.size() > count) {
+            String[] temp2 = lines.get(count).split(",");
+            System.out.println(temp2[0] + temp2[1] + temp2[2] + temp2[3]);
+            String date = temp2[0];
+            String weight = temp2[1];
+            String bp = temp2[2];
+            String hr = temp2[3];
 
 
 // Create the table row
@@ -271,23 +276,29 @@ public class RecordsTableActivity extends AppCompatActivity {
 }
 
 
-    public int showAverages(String[][] lines){
+    public int showAverages(ArrayList<String> lines){
         TextView AveWeight = (TextView)findViewById(R.id.tvAveWeight);
         TextView AveHR = (TextView)findViewById(R.id.tvAveHR);
         TextView AveBP = (TextView)findViewById(R.id.tvAveBP);
         int length = 0;
+        System.out.println(lines.size() + "size!!!");
         int i = 0;
         float weightCount = 0;
         int systolicCount = 0;
         int diastolicCount = 0;
         int hrCount = 0;
-        while(i<lines.length){
-            if (lines[i][1] != null) {
-                weightCount += Float.parseFloat(lines[i][1]);
-                hrCount += Integer.parseInt(lines[i][2]);
-                int index = lines[i][3].indexOf("/");
-                systolicCount += Integer.parseInt(lines[i][3].substring(0,index));
-                diastolicCount += Integer.parseInt(lines[i][3].substring(index+1));
+        while(i < lines.size()){
+            if (lines.get(i).toString() != null) {
+                String[] temp = lines.get(i).split(",");
+                for(int k = 0; k <4; k++ ){
+                    System.out.println("temp print" + temp[0]);
+                }
+                System.out.println(temp.toString());
+                weightCount += Float.parseFloat(temp[1]);
+                hrCount += Integer.parseInt(temp[2]);
+                int index = temp[3].indexOf("/");
+                systolicCount += Integer.parseInt(temp[3].substring(0,index));
+                diastolicCount += Integer.parseInt(temp[3].substring(index+1));
                 length ++;
             }
             i++;
