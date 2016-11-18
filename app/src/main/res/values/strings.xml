@@ -2,5 +2,14 @@
     <string name="app_name">MedAppJam</string>
     <string name="button_arzang">Switch to Arzang\'s test view!</string>
     <string name="edit_message">This is an edit text field</string>
+
+    <string name="prompt_username">Enter a username: </string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="prompt_password">Enter a passoword: </string>
+    <string name="prompt_reenter_password">Enter the password again: </string>
+    <string name="signup_button">Submit</string>
+    <string name="password_warning_message">Passwords are not the same</string>
+
     <array name = "record_data"></array>
 </resources>
