@@ -168,24 +168,24 @@ public class RecordsTableActivity extends AppCompatActivity {
     tr_head.addView(label_weight); // add the column to the table row here
 
 
-    TextView label_bp = new TextView(this);
-    label_bp.setWidth(250);
-    label_bp.setTextSize(15);
-    //  label_bp.setId(23);// define id that must be unique
-    label_bp.setText("BP"); // set the text for the header
-    label_bp.setTextColor(Color.WHITE); // set the color
-    label_bp.setPadding(10,10,10,10); // set the padding (if required)
-    tr_head.addView(label_bp); // add the column to the table ro
-
-
     TextView label_hr = new TextView(this);
     label_hr.setWidth(250);
     label_hr.setTextSize(15);
-    //   label_hr.setId(24);// define id that must be unique
+    //  label_bp.setId(23);// define id that must be unique
     label_hr.setText("HR"); // set the text for the header
     label_hr.setTextColor(Color.WHITE); // set the color
     label_hr.setPadding(10,10,10,10); // set the padding (if required)
     tr_head.addView(label_hr); // add the column to the table ro
+
+
+    TextView label_bp = new TextView(this);
+    label_bp.setWidth(250);
+    label_bp.setTextSize(15);
+    //   label_hr.setId(24);// define id that must be unique
+    label_bp.setText("BP"); // set the text for the header
+    label_bp.setTextColor(Color.WHITE); // set the color
+    label_bp.setPadding(10,10,10,10); // set the padding (if required)
+    tr_head.addView(label_bp); // add the column to the table ro
 
 
     tl.addView(tr_head,new TableLayout.LayoutParams(
@@ -250,6 +250,33 @@ public class RecordsTableActivity extends AppCompatActivity {
             count++;
         }
     }
+        showAverages(lines);
 }
 
+
+    public void showAverages(String[][] lines){
+        TextView AveWeight = (TextView)findViewById(R.id.tvAveWeight);
+        TextView AveHR = (TextView)findViewById(R.id.tvAveHR);
+        TextView AveBP = (TextView)findViewById(R.id.tvAveBP);
+        int length = 0;
+        int i = 0;
+        float weightCount = 0;
+        int systolicCount = 0;
+        int diastolicCount = 0;
+        int hrCount = 0;
+        while(i<lines.length){
+            if (lines[i][1] != null) {
+                weightCount += Float.parseFloat(lines[i][1]);
+//            hrCount += Integer.parseInt(lines[i][2]);
+                //          int index = lines[i][3].indexOf("/");
+                //        System.out.println("HERE!!!!!!!!!" + lines[i][3]);
+                //systolicCount += Integer.parseInt(lines[i][3].substring(0,index));
+                //diastolicCount += Integer.parseInt(lines[i][3].substring(index+1));
+                length ++;
+            }
+            i++;
+        }
+        AveWeight.setText(String.format("%5.1f", weightCount/length));
+
+    }
 }
