@@ -13,7 +13,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
     }
 
-
     public void settingsScreen(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
