@@ -95,8 +95,9 @@ public class RecordsTableActivity extends AppCompatActivity {
 
     }
 
+
     public void readToTable(){
-    int count = 0;
+    int count;
     String data;
 
     FileInputStream fin = null;
@@ -109,6 +110,7 @@ public class RecordsTableActivity extends AppCompatActivity {
     BufferedReader bufferedReader = new BufferedReader(insr);
     StringBuffer strbuff = new StringBuffer();
     String[][] lines = new String[30][4];
+
 
     int outCount = 0;
     int subCount = 0;
@@ -133,9 +135,7 @@ public class RecordsTableActivity extends AppCompatActivity {
     catch(IOException e)
     {e.printStackTrace();}
 
-    //     weight.setText(strbuff.toString());
-    //       weight.setVisibility(View.VISIBLE);
-
+    int length = showAverages(lines);
 
     TableLayout t1;
 
@@ -146,7 +146,7 @@ public class RecordsTableActivity extends AppCompatActivity {
     //tr_head.setId(10);
     tr_head.setBackgroundColor(Color.parseColor("#5c8e79"));
     tr_head.setLayoutParams(new TableLayout.LayoutParams(
-    TableLayout.LayoutParams.FILL_PARENT,
+    TableLayout.LayoutParams.MATCH_PARENT,
     TableLayout.LayoutParams.MATCH_PARENT));
 
     TextView label_date = new TextView(this);
@@ -189,13 +189,13 @@ public class RecordsTableActivity extends AppCompatActivity {
 
 
     tl.addView(tr_head,new TableLayout.LayoutParams(
-    TableLayout.LayoutParams.FILL_PARENT,
+    TableLayout.LayoutParams.MATCH_PARENT,
     TableLayout.LayoutParams.WRAP_CONTENT));
 
 
     count=0;
     ArrayList<String> splitLine = new ArrayList<>();
-    while(count<30)
+    while(count<length)
 
     {
         if (lines.length >= count) {
@@ -207,11 +207,13 @@ public class RecordsTableActivity extends AppCompatActivity {
 
 // Create the table row
             TableRow tr = new TableRow(this);
-            if (count % 2 != 0) tr.setBackgroundColor(Color.parseColor("#74b298"));
-            else tr.setBackgroundColor(Color.parseColor("#9fceba"));
+            if (count % 2 != 0)
+                tr.setBackgroundColor(Color.parseColor("#74b298"));
+            else
+                tr.setBackgroundColor(Color.parseColor("#9fceba"));
             tr.setId(100 + count);
             tr.setLayoutParams(new TableLayout.LayoutParams(
-                    TableLayout.LayoutParams.FILL_PARENT,
+                    TableLayout.LayoutParams.MATCH_PARENT,
                     TableLayout.LayoutParams.WRAP_CONTENT));
 
 //Create four columns to add as table data
@@ -245,16 +247,16 @@ public class RecordsTableActivity extends AppCompatActivity {
 
 // finally add this to the table row
             tl.addView(tr, new TableLayout.LayoutParams(
-                    TableLayout.LayoutParams.FILL_PARENT,
+                    TableLayout.LayoutParams.MATCH_PARENT,
                     TableLayout.LayoutParams.WRAP_CONTENT));
             count++;
         }
     }
-        showAverages(lines);
+
 }
 
 
-    public void showAverages(String[][] lines){
+    public int showAverages(String[][] lines){
         TextView AveWeight = (TextView)findViewById(R.id.tvAveWeight);
         TextView AveHR = (TextView)findViewById(R.id.tvAveHR);
         TextView AveBP = (TextView)findViewById(R.id.tvAveBP);
@@ -267,16 +269,24 @@ public class RecordsTableActivity extends AppCompatActivity {
         while(i<lines.length){
             if (lines[i][1] != null) {
                 weightCount += Float.parseFloat(lines[i][1]);
-//            hrCount += Integer.parseInt(lines[i][2]);
-                //          int index = lines[i][3].indexOf("/");
-                //        System.out.println("HERE!!!!!!!!!" + lines[i][3]);
-                //systolicCount += Integer.parseInt(lines[i][3].substring(0,index));
-                //diastolicCount += Integer.parseInt(lines[i][3].substring(index+1));
+                hrCount += Integer.parseInt(lines[i][2]);
+                int index = lines[i][3].indexOf("/");
+                System.out.println("HERE!!!!!!!!!" + lines[i][3]);
+                systolicCount += Integer.parseInt(lines[i][3].substring(0,index));
+                diastolicCount += Integer.parseInt(lines[i][3].substring(index+1));
                 length ++;
             }
             i++;
         }
         AveWeight.setText(String.format("%5.1f", weightCount/length));
+        AveHR.setText(String.format("%d", hrCount/length));
+        AveBP.setText(String.format("%d/%d", (systolicCount/length), (diastolicCount/length)));
 
+        return length;
+    }
+    public void backClick(View view){
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }
