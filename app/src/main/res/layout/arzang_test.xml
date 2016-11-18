@@ -80,7 +80,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="33dp" />
 
-    <ImageView android:id="@+id/password_warning_image"
+    <ImageView android:id="@+id/warning_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/stat_sys_warning"
@@ -92,15 +92,15 @@
         android:layout_marginStart="58dp"
         android:visibility="invisible" />
 
-    <TextView android:id="@+id/password_warning_message"
-        android:text="@string/password_warning_message"
+    <TextView android:id="@+id/warning_message"
+        android:text="@string/password_warning_message_not_equal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/password_warning_image"
-        android:layout_toEndOf="@+id/password_warning_image"
+        android:layout_toRightOf="@+id/warning_image"
+        android:layout_toEndOf="@+id/warning_image"
         android:visibility="invisible" />
 
 </RelativeLayout>
