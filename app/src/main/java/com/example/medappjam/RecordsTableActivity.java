@@ -27,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -102,7 +103,6 @@ public class RecordsTableActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
-
 
     public void readToTable() throws IOException {
     int count;
@@ -210,8 +210,8 @@ public class RecordsTableActivity extends AppCompatActivity {
 
     count=0;
     while(count<length) {
-        if (lines.size() > count) {
-            String[] temp2 = lines.get(count).split(",");
+        if (lines.size() > count && count < 30) {
+            String[] temp2 = lines.get(length - (count + 1)).split(",");
             System.out.println(temp2[0] + temp2[1] + temp2[2] + temp2[3]);
             String date = temp2[0];
             String weight = temp2[1];
@@ -275,25 +275,23 @@ public class RecordsTableActivity extends AppCompatActivity {
 
 }
 
-
     public int showAverages(ArrayList<String> lines){
         TextView AveWeight = (TextView)findViewById(R.id.tvAveWeight);
         TextView AveHR = (TextView)findViewById(R.id.tvAveHR);
         TextView AveBP = (TextView)findViewById(R.id.tvAveBP);
         int length = 0;
-        System.out.println(lines.size() + "size!!!");
         int i = 0;
         float weightCount = 0;
         int systolicCount = 0;
         int diastolicCount = 0;
         int hrCount = 0;
-        while(i < lines.size()){
-            if (lines.get(i).toString() != null) {
-                String[] temp = lines.get(i).split(",");
+        while(i < lines.size() && i  < 30){
+            if (lines.get(i) != null) {
+                String[] temp = lines.get(lines.size()-(i+1)).split(",");
                 for(int k = 0; k <4; k++ ){
                     System.out.println("temp print" + temp[0]);
                 }
-                System.out.println(temp.toString());
+                System.out.println(Arrays.toString(temp));
                 weightCount += Float.parseFloat(temp[1]);
                 hrCount += Integer.parseInt(temp[2]);
                 int index = temp[3].indexOf("/");
@@ -310,6 +308,7 @@ public class RecordsTableActivity extends AppCompatActivity {
         }
         return length;
     }
+
     public void backClick(View view){
         Intent intent = new Intent(this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
