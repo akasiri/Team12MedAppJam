@@ -43,9 +43,6 @@ public class RecordsTableActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         Intent intent = getIntent();
 
-//        weight = (TextView)findViewById(R.id.tvWeight1);
-        hr = (TextView)findViewById(R.id.tvNumbersHR);
-        bp = (TextView)findViewById(R.id.tvNumbersBP);
 
         String data;
         FileInputStream fin = null;
@@ -132,7 +129,9 @@ public class RecordsTableActivity extends AppCompatActivity {
         Integer count=1;
         while (count < 31) {
             String date = count + ".";
-            Double weight_kg = count  * 1.5;// get the second variable
+            String weight = count+ "5";// get the second variable
+            String hr = "###";
+            String bp = "##/##";
 // Create the table row
             TableRow tr = new TableRow(this);
             if(count%2!=0) tr.setBackgroundColor(Color.parseColor("#74b298"));
@@ -142,7 +141,7 @@ public class RecordsTableActivity extends AppCompatActivity {
                     TableLayout.LayoutParams.FILL_PARENT,
                     TableLayout.LayoutParams.WRAP_CONTENT));
 
-//Create two columns to add as table data
+//Create four columns to add as table data
             // Create a TextView to add date
             TextView labelDATE = new TextView(this);
             labelDATE.setId(200+count);
@@ -150,11 +149,26 @@ public class RecordsTableActivity extends AppCompatActivity {
             labelDATE.setPadding(2, 0, 5, 0);
             labelDATE.setTextColor(Color.WHITE);
             tr.addView(labelDATE);
+
             TextView labelWEIGHT = new TextView(this);
             labelWEIGHT.setId(200+count);
-            labelWEIGHT.setText(weight_kg.toString());
+            labelWEIGHT.setText(weight.toString());
             labelWEIGHT.setTextColor(Color.WHITE);
             tr.addView(labelWEIGHT);
+
+            TextView labelBP = new TextView(this);
+            labelBP.setId(200+count);
+            labelBP.setText(bp);
+            labelBP.setPadding(2, 0, 5, 0);
+            labelBP.setTextColor(Color.WHITE);
+            tr.addView(labelBP);
+
+            TextView labelHR = new TextView(this);
+            labelHR.setId(200+count);
+            labelHR.setText(hr.toString());
+            labelHR.setTextColor(Color.WHITE);
+            tr.addView(labelHR);
+
 
 // finally add this to the table row
             tl.addView(tr, new TableLayout.LayoutParams(
