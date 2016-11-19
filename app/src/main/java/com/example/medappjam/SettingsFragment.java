@@ -1,5 +1,6 @@
 package com.example.medappjam;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -31,7 +32,9 @@ public class SettingsFragment extends PreferenceFragment {
         mPreferenceChangePassword.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                //box to change password? or intent to another screen?
+                //start change password activity
+                Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
+                startActivity(intent);
                 return true;
             }
         });
