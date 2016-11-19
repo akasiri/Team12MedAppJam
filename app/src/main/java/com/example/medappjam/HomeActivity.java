@@ -64,4 +64,9 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
+
+    public void myProvidersScreen(View view) {
+        Intent intent = new Intent(this, MyProvidersActivity.class);
+        startActivity(intent);
+    }
 }

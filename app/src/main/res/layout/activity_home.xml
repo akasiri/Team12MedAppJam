@@ -29,7 +29,6 @@
             android:layout_height="match_parent" >
 
             <ImageView
-                app:srcCompat="@drawable/logo"
                 android:id="@+id/imageView2"
                 android:layout_marginRight="12dp"
                 android:layout_marginEnd="12dp"
@@ -105,7 +104,8 @@
                 android:text="MyProviders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/button2" />
+                android:onClick="myProvidersScreen"
+                android:id="@+id/button2"/>
         </TableRow>
 
         <TableRow

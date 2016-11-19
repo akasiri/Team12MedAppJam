@@ -53,7 +53,8 @@ public class SettingsFragment extends PreferenceFragment {
         mPreferenceEditProviderInfo.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                //intent to another screen?
+                Intent intent = new Intent(getActivity(), EditProviderInfoActivity.class);
+                startActivity(intent);
                 return true;
             }
         });

@@ -18,6 +18,12 @@
     <string name="edit_profiles">Add/Remove Profiles</string>
     <string name="select_profiles">Select Profiles</string>
     <string name="edit_provider_info">Edit Provider Information</string>
+    <string name="provider_information">My Providers</string>
+    <string name="provider_name">Name</string>
+    <string name="provider_type">Type of provider (Cardiology)</string>
+    <string name="provider_phone_number">Phone Number: </string>
+    <string name="add_provider">Add!</string>
+    <string name="submit">Submit</string>
 
     <string name="current_password">Current password</string>
     <string name="new_password">New password</string>
