@@ -33,9 +33,7 @@ public class SettingsFragment extends PreferenceFragment {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 //start change password activity
-                Log.d("tag", "change password clicked");
                 Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
-                Log.d("tag", "created change password intent");
                 startActivity(intent);
                 return true;
             }
@@ -55,7 +53,8 @@ public class SettingsFragment extends PreferenceFragment {
         mPreferenceEditProviderInfo.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                //intent to another screen?
+                Intent intent = new Intent(getActivity(), EditProviderInfoActivity.class);
+                startActivity(intent);
                 return true;
             }
         });

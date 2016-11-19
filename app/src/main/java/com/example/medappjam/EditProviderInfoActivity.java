@@ -5,20 +5,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class ChangePasswordActivity extends AppCompatActivity {
+public class EditProviderInfoActivity extends AppCompatActivity {
     private Button mSubmit;
-    private Button mCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_password);
+        setContentView(R.layout.activity_edit_provider_info);
 
-        mCancel = (Button) findViewById(R.id.password_change_cancel);
-        mCancel.setOnClickListener(new Button.OnClickListener() {
+        mSubmit = (Button) findViewById(R.id.submit_provider_changes);
+        mSubmit.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                //add provider
             }
         });
     }
