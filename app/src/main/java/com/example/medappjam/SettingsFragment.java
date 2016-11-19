@@ -9,6 +9,8 @@ import android.util.Log;
 public class SettingsFragment extends PreferenceFragment {
     private Preference mPreferenceDeleteAccount;
     private Preference mPreferenceChangePassword;
+    private Preference mPreferenceEditProfiles;
+    private Preference mPreferenceEditProviderInfo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -19,9 +21,36 @@ public class SettingsFragment extends PreferenceFragment {
         mPreferenceDeleteAccount.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Log.d("tag1", "inOnPreferenceClick");
-                AlertDialogFragment alert_delete_account = new AlertDialogFragment();
-                alert_delete_account.show(getActivity().getFragmentManager(), "alert delete");
+                AlertDialogFragment alertDeleteAccount = new AlertDialogFragment();
+                alertDeleteAccount.show(getActivity().getFragmentManager(), "alert delete");
+                return true;
+            }
+        });
+
+        mPreferenceChangePassword = (Preference) getPreferenceManager().findPreference("change_password");
+        mPreferenceChangePassword.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                //box to change password? or intent to another screen?
+                return true;
+            }
+        });
+
+        mPreferenceEditProfiles = (Preference) getPreferenceManager().findPreference("edit_profiles");
+        mPreferenceEditProfiles.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                MultipleChoiceAlertDialogFragment profileChoices = new MultipleChoiceAlertDialogFragment();
+                profileChoices.show(getActivity().getFragmentManager(), "profiles");
+                return true;
+            }
+        });
+
+        mPreferenceEditProviderInfo = (Preference) getPreferenceManager().findPreference("edit_provider_info");
+        mPreferenceEditProviderInfo.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                //intent to another screen?
                 return true;
             }
         });

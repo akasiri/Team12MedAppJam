@@ -6,20 +6,21 @@
         android:persistent="false" >
 
         <Preference
-            android:title="@string/delete_account"
-            android:key="delete_account" />
-        <Preference
-            android:title="@string/change_password"
-            android:key="change_password" />
-
-        <Preference
             android:title="@string/edit_profiles"
-            android:key="profiles" >
+            android:key="edit_profiles" >
         </Preference>
 
         <Preference
             android:title="@string/edit_provider_info"
             android:key="edit_provider_info" />
+
+        <Preference
+            android:title="@string/change_password"
+            android:key="change_password" />
+
+        <Preference
+            android:title="@string/delete_account"
+            android:key="delete_account" />
 
     </PreferenceCategory>
 </PreferenceScreen>

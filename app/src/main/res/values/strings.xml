@@ -16,5 +16,6 @@
     <string name="delete_account">Delete Account</string>
     <string name="change_password">Change Password</string>
     <string name="edit_profiles">Add/Remove Profiles</string>
+    <string name="select_profiles">Select Profiles</string>
     <string name="edit_provider_info">Edit Provider Information</string>
 </resources>

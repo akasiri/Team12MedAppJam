@@ -21,13 +21,11 @@ public class AlertDialogFragment extends DialogFragment {
         builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //User clicked Confirm button
-                Log.d("tag", "user clicked confirm");
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //User clicked cancel
-                Log.d("tag", "user clicked cancel");
             }
         });
         AlertDialog dialog = builder.create();
