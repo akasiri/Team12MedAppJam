@@ -17,6 +17,8 @@
     tools:layout_width="match_parent"
     android:background="@color/white">
 
+
+
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,6 +64,12 @@
                 android:layout_height="wrap_content"
                 android:onClick="switchToArzangTest"
                 android:id="@+id/button1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings"
+                android:onClick="settingsScreen" />
         </TableRow>
 
         <TableRow
@@ -111,7 +119,9 @@
                 android:id="@+id/button3" />
 
         </TableRow>
+
     </TableLayout>
+
 
 </RelativeLayout>
 
