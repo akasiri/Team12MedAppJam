@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+
+    >
+
+    <!-- Header aligned to top -->
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#FFFFFF"
+        android:gravity="center" >
+
+        <TableLayout android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="20sp" >
+
+            <TableRow
+                android:padding="5dp"
+                android:layout_height="wrap_content">
+                <TextView  />
+                <TextView  android:layout_marginRight="10dp"
+                    android:text= "Weight:"/>
+                <TextView android:id="@+id/tvAveWeight" />
+            </TableRow>
+            <TableRow
+                android:padding="5dp"
+                android:layout_height="wrap_content">
+                <TextView android:layout_marginRight="20dp"
+                    android:text="Monthly Average: " />
+                <TextView  android:text="Blood Pressure:"
+                    android:layout_marginRight="10dp"/>
+                <TextView android:id="@+id/tvAveBP" />
+            </TableRow>
+            <TableRow
+                android:padding="5dp"
+                android:layout_height="wrap_content">
+                <TextView  />
+                <TextView  android:layout_marginRight="10dp"
+                    android:text="Heart rate:"/>
+                <TextView android:id="@+id/tvAveHR" />
+            </TableRow>
+
+
+        </TableLayout>
+
+
+    </RelativeLayout>
+
+    <!-- Footer aligned to bottom -->
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center" >
+
+        <Button
+            android:text="Back"
+            android:layout_width="100dp"
+            android:layout_height="65dp"
+            android:id="@+id/btnRecordsBack"
+            android:onClick="backClick"
+            />
+
+        <Button
+            android:text="Delete Records"
+            android:layout_width="100dp"
+            android:id="@+id/btnDeleteRecords"
+            android:layout_toRightOf="@id/btnRecordsBack"
+            android:layout_height="65dp"
+            android:onClick="deleteClick"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/footer"
+        android:layout_below="@id/header"
+        android:gravity="center"
+        android:background="@color/white">
+        <ScrollView
+            android:id="@+id/scrollableContents"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="@color/white"
+            tools:visibility="visible">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:background="@color/white">
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/mainTable"
+                    android:stretchColumns="*"
+                    tools:background="@color/white">
+
+                </TableLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</RelativeLayout>
