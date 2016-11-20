@@ -27,6 +27,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 
 
@@ -48,7 +50,11 @@ public class RecordsTableActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         Intent intent = getIntent();
-        readToTable();
+        try {
+            readToTable();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -99,8 +105,7 @@ public class RecordsTableActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    public void readToTable(){
+    public void readToTable() throws IOException {
     int count;
     String data;
 
@@ -113,25 +118,29 @@ public class RecordsTableActivity extends AppCompatActivity {
     InputStreamReader insr = new InputStreamReader(fin);
     BufferedReader bufferedReader = new BufferedReader(insr);
     StringBuffer strbuff = new StringBuffer();
-    String[][] lines = new String[30][4];
+    String[] temp = new String[4];
+    ArrayList<String> lines = new ArrayList<>();
 
 
     int outCount = 0;
     int subCount = 0;
+    StringBuffer dataStr = new StringBuffer();
     try {
         while ((data = bufferedReader.readLine()) != null) {
-               if (subCount == 4) {
-                    subCount = 0;
-                    outCount++;
-                }
-                lines[outCount][subCount] = data;
-                    System.out.println(lines[outCount][subCount]);
-
-
-            lines[outCount][subCount] = data;
-            System.out.println(lines[outCount]);
-            subCount++;
-
+            if (subCount < 3) {
+                if(data == ""){
+                    dataStr.append("-,");}
+                dataStr.append(data + ",");
+                subCount++;
+            }
+            else {
+                dataStr.append(data);
+                lines.add(outCount, dataStr.toString());
+                System.out.println(lines.get(outCount));
+                dataStr.delete(0, dataStr.length());
+                subCount = 0;
+                outCount++;
+            }
 
         }
     }
@@ -201,17 +210,36 @@ public class RecordsTableActivity extends AppCompatActivity {
     TableLayout.LayoutParams.WRAP_CONTENT
     ));
 
-
+    String weight, date, hr, bp;
     count=0;
-    ArrayList<String> splitLine = new ArrayList<>();
-    while(count<length)
+    while(count<length) {
+        if (lines.size() > count && count < 30) {
+            String[] temp2 = lines.get(length - (count + 1)).split(",");
+            if (temp2[0] != "-") {
+                date = temp2[0];
+            }
+            else{
+                date = "";
+            }
+            if (temp2[1] != "-") {
+                weight = temp2[1];
+            }
+            else{
+                weight = "";
+            }
+            if (temp2[2] != "-") {
+                bp = temp2[2];
+            }
+            else{
+                bp = "";
+            }
+            if (temp2[2] != "-") {
+                hr = temp2[3];
+            }
+            else{
+                hr = "";
+            }
 
-    {
-        if (lines.length >= count) {
-            String date = lines[count][0];
-            String weight = lines[count][1];
-            String bp = lines[count][2];
-            String hr = lines[count][3];
 
 
 // Create the table row
@@ -233,14 +261,12 @@ public class RecordsTableActivity extends AppCompatActivity {
             labelDATE.setText(date);
             labelDATE.setPadding(2, 0, 5, 0);
             labelDATE.setTextColor(Color.WHITE);
-            labelDATE.setTextSize(dataTextSize);
             tr.addView(labelDATE);
 
             TextView labelWEIGHT = new TextView(this);
             labelWEIGHT.setId(200 + count);
             labelWEIGHT.setText(weight);
             labelWEIGHT.setTextColor(Color.WHITE);
-            labelDATE.setTextSize(dataTextSize);
             tr.addView(labelWEIGHT);
 
             TextView labelBP = new TextView(this);
@@ -248,14 +274,12 @@ public class RecordsTableActivity extends AppCompatActivity {
             labelBP.setText(bp);
             labelBP.setPadding(2, 0, 5, 0);
             labelBP.setTextColor(Color.WHITE);
-            labelDATE.setTextSize(dataTextSize);
             tr.addView(labelBP);
 
             TextView labelHR = new TextView(this);
             labelHR.setId(200 + count);
             labelHR.setText(hr);
             labelHR.setTextColor(Color.WHITE);
-            labelDATE.setTextSize(dataTextSize);
             tr.addView(labelHR);
 
 
@@ -270,35 +294,51 @@ public class RecordsTableActivity extends AppCompatActivity {
 
 }
 
-
-    public int showAverages(String[][] lines){
+    public int showAverages(ArrayList<String> lines){
         TextView AveWeight = (TextView)findViewById(R.id.tvAveWeight);
         TextView AveHR = (TextView)findViewById(R.id.tvAveHR);
         TextView AveBP = (TextView)findViewById(R.id.tvAveBP);
-        int length = 0;
+        int wlength = 0;
+        int hlength = 0;
+        int slength = 0;
+        int dlength=0;
         int i = 0;
         float weightCount = 0;
         int systolicCount = 0;
         int diastolicCount = 0;
         int hrCount = 0;
-        while(i<lines.length){
-            if (lines[i][1] != null) {
-                weightCount += Float.parseFloat(lines[i][1]);
-                hrCount += Integer.parseInt(lines[i][2]);
-                int index = lines[i][3].indexOf("/");
-                systolicCount += Integer.parseInt(lines[i][3].substring(0,index));
-                diastolicCount += Integer.parseInt(lines[i][3].substring(index+1));
-                length ++;
+            while (i < lines.size() && i < 30) {
+                if (lines.get(i) != null) {
+                    String[] temp = lines.get(lines.size() - (i + 1)).split(",");
+                    if (!temp[1].isEmpty()) {
+                        weightCount += Float.parseFloat(temp[1]);
+                        wlength++;
+                    }
+                    if (!temp[2].isEmpty()) {
+                        hrCount += Integer.parseInt(temp[2]);
+                        hlength++;
+                    }
+                    int index = temp[3].indexOf("/");
+                    if (!(temp[3].isEmpty() && temp[3].substring(0 - index).isEmpty())) {
+                        systolicCount += Integer.parseInt(temp[3].substring(0, index));
+                        slength++;
+                    }
+                    if (!(temp[3].isEmpty() || temp[3].substring(index + 1).isEmpty())) {
+                        diastolicCount += Integer.parseInt(temp[3].substring(index + 1));
+                        dlength++;
+                    }
+
+                }
+                i++;
             }
-            i++;
+        if(wlength != 0) {
+            AveWeight.setText(String.format("%5.1f", weightCount / wlength));
+            AveHR.setText(String.format("%d", hrCount / hlength));
+            AveBP.setText(String.format("%d/%d", (systolicCount / slength), (diastolicCount / dlength)));
         }
-        if(length != 0) {
-            AveWeight.setText(String.format("%5.1f", weightCount / length));
-            AveHR.setText(String.format("%d", hrCount / length));
-            AveBP.setText(String.format("%d/%d", (systolicCount / length), (diastolicCount / length)));
-        }
-        return length;
+        return wlength;
     }
+
     public void backClick(View view){
         Intent intent = new Intent(this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
