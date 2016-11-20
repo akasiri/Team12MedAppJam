@@ -12,10 +12,15 @@ import java.io.PrintWriter;
 
 public class SignUpActivity extends AppCompatActivity {
 
+    PromptForProviderFragment promptProvider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        promptProvider = new PromptForProviderFragment();
+
     }
 
     public void submitSignUp(View view) {
@@ -60,12 +65,8 @@ public class SignUpActivity extends AppCompatActivity {
                 System.err.println(e.getStackTrace());
             }
 
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-
-            // TODO should we be calling finish()?
-            super.finish();
-            finish();
+            promptProvider.show(this.getFragmentManager(), "alert delete");
+            // the prompt will take you to the next activity
         }
     }
 }

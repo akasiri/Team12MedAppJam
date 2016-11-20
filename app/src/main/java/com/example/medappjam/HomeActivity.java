@@ -21,6 +21,15 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // TODO if this is the first time resuming (includes loading up?) this activity today, switch to the "how do you feel?" activity
+        // need to keep a file storing the last time the activity was created?
     }
 
 
