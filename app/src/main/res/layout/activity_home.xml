@@ -40,18 +40,18 @@
             android:text="Sign Up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="switchToArzangTest (HomeActivity)"
+            android:onClick="launchSignUp"
             android:id="@+id/button1"
-            android:layout_above="@+id/button2"
-            android:layout_alignLeft="@+id/button3"
-            android:layout_alignStart="@+id/button3" />
+            android:layout_above="@+id/button4"
+            android:layout_alignLeft="@+id/button4"
+            android:layout_alignStart="@+id/button4" />
 
         <Button
             android:text="myNumbers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="launchNumbersInput"
-            android:id="@+id/inputNumbers"
+            android:id="@+id/button2"
             tools:visibility="visible"
             android:layout_above="@+id/recordsTable"
             android:layout_alignLeft="@+id/recordsTable"
@@ -61,50 +61,51 @@
             android:text="MyProviders"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="myProvidersScreen"
-            android:id="@+id/button2"
-            android:layout_above="@+id/inputNumbers"
-            android:layout_centerHorizontal="true" />
+            android:onClick="launchmyProvidersScreen"
+            android:id="@+id/button3" />
 
         <Button
-            android:text="myRecords"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="launchRecordsTable"
-            android:id="@+id/recordsTable"
-            android:layout_above="@+id/button3"
-            android:layout_centerHorizontal="true" />
+                android:text="myRecords"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="launchRecordsTable"
+                android:id="@+id/recordsTable"
+                android:layout_above="@+id/button4"
+                android:layout_centerHorizontal="true" />
 
         <Button
-            android:text="LOG OUT!"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button3"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+                android:text="LOG OUT!"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button5"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+        >
+
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:background="@drawable/logo"
-        android:layout_width="300dp"
-        android:layout_height="250dp"
-        android:layout_below="@+id/button8"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp" />
 
     <TextView
         android:text="Hello, "
-        android:textSize="35sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:gravity="center"
-        android:textStyle="normal|bold"
+        android:id="@+id/textView"
+        android:textSize="35sp"
         android:textColor="@android:color/holo_red_light"
-        android:layout_below="@+id/button8"
+        android:textStyle="normal|bold"
+        android:layout_alignBottom="@+id/button4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        app:srcCompat="@drawable/logo"
+        android:id="@+id/imageView3"
+        android:layout_height="300dp"
+        android:layout_marginTop="30dp"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 
 
 </RelativeLayout>
