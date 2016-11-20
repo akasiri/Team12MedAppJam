@@ -58,10 +58,10 @@
             android:layout_height="match_parent" >
 
             <Button
-                android:text="Login"
+                android:text="Sign Up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="switchToArzangTest"
+                android:onClick="launchSignUp"
                 android:id="@+id/button1" />
 
             <Button

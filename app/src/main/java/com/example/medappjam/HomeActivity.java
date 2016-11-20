@@ -45,8 +45,8 @@ public class HomeActivity extends AppCompatActivity {
 //
 //        });
 
-    public void switchToArzangTest(View view) {
-        Intent intent = new Intent(this, ArzangTest.class);
+    public void launchSignUp(View view) {
+        Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
     }
 
