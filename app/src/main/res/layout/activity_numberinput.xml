@@ -1,100 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:text="Enter todays numbers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:gravity="center"
+        tools:textSize="36sp"
+        tools:padding="10px"
+        tools:layout_marginBottom="50dp"
+        tools:layout_marginTop="50dp" />
 
     <TableLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:stretchColumns="6"
+        tools:layout_marginLeft="20dp">
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_width="100dp"
+            android:layout_height="100dp" >
 
-            <TextView
-                android:text="Date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvNumberDate" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <EditText
+                <TextView
+                    android:text="Date"
+                    android:layout_width="100dp"
+                    android:id="@+id/tvNumberDate"
+                    android:layout_height="75dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+                <EditText
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+
+                    android:id="@+id/etInputDay"
+                    android:hint="dd"
+                    android:layout_width="85dp" />
+
+                <TextView
+                    android:text="/"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvBPSlash"
+                    android:textAppearance="@style/TextAppearance.AppCompat" />
+
+                <EditText
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+
+                    android:id="@+id/etInputMonth"
+                    android:hint="mm" />
+
+                <TextView
+                    android:text="/"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvBPSlash2"
+                    android:textAppearance="@style/TextAppearance.AppCompat" />
+
+                <EditText
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+
+                    android:id="@+id/etInputYear"
+                    android:hint="yy" />
+            </TableRow>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="100dp"
+            android:layout_height="100dp" >
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:text="Weight"
+                    android:layout_width="100dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/tvNumbersWeight"
+                    android:gravity="top"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+                <EditText
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/etInputWeight"
+                    android:hint="pounds" />
+
+            </TableRow>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            >
+
+            <TableRow
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/etInputDate"
-                android:hint="DD/MM" />
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:text="Blood Pressure  "
+                    android:layout_width="100dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/tvNumbersBP"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+
+                <EditText
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/etInputSystolic"
+                    android:hint="systolic"
+                    android:layout_width="100dp" />
+
+                <TextView
+                    android:text="/"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvBPSlash3"
+                    android:textAppearance="@style/TextAppearance.AppCompat" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/etInputDiastolic"
+                    android:hint="diastolic" />
+            </TableRow>
+
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="100dp" >
 
-            <TextView
-                android:text="Weight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvNumbersWeight" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:ems="10"
-                android:id="@+id/etInputWeight" />
-        </TableRow>
+                <TextView
+                    android:text="Heart Rate"
+                    android:layout_width="100dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/tvNumbersHR"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/etInputHR"
+                    android:hint="bpm" />
+            </TableRow>
 
-            <TextView
-                android:text="Blood Pressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvNumbersBP" />
-
-            <EditText
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/etInputSystolic"
-                android:hint="Systolic"
-                android:layout_width="wrap_content" />
-
-            <TextView
-                android:text="/"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvBPSlash"
-                android:textAppearance="@style/TextAppearance.AppCompat" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/etInputDiastolic"
-                android:hint="Diastolic" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:text="Heart Rate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvNumbersHR" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/etInputHR" />
         </TableRow>
     </TableLayout>
 
