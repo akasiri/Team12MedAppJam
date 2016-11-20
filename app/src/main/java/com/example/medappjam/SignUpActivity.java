@@ -1,5 +1,6 @@
 package com.example.medappjam;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -59,6 +60,10 @@ public class SignUpActivity extends AppCompatActivity {
                 System.err.println(e.getStackTrace());
             }
 
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+
+            // TODO should we be calling finish()?
             super.finish();
             finish();
         }

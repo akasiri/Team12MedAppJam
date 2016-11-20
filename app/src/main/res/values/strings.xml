@@ -37,10 +37,16 @@
     <string name="password">Password</string>
     <string name="prompt_password">Enter a passoword: </string>
     <string name="prompt_reenter_password">Enter the password again: </string>
-    <string name="signup_button">Submit</string>
+    <string name="signup_button">Sign Up</string>
     <string name="password_warning_message_not_equal">Passwords are not the same</string>
     <string name="password_warning_message_empty">Must input password</string>
     <string name="username_warning_message_empty">Must input username</string>
+
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="prompt_login_username">Enter your username:</string>
+    <string name="prompt_login_password">Enter your password:</string>
+    <string name="warning_incorrect_login_cred">Incorrect Username or Password</string>
 
     <array name="record_data"></array>
 
