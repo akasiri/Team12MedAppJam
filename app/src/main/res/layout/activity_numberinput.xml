@@ -6,23 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="Enter todays numbers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:gravity="center"
-        tools:textSize="36sp"
-        tools:padding="10px"
-        tools:layout_marginBottom="50dp"
-        tools:layout_marginTop="50dp" />
-
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:stretchColumns="6"
-        tools:layout_marginLeft="20dp">
+        android:stretchColumns="6">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Enter today's numbers"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:id="@+id/textView"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:gravity="center"
+                tools:textSize="36sp"
+                tools:padding="10px"
+                android:textSize="30sp"
+                tools:gravity="left|center_vertical" />
+        </TableRow>
 
         <TableRow
             android:layout_width="100dp"
@@ -33,19 +37,23 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:text="Date"
-                    android:layout_width="100dp"
+                    android:text=" Date"
                     android:id="@+id/tvNumberDate"
                     android:layout_height="75dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                    tools:textSize="18sp"
+                    android:textSize="18sp"
+                    android:layout_width="130dp" />
 
                 <EditText
                     android:layout_height="wrap_content"
                     android:inputType="number"
 
-                    android:id="@+id/etInputDay"
-                    android:hint="dd"
-                    android:layout_width="85dp" />
+                    android:id="@+id/etInputMonth"
+                    android:hint="mm"
+                    android:layout_width="50dp"
+                    tools:textAlignment="center"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:text="/"
@@ -55,12 +63,14 @@
                     android:textAppearance="@style/TextAppearance.AppCompat" />
 
                 <EditText
-                    android:layout_width="85dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:inputType="number"
 
-                    android:id="@+id/etInputMonth"
-                    android:hint="mm" />
+                    android:id="@+id/etInputDay"
+                    android:hint="dd"
+                    tools:textAlignment="center"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:text="/"
@@ -70,12 +80,14 @@
                     android:textAppearance="@style/TextAppearance.AppCompat" />
 
                 <EditText
-                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:inputType="number"
 
                     android:id="@+id/etInputYear"
-                    android:hint="yy" />
+                    android:hint="yy"
+                    android:layout_width="50dp"
+                    tools:textAlignment="center"
+                    android:textSize="24sp" />
             </TableRow>
 
         </TableRow>
@@ -89,20 +101,23 @@
                 android:layout_height="match_parent" >
 
                 <TextView
-                    android:text="Weight"
-                    android:layout_width="100dp"
+                    android:text=" Weight"
                     android:layout_height="75dp"
                     android:id="@+id/tvNumbersWeight"
                     android:gravity="top"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                    tools:textSize="18sp"
+                    android:textSize="18sp"
+                    android:layout_width="130dp" />
 
                 <EditText
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
-                    android:ems="10"
                     android:id="@+id/etInputWeight"
-                    android:hint="pounds" />
+                    android:hint="pounds"
+                    tools:textAlignment="center"
+                    android:textSize="24sp" />
 
             </TableRow>
 
@@ -119,19 +134,22 @@
                 android:layout_height="match_parent" >
 
                 <TextView
-                    android:text="Blood Pressure  "
-                    android:layout_width="100dp"
+                    android:text=" Blood\n Pressure  "
                     android:layout_height="75dp"
                     android:id="@+id/tvNumbersBP"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                    tools:textSize="18sp"
+                    android:textSize="18sp"
+                    android:layout_width="130dp" />
 
                 <EditText
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:ems="10"
                     android:id="@+id/etInputSystolic"
                     android:hint="systolic"
-                    android:layout_width="100dp" />
+                    android:layout_width="100dp"
+                    tools:textAlignment="center"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:text="/"
@@ -141,12 +159,14 @@
                     android:textAppearance="@style/TextAppearance.AppCompat" />
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
                     android:id="@+id/etInputDiastolic"
-                    android:hint="diastolic" />
+                    android:hint="diastolic"
+                    tools:textAlignment="center"
+                    android:textSize="24sp" />
             </TableRow>
 
         </TableRow>
@@ -160,19 +180,22 @@
                 android:layout_height="match_parent" >
 
                 <TextView
-                    android:text="Heart Rate"
-                    android:layout_width="100dp"
+                    android:text=" Heart\n Rate"
                     android:layout_height="75dp"
                     android:id="@+id/tvNumbersHR"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Button" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                    tools:textSize="18sp"
+                    android:textSize="18sp"
+                    android:layout_width="130dp" />
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:ems="10"
                     android:id="@+id/etInputHR"
-                    android:hint="bpm" />
+                    android:hint="bpm"
+                    tools:textAlignment="center"
+                    android:textSize="24sp" />
             </TableRow>
 
         </TableRow>

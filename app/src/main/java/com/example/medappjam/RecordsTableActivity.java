@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 
 
@@ -127,6 +128,8 @@ public class RecordsTableActivity extends AppCompatActivity {
     try {
         while ((data = bufferedReader.readLine()) != null) {
             if (subCount < 3) {
+                if(data == ""){
+                    dataStr.append("-,");}
                 dataStr.append(data + ",");
                 subCount++;
             }
@@ -207,16 +210,36 @@ public class RecordsTableActivity extends AppCompatActivity {
     TableLayout.LayoutParams.WRAP_CONTENT
     ));
 
-
+    String weight, date, hr, bp;
     count=0;
     while(count<length) {
         if (lines.size() > count && count < 30) {
             String[] temp2 = lines.get(length - (count + 1)).split(",");
-            System.out.println(temp2[0] + temp2[1] + temp2[2] + temp2[3]);
-            String date = temp2[0];
-            String weight = temp2[1];
-            String bp = temp2[2];
-            String hr = temp2[3];
+            if (temp2[0] != "-") {
+                date = temp2[0];
+            }
+            else{
+                date = "";
+            }
+            if (temp2[1] != "-") {
+                weight = temp2[1];
+            }
+            else{
+                weight = "";
+            }
+            if (temp2[2] != "-") {
+                bp = temp2[2];
+            }
+            else{
+                bp = "";
+            }
+            if (temp2[2] != "-") {
+                hr = temp2[3];
+            }
+            else{
+                hr = "";
+            }
+
 
 
 // Create the table row
@@ -238,14 +261,12 @@ public class RecordsTableActivity extends AppCompatActivity {
             labelDATE.setText(date);
             labelDATE.setPadding(2, 0, 5, 0);
             labelDATE.setTextColor(Color.WHITE);
-            labelDATE.setTextSize(dataTextSize);
             tr.addView(labelDATE);
 
             TextView labelWEIGHT = new TextView(this);
             labelWEIGHT.setId(200 + count);
             labelWEIGHT.setText(weight);
             labelWEIGHT.setTextColor(Color.WHITE);
-            labelDATE.setTextSize(dataTextSize);
             tr.addView(labelWEIGHT);
 
             TextView labelBP = new TextView(this);
@@ -253,14 +274,12 @@ public class RecordsTableActivity extends AppCompatActivity {
             labelBP.setText(bp);
             labelBP.setPadding(2, 0, 5, 0);
             labelBP.setTextColor(Color.WHITE);
-            labelDATE.setTextSize(dataTextSize);
             tr.addView(labelBP);
 
             TextView labelHR = new TextView(this);
             labelHR.setId(200 + count);
             labelHR.setText(hr);
             labelHR.setTextColor(Color.WHITE);
-            labelDATE.setTextSize(dataTextSize);
             tr.addView(labelHR);
 
 
@@ -279,34 +298,45 @@ public class RecordsTableActivity extends AppCompatActivity {
         TextView AveWeight = (TextView)findViewById(R.id.tvAveWeight);
         TextView AveHR = (TextView)findViewById(R.id.tvAveHR);
         TextView AveBP = (TextView)findViewById(R.id.tvAveBP);
-        int length = 0;
+        int wlength = 0;
+        int hlength = 0;
+        int slength = 0;
+        int dlength=0;
         int i = 0;
         float weightCount = 0;
         int systolicCount = 0;
         int diastolicCount = 0;
         int hrCount = 0;
-        while(i < lines.size() && i  < 30){
-            if (lines.get(i) != null) {
-                String[] temp = lines.get(lines.size()-(i+1)).split(",");
-                for(int k = 0; k <4; k++ ){
-                    System.out.println("temp print" + temp[0]);
+            while (i < lines.size() && i < 30) {
+                if (lines.get(i) != null) {
+                    String[] temp = lines.get(lines.size() - (i + 1)).split(",");
+                    if (!temp[1].isEmpty()) {
+                        weightCount += Float.parseFloat(temp[1]);
+                        wlength++;
+                    }
+                    if (!temp[2].isEmpty()) {
+                        hrCount += Integer.parseInt(temp[2]);
+                        hlength++;
+                    }
+                    int index = temp[3].indexOf("/");
+                    if (!(temp[3].isEmpty() && temp[3].substring(0 - index).isEmpty())) {
+                        systolicCount += Integer.parseInt(temp[3].substring(0, index));
+                        slength++;
+                    }
+                    if (!(temp[3].isEmpty() || temp[3].substring(index + 1).isEmpty())) {
+                        diastolicCount += Integer.parseInt(temp[3].substring(index + 1));
+                        dlength++;
+                    }
+
                 }
-                System.out.println(Arrays.toString(temp));
-                weightCount += Float.parseFloat(temp[1]);
-                hrCount += Integer.parseInt(temp[2]);
-                int index = temp[3].indexOf("/");
-                systolicCount += Integer.parseInt(temp[3].substring(0,index));
-                diastolicCount += Integer.parseInt(temp[3].substring(index+1));
-                length ++;
+                i++;
             }
-            i++;
+        if(wlength != 0) {
+            AveWeight.setText(String.format("%5.1f", weightCount / wlength));
+            AveHR.setText(String.format("%d", hrCount / hlength));
+            AveBP.setText(String.format("%d/%d", (systolicCount / slength), (diastolicCount / dlength)));
         }
-        if(length != 0) {
-            AveWeight.setText(String.format("%5.1f", weightCount / length));
-            AveHR.setText(String.format("%d", hrCount / length));
-            AveBP.setText(String.format("%d/%d", (systolicCount / length), (diastolicCount / length)));
-        }
-        return length;
+        return wlength;
     }
 
     public void backClick(View view){
