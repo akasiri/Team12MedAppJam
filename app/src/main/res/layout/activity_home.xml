@@ -37,10 +37,10 @@
         android:layout_centerHorizontal="true">
 
         <Button
-            android:text="Sign Up"
+            android:text="Login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="launchSignUp"
+            android:onClick="launchLogin"
             android:id="@+id/button1"
             android:layout_above="@+id/button4"
             android:layout_alignLeft="@+id/button4"

@@ -45,8 +45,8 @@ public class HomeActivity extends AppCompatActivity {
 //
 //        });
 
-    public void launchSignUp(View view) {
-        Intent intent = new Intent(this, SignUpActivity.class);
+    public void launchLogin(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
