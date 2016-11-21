@@ -53,5 +53,7 @@
     <string name="offer_add_provider_confirm">Yes</string>
     <string name="offer_add_provider_cancel">No</string>
 
+
+
     <array name="record_data"></array>
 </resources>

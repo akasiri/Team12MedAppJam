@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--Log-out icon-->
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_settings_power_black_24dp"
+        android:title="@string/Log_Out"
+        android:showAsAction="always"
+        ></item>
+
+    <!--Setting icon-->
+    <item
+        android:id="@+id/about"
+        android:title="@string/About"
+        android:showAsAction="never"
+        android:orderInCategory="100"
+        ></item>
+
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_more_vert_black_24dp"
+        android:title="@string/Settings"
+        android:showAsAction="never"
+        android:orderInCategory="100"
+        ></item>
+
+
 </menu>
