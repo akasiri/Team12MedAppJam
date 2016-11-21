@@ -13,8 +13,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void submitLogin(View view) {
-        EditText username = (EditText) findViewById(R.id.login_username_input);
-        EditText password = (EditText) findViewById(R.id.login_password_input);
+        EditText username = (EditText) findViewById(R.id.povider_name_input);
+        EditText password = (EditText) findViewById(R.id.provider_phonenumber_input);
 
         // TODO compare username and password to database for a match
         // if (match) {

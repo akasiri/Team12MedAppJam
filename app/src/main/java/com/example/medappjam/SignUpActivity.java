@@ -1,14 +1,17 @@
 package com.example.medappjam;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -56,17 +59,39 @@ public class SignUpActivity extends AppCompatActivity {
         else {
             // store username - password combination
             try {
-                File file = new File( username.getText().toString() + ".txt");
-                file.createNewFile();
-                PrintWriter writer = new PrintWriter(file);
-                writer.println(password.getText().toString());
+                //File file = new File( username.getText().toString() + ".txt");
+                //file.createNewFile();
+                //PrintWriter writer = new PrintWriter(file);
+                //writer.println(password.getText().toString());
+
+                DatabaseHandler db = new DatabaseHandler(this);
+
+                if(db.getPatient(username.getText().toString()) != null) {
+                    TextView warning = (TextView) findViewById(R.id.warning_message);
+                    warning.setText(R.string.username_warning_already_exists);
+
+                    findViewById(R.id.warning_image).setVisibility(View.VISIBLE);
+                    findViewById(R.id.warning_message).setVisibility(View.VISIBLE);
+                }
+                else {
+                    Log.d("tag", "added user to db");
+                    Patient patient = new Patient(username.getText().toString(), password.getText().toString());
+                    db.addPatient(patient);
+
+                    promptProvider.show(this.getFragmentManager(), "alert delete");
+                    // the prompt will take you to the next activity
+                }
+
+                // for debugging purposes
+                ArrayList<Patient> patients = db.getAllPatients();
+                for(int i=0; i < patients.size(); i++) {
+                    Log.d("patient", patients.get(i).getPatientId() + " " + patients.get(i).getUsername() + " " +  patients.get(i).getPassword());
+                }
+
             }
             catch (Exception e) {
                 System.err.println(e.getStackTrace());
             }
-
-            promptProvider.show(this.getFragmentManager(), "alert delete");
-            // the prompt will take you to the next activity
         }
     }
 }
