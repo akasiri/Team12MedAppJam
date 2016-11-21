@@ -58,10 +58,10 @@
     <string name="offer_add_provider_confirm">Yes</string>
     <string name="offer_add_provider_cancel">No</string>
 
-    <string name="prompt_provider_name"></string>
-    <string name="prompt_provider_phonenumber"></string>
-    <string name="hint_provider_name"></string>
-    <string name="hint_provider_phonenumber"></string>
+    <string name="prompt_provider_name">Provider Name</string>
+    <string name="prompt_provider_phonenumber">Provider Phone Number</string>
+    <string name="hint_provider_name">provider name</string>
+    <string name="hint_provider_phonenumber">provider phone number</string>
 
     <array name="record_data"></array>
 </resources>

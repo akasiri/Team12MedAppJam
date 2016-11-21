@@ -106,7 +106,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void logout(View view) {
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
-        sharedPref.edit().putBoolean(getString(R.string.isLoggedIn), false).commit();
+        sharedPref.edit().clear().commit();
 
         onResume();
         /**
