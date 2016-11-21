@@ -45,49 +45,14 @@
                     android:textSize="18sp"
                     android:layout_width="130dp" />
 
-                <EditText
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-
-                    android:id="@+id/etInputMonth"
-                    android:hint="mm"
-                    android:layout_width="50dp"
-                    tools:textAlignment="center"
-                    android:textSize="24sp" />
-
                 <TextView
-                    android:text="/"
+                    android:id="@+id/tvInputDate"
+                    android:hint="mm/dd/yy"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvBPSlash"
-                    android:textAppearance="@style/TextAppearance.AppCompat" />
-
-                <EditText
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-
-                    android:id="@+id/etInputDay"
-                    android:hint="dd"
                     tools:textAlignment="center"
                     android:textSize="24sp" />
 
-                <TextView
-                    android:text="/"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvBPSlash2"
-                    android:textAppearance="@style/TextAppearance.AppCompat" />
 
-                <EditText
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-
-                    android:id="@+id/etInputYear"
-                    android:hint="yy"
-                    android:layout_width="50dp"
-                    tools:textAlignment="center"
-                    android:textSize="24sp" />
             </TableRow>
 
         </TableRow>
@@ -206,7 +171,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnNumbersInput"
-        android:onClick="writeNumbers"
+        android:onClick="areNumbersGood"
         android:textSize="24sp"
         />
 
