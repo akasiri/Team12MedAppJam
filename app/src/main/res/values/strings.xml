@@ -63,5 +63,9 @@
     <string name="hint_provider_name">provider name</string>
     <string name="hint_provider_phonenumber">provider phone number</string>
 
+    <string name="Log_Out">Log Out</string>
+    <string name="About">About</string>
+    <string name="Settings">Settings</string>
+
     <array name="record_data"></array>
 </resources>

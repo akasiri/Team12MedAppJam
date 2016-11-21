@@ -37,7 +37,7 @@ public class NumberInputActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    EditText day, month, year, weight, hr, systolic, diastolic;
+    EditText  weight, hr, systolic, diastolic;
     String strDate, strWeight, strHR, strBP;
 
     @Override
@@ -49,43 +49,9 @@ public class NumberInputActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         Intent intent = getIntent();
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-        String currentYear = currentDateTimeString.substring(10,12);
-        String currentDay = currentDateTimeString.substring(4,6);
-        String currentMonth = "";
-        switch(currentDateTimeString.substring(0,3)){
-            case "Jan": currentMonth = "1";
-                break;
-            case "Feb": currentMonth = "2";
-                break;
-            case "Mar": currentMonth = "3";
-                break;
-            case "Apr": currentMonth = "4";
-                break;
-            case "May": currentMonth = "5";
-                break;
-            case "Jun": currentMonth = "6";
-                break;
-            case "Jul": currentMonth = "7";
-                break;
-            case "Aug": currentMonth = "8";
-                break;
-            case "Sep": currentMonth = "9";
-                break;
-            case "Oct": currentMonth = "10";
-                break;
-            case "Nov": currentMonth = "11";
-                break;
-            case "Dec": currentMonth = "12";
-                break;
-        }
-
-
-        day = (EditText)findViewById(R.id.etInputDay);
-        day.setText(currentDay);
-        month = (EditText)findViewById(R.id.etInputMonth);
-        month.setText(currentMonth);
-        year = (EditText)findViewById(R.id.etInputYear);
-        year.setText(currentYear);
+        String currentDate = currentDateTimeString.substring(0,12);
+        TextView date = (TextView)findViewById(R.id.tvInputDate);
+        date.setText(currentDate);
         weight = (EditText)findViewById(R.id.etInputWeight);
         hr = (EditText)findViewById(R.id.etInputHR);
         systolic = (EditText)findViewById(R.id.etInputSystolic);
@@ -129,154 +95,191 @@ public class NumberInputActivity extends AppCompatActivity {
         client.disconnect();
     }
 
-    public void writeNumbers(View view) throws IOException {
+    public void writeNumbers() throws IOException {
 
-        strDate = day.getText().toString() + "/" + month.getText().toString() + "/" + year.getText().toString() + "\n";
-        strWeight = weight.getText().toString() + "\n";
-
-
-        strHR = hr.getText().toString() + "\n";
+        TextView d = (TextView)findViewById(R.id.tvInputDate);
+        String  date = d.getText().toString().split(",")[0] + ",";
+        strWeight = weight.getText().toString() + ",";
+        strHR = hr.getText().toString() + ",";
         strBP = systolic.getText().toString() + "/" + diastolic.getText() + "\n";
         FileOutputStream fout = openFileOutput("myNumbers.txt", MODE_APPEND);
 
-        fout.write(strDate.getBytes());
+        fout.write(date.getBytes());
         fout.write(strWeight.getBytes());
         fout.write(strHR.getBytes());
         fout.write(strBP.getBytes());
         fout.close();
         Toast.makeText(getBaseContext(), "Data saved", Toast.LENGTH_LONG).show();
 
-        readNumbers();
     }
 
-    public void readNumbers(){
+    public void readNumbers() {
         String data;
         FileInputStream fin = null;
-        try {fin = openFileInput("myNumbers.txt");}
-        catch(FileNotFoundException e) {e.printStackTrace();}
-        try {fin = openFileInput("myNumbers.txt");}
-        catch(FileNotFoundException e) {e.printStackTrace();}
+        try {
+            fin = openFileInput("myNumbers.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         InputStreamReader insr = new InputStreamReader(fin);
         BufferedReader bufferedReader = new BufferedReader(insr);
         StringBuffer strbuff = new StringBuffer();
         String[] temp = new String[4];
-        ArrayList<String> lines = new ArrayList<>();
-
+        ArrayList<String[]> lines = new ArrayList<>();
 
         int outCount = 0;
-        int subCount = 0;
         StringBuffer dataStr = new StringBuffer();
         try {
             while ((data = bufferedReader.readLine()) != null) {
-                if (subCount < 3) {
-                    dataStr.append(data + ",");
-                    subCount++;
-                }
-                else {
-                    dataStr.append(data);
-                    lines.add(outCount, dataStr.toString());
-                    System.out.println(lines.get(outCount));
-                    dataStr.delete(0, dataStr.length());
-                    subCount = 0;
-                    outCount++;
-                }
-
+                String linetemp[] = data.split(",");
+                lines.add(outCount, linetemp);
+                outCount++;
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        alertProvider(checkForAlert(lines));
+    }
 
-        catch(IOException e)
-        {e.printStackTrace();}
-        int i;
-        String[] temp2;
-        String[][] strarr = new String[lines.size()][4];
-        for (i = 0; i < lines.size(); i++) {
-            temp2 = lines.get(i).split(",");
-            strarr[i] = temp2;
-        }
-        int t = Integer.parseInt(strarr[lines.size() - 2][1]) + 3;
-        System.out.println(Integer.parseInt(strarr[lines.size() - 1][1]) + " , " + (t));
-
+    public String checkWeightAlert(ArrayList<String[]> lines){
+        int cw;
         StringBuffer strbuffer = new StringBuffer();
-        int cw = (Integer.parseInt(strarr[lines.size() - 1][1]));
-        int wthreshday = Integer.parseInt(strarr[lines.size() - 2][1]) + 3;
-        int chr = (Integer.parseInt(strarr[lines.size() - 1][2]));
-        int j = 0;
-        int lowWeight, highWeight;
-        lowWeight = Integer.parseInt(strarr[lines.size() - 2][1]);
-        highWeight = 0;
-        int sys = Integer.parseInt(systolic.getText().toString());
-        int dia = Integer.parseInt(diastolic.getText().toString());
-        boolean alertFlag = false;
-        if(lines.size() >= 2) {
-            while (j < 6) {
-                String[] weekWeight = new String[7];
-                int w = Integer.parseInt(strarr[lines.size() - (3 + j)][1]);
-                if (w > highWeight) {
-                    highWeight = w;
-                } else if (w < lowWeight) {
-                    lowWeight = w;
+        if(lines.size() > 0) {
+            if (!weight.getText().toString().isEmpty() && !weight.getText().toString().equals("0-806")) {
+                cw = (Integer.parseInt(weight.getText().toString()));
+                if (lines.size() >= 2) {
+                    int wthreshday;
+                    if (!lines.get(lines.size() - 2)[1].isEmpty() && !lines.get(lines.size() - 2)[1].equals("0-806")) {
+                        wthreshday = Integer.parseInt(lines.get(lines.size() - 2)[1]) + 3;
+                    } else {
+                        wthreshday = cw;
+                    }
+
+                    int j = 0;
+                    int w = 0;
+                    int lowWeight, highWeight;
+                    highWeight = 0;
+                    if (!lines.get(lines.size() - 2)[1].isEmpty() && !lines.get(lines.size() - 2)[1].equals("0-806")) {
+                        lowWeight = Integer.parseInt(lines.get(lines.size() - 2)[1]);
+                    } else {
+                        lowWeight = cw + 10;
+                    }
+                    while (j < 6) {
+                        String[] weekWeight = new String[7];
+                        if (lines.size() > 5) {
+                            if (!lines.get(lines.size() - (3 + j))[1].isEmpty()) {
+                                w = Integer.parseInt(lines.get(lines.size() - (3 + j))[1]);
+                            }
+                        }
+                        if (w > highWeight) {
+                            highWeight = w;
+                        } else if (w < lowWeight) {
+                            lowWeight = w;
+                        }
+                        j++;
+                    }
+                    if (cw >= wthreshday) {
+                        strbuffer.append("Weight gain is over 3 pounds since yesterday.\n");
+                    }
+                    if (cw > highWeight + 5) {
+                        strbuffer.append("Weight increased more than 5 pounds this week.\n");
+                    } else if (cw < lowWeight - 5) {
+                        strbuffer.append("Weight decreased more than 5 pounds this week.\n");
+                    }
                 }
-                j++;
-            }
-            if (cw >= wthreshday) {
-                strbuffer.append("Weight gain is over 3 pounds since yesterday.\n");
-                alertFlag = true;
-            }
-            if (cw > highWeight + 5) {
-                strbuffer.append("Weight increased more than 5 pounds this week.\n");
-                alertFlag = true;
-            } else if (cw < lowWeight - 5) {
-                strbuffer.append("Weight decreased more than 5 pounds this week.\n");
-                alertFlag = true;
             }
         }
-            if (chr > 100){
-                strbuffer.append("Heart rate is too high.\n");
-                alertFlag = true;
+        return strbuffer.toString();
+    }
+
+    public String checkHR(ArrayList<String[]> lines){
+        StringBuffer strbuffer = new StringBuffer();
+        int chr;
+        if(lines.size() > 0) {
+            if (!hr.getText().toString().isEmpty()) {
+                chr = (Integer.parseInt(hr.getText().toString()));
+                if (chr > 100) {
+                    strbuffer.append("Heart rate is too high.\n");
+                } else if (chr < 50) {
+                    strbuffer.append("Heart rate is too low.\n");
+                }
             }
-            else if (chr < 50){
-                strbuffer.append("Heart rate is too low.\n");
-                alertFlag = true;
-            }
-            if (sys < 90 || dia < 50){
+        }
+
+        return strbuffer.toString();
+    }
+
+    public String checkForAlert(ArrayList<String[]> lines) {
+        StringBuffer strbuffer = new StringBuffer();
+        int chr, dia, sys;
+        String message = "";
+
+
+        strbuffer.append(checkWeightAlert(lines));
+        strbuffer.append(checkHR(lines));
+
+        if (!diastolic.getText().toString().isEmpty() && !systolic.getText().toString().isEmpty()) {
+            dia = Integer.parseInt(diastolic.getText().toString());
+            sys = Integer.parseInt(systolic.getText().toString());
+            if (sys < 90 || dia < 50) {
                 strbuffer.append("Blood pressure is dangerously low.\n");
-                alertFlag = true;
-            }
-            else if (sys > 160 || dia > 90){
+            } else if (sys > 160 || dia > 90) {
                 strbuffer.append("Blood pressure is dangerously high.\n");
-                alertFlag = true;
             }
-            else{
-                back();
-            }
+        } else {
+            back();
+        }
+        message = strbuffer.toString();
 
-        String message = strbuffer.toString();
-        if(alertFlag){
-        alertProvider(message);
+        try {
+            writeNumbers();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return message;
     }
 
 
-    }
 
     public void alertProvider(String message){
+        if(!message.isEmpty()){
+            System.out.println(message);
+        }
+
+    }
+
+    public void areNumbersGood(View view){
+        EditText weightET = (EditText)findViewById(R.id.etInputWeight);
+        String weight = weightET.getText().toString();
+        EditText hrET = (EditText)findViewById(R.id.etInputHR);
+        String hr = hrET.getText().toString();
+        EditText sET = (EditText)findViewById(R.id.etInputSystolic);
+        String systolic = sET.getText().toString();
+        EditText dET = (EditText)findViewById(R.id.etInputDiastolic);
+        String diastolic = dET.getText().toString();
+        final String message = "Weight: "+  weight +"\nHeart Rate: " + hr + "\nBlood Pressure: " + systolic + "/" + diastolic;
+
         new AlertDialog.Builder(this)
-                .setTitle("WARNING! Please contact health care services.")
+                .setTitle("Is the input correct?")
                 .setMessage(message)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
+                        dialog.dismiss();
+                        readNumbers();
+
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        back();
+                        dialog.dismiss();
                     }
                 })
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(android.R.drawable.btn_dialog)
+                .create()
                 .show();
-
     }
+
     public void back(){
         Intent intent = new Intent(this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
