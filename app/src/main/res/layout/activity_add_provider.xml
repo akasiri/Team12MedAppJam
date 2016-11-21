@@ -11,11 +11,67 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.medappjam.AddProviderActivity">
 
-    <Button
-        android:id="@+id/submit_add_provider"
+    <EditText android:id="@+id/povider_name_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:ems="10"
+        android:gravity="center"
+        android:layout_marginTop="17dp"
+        android:layout_alignTop="@+id/prompt_provider_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="@string/hint_provider_name" />
+
+    <TextView android:id="@+id/prompt_provider_phonenumber"
+        android:text="@string/prompt_provider_phonenumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/povider_name_input"
+        android:layout_alignLeft="@+id/povider_name_input"
+        android:layout_alignStart="@+id/povider_name_input"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="15dp" />
+
+    <EditText android:id="@+id/provider_phonenumber_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:gravity="center"
+        android:layout_marginTop="17dp"
+        android:layout_alignTop="@+id/prompt_provider_phonenumber"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="@string/hint_provider_phonenumber" />
+
+    <Button android:id="@+id/button_add_provider"
+        android:text="Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit"
-        />
+        android:layout_marginTop="140dp"
+        android:layout_below="@+id/imageView3"
+        android:onClick="submitLogin"
+        android:layout_centerHorizontal="true" />
+
+    <Button android:id="@+id/button_sign_up"
+        android:text="SIGN UP!"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_add_provider"
+        android:layout_centerHorizontal="true"
+        android:onClick="submitSignUp"
+        android:layout_marginTop="5dp" />
+
+    <TextView android:id="@+id/prompt_provider_name"
+        android:text="@string/prompt_provider_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="45dp"
+        android:layout_alignBottom="@+id/imageView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp" />
 
 </RelativeLayout>

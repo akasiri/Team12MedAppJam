@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+<!--How are you feeling label -->
+
+
+        <Button
+            android:text="DONE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="50dp"
+            android:id="@+id/button" />
+
+
+        <CheckBox
+            android:text="Chest Pain"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox4"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/checkBox3"
+            android:layout_alignStart="@+id/checkBox3" />
+
+        <CheckBox
+            android:text="Dizziness"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox3"
+            android:layout_above="@+id/checkBox4"
+            android:layout_alignLeft="@+id/checkBox2"
+            android:layout_alignStart="@+id/checkBox2" />
+
+        <CheckBox
+            android:text="Swollen Legs"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox2"
+            android:layout_marginBottom="35dp"
+            android:layout_above="@+id/checkBox4"
+            android:layout_centerHorizontal="true" />
+
+        <CheckBox
+            android:text="REALLY Tired"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox5"
+            android:layout_below="@+id/checkBox4"
+            android:layout_alignLeft="@+id/checkBox4"
+            android:layout_alignStart="@+id/checkBox4" />
+
+        <CheckBox
+            android:text="Feeling Good"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox6"
+            android:layout_marginBottom="50dp"
+            android:layout_above="@+id/button"
+            android:layout_alignLeft="@+id/checkBox5"
+            android:layout_alignStart="@+id/checkBox5" />
+
+        <CheckBox
+            android:text="Short of Breath"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox"
+            android:layout_marginBottom="33dp"
+            android:layout_alignBottom="@+id/checkBox2"
+            android:layout_alignLeft="@+id/checkBox2"
+            android:layout_alignStart="@+id/checkBox2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="How are you feeling TODAY?"
+            android:textColor="#000"
+            android:textSize="25sp"
+            android:layout_marginTop="47dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+
+    </RelativeLayout>
+</RelativeLayout>
