@@ -130,6 +130,7 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     public void writeNumbers(View view) throws IOException {
+
         strDate = day.getText().toString() + "/" + month.getText().toString() + "/" + year.getText().toString() + "\n";
         strWeight = weight.getText().toString() + "\n";
 
@@ -197,54 +198,65 @@ public class NumberInputActivity extends AppCompatActivity {
         System.out.println(Integer.parseInt(strarr[lines.size() - 1][1]) + " , " + (t));
 
         StringBuffer strbuffer = new StringBuffer();
+        int cw = (Integer.parseInt(strarr[lines.size() - 1][1]));
+        int wthreshday = Integer.parseInt(strarr[lines.size() - 2][1]) + 3;
+        int chr = (Integer.parseInt(strarr[lines.size() - 1][2]));
+        int j = 0;
+        int lowWeight, highWeight;
+        lowWeight = Integer.parseInt(strarr[lines.size() - 2][1]);
+        highWeight = 0;
+        int sys = Integer.parseInt(systolic.getText().toString());
+        int dia = Integer.parseInt(diastolic.getText().toString());
+        boolean alertFlag = false;
         if(lines.size() >= 2) {
-            int cw = (Integer.parseInt(strarr[lines.size() - 1][1]));
-            int wthreshday = Integer.parseInt(strarr[lines.size() - 2][1]) + 3;
-            int chr = (Integer.parseInt(strarr[lines.size() - 1][2]));
-            int j = 0;
-            int lowWeight, highWeight;
-            lowWeight = Integer.parseInt(strarr[lines.size() - 2][1]);
-            highWeight = 0;
-            while (j < 6){
+            while (j < 6) {
                 String[] weekWeight = new String[7];
-                int w = Integer.parseInt(strarr[lines.size() - (3+j)][1]);
-                if (w > highWeight){
+                int w = Integer.parseInt(strarr[lines.size() - (3 + j)][1]);
+                if (w > highWeight) {
                     highWeight = w;
-                }
-                else if(w < lowWeight){
+                } else if (w < lowWeight) {
                     lowWeight = w;
                 }
                 j++;
             }
-
-            int sys = Integer.parseInt(systolic.getText().toString());
-            int dia = Integer.parseInt(diastolic.getText().toString());
-
             if (cw >= wthreshday) {
                 strbuffer.append("Weight gain is over 3 pounds since yesterday.\n");
+                alertFlag = true;
             }
-            if (cw > highWeight + 5){
+            if (cw > highWeight + 5) {
                 strbuffer.append("Weight increased more than 5 pounds this week.\n");
-            }
-            else if (cw < lowWeight - 5){
+                alertFlag = true;
+            } else if (cw < lowWeight - 5) {
                 strbuffer.append("Weight decreased more than 5 pounds this week.\n");
+                alertFlag = true;
             }
+        }
             if (chr > 100){
                 strbuffer.append("Heart rate is too high.\n");
+                alertFlag = true;
             }
             else if (chr < 50){
                 strbuffer.append("Heart rate is too low.\n");
+                alertFlag = true;
             }
             if (sys < 90 || dia < 50){
                 strbuffer.append("Blood pressure is dangerously low.\n");
+                alertFlag = true;
             }
             else if (sys > 160 || dia > 90){
                 strbuffer.append("Blood pressure is dangerously high.\n");
+                alertFlag = true;
+            }
+            else{
+                back();
             }
 
-        }
         String message = strbuffer.toString();
+        if(alertFlag){
         alertProvider(message);
+    }
+
+
     }
 
     public void alertProvider(String message){
@@ -258,13 +270,19 @@ public class NumberInputActivity extends AppCompatActivity {
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
+                        back();
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
 
     }
+    public void back(){
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
 
 
 }

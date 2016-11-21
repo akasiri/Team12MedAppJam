@@ -206,6 +206,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnNumbersInput"
-        android:onClick="writeNumbers"/>
+        android:onClick="writeNumbers"
+        android:textSize="24sp"
+        />
 
 </LinearLayout>
