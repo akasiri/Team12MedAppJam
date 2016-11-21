@@ -1,5 +1,6 @@
 package com.example.medappjam;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,10 +12,15 @@ import java.io.PrintWriter;
 
 public class SignUpActivity extends AppCompatActivity {
 
+    PromptForProviderFragment promptProvider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        promptProvider = new PromptForProviderFragment();
+
     }
 
     public void submitSignUp(View view) {
@@ -59,8 +65,8 @@ public class SignUpActivity extends AppCompatActivity {
                 System.err.println(e.getStackTrace());
             }
 
-            super.finish();
-            finish();
+            promptProvider.show(this.getFragmentManager(), "alert delete");
+            // the prompt will take you to the next activity
         }
     }
 }
