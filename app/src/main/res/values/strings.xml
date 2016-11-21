@@ -41,6 +41,7 @@
     <string name="password_warning_message_not_equal">Passwords are not the same</string>
     <string name="password_warning_message_empty">Must input password</string>
     <string name="username_warning_message_empty">Must input username</string>
+    <string name="username_warning_already_exists">That username is already taken</string>
 
     <string name="login_username">Username</string>
     <string name="login_password">Password</string>

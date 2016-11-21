@@ -10,6 +10,7 @@ public class Patient {
     private ArrayList<String> profiles;
     private ArrayList<Integer> providerIds;
 
+
     public Patient(int patientId, String username, String password) {
         this.patientId = patientId;
         this.username = username;
