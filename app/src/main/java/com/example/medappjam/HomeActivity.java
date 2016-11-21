@@ -38,6 +38,9 @@ public class HomeActivity extends AppCompatActivity {
             Button loginButton = (Button) findViewById(R.id.button1);
             loginButton.setVisibility(View.GONE);
 
+            Button settingsButton = (Button) findViewById(R.id.button4);
+            settingsButton.setVisibility(View.VISIBLE);
+
             Button logoutButton = (Button) findViewById(R.id.button5);
             logoutButton.setVisibility(View.VISIBLE);
         }
