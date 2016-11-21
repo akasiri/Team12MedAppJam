@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+
     >
 
     <!-- Header aligned to top -->
@@ -15,14 +17,43 @@
         android:background="#FFFFFF"
         android:gravity="center" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <TableLayout android:layout_width="wrap_content"
+            android:layout_height="100dp"
             android:layout_margin="5dp"
             android:gravity="center"
-            android:text="Monthly Average:\nWeight: ###\nBP: ##/##\nHR: ###"
             android:textColor="#000"
-            android:textSize="20sp" />
+            android:textSize="20sp" >
+
+            <TableRow
+                android:padding="5dp"
+                android:layout_height="wrap_content">
+                <TextView  />
+                <TextView  android:layout_marginRight="10dp"
+                    android:text= "Weight:"/>
+                <TextView android:id="@+id/tvAveWeight" />
+            </TableRow>
+            <TableRow
+                android:padding="5dp"
+                android:layout_height="wrap_content">
+                <TextView android:layout_marginRight="20dp"
+                    android:text="Average: " />
+                <TextView  android:text="Blood Pressure:"
+                    android:layout_marginRight="10dp"/>
+                <TextView android:id="@+id/tvAveBP" />
+            </TableRow>
+            <TableRow
+                android:padding="5dp"
+                android:layout_height="wrap_content">
+                <TextView  />
+                <TextView  android:layout_marginRight="10dp"
+                    android:text="Heart rate:"/>
+                <TextView android:id="@+id/tvAveHR" />
+            </TableRow>
+
+
+        </TableLayout>
+
+
     </RelativeLayout>
 
     <!-- Footer aligned to bottom -->
@@ -30,773 +61,56 @@
     <RelativeLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:gravity="center" >
 
         <Button
             android:text="Back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnRecordsBack" />
+            android:layout_width="100dp"
+            android:layout_height="65dp"
+            android:id="@+id/btnRecordsBack"
+            android:onClick="backClick"
+            />
+
+        <Button
+            android:text="Delete Records"
+            android:layout_width="100dp"
+            android:id="@+id/btnDeleteRecords"
+            android:layout_toRightOf="@id/btnRecordsBack"
+            android:layout_height="65dp"
+            android:onClick="deleteClick"/>
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/content"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_above="@id/footer"
         android:layout_below="@id/header"
-        android:gravity="center" >
+        android:gravity="center"
+        android:background="@color/white">
         <ScrollView
             android:id="@+id/scrollableContents"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="#005"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            >
+            android:backgroundTint="@color/white"
+            tools:visibility="visible">
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/white">
                 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    >
-
-                    <TableRow android:layout_width="match_parent"
-                        android:stretchColumns="4"
-                        android:background="@color/tableheader"
-                        >
-                        <TextView
-                            android:text="Date"
-                            android:layout_width="85dp"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:textColor="@color/white"
-                            />
-                        <TextView
-                            android:text="Weight"
-                            android:layout_width="85dp"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                            android:textColor="@color/white"
-                            />
-                        <TextView
-                            android:text="BP"
-                            android:layout_width="85dp"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                            android:textColor="@color/white"
-                            />
-                        <TextView
-                            android:text="HR"
-                            android:layout_width="80dp"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                            android:textColor="@color/white"
-                            />
-                    </TableRow>
-
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/majortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:background="@color/minortablerow"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:textSize="5dp"
-                        >
-                        <TextView
-                            android:text="DD/MM"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="###"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##/##"
-                            android:gravity="center"/>
-                        <TextView
-                            android:text="##"
-                            android:gravity="center"/>
-                    </TableRow>
-
-
-
-
+                    android:id="@+id/mainTable"
+                    android:stretchColumns="*"
+                    tools:background="@color/white">
 
                 </TableLayout>
             </LinearLayout>

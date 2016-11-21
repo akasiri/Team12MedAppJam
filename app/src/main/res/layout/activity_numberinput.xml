@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stretchColumns="6">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Enter today's numbers"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:id="@+id/textView"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:gravity="center"
+                tools:textSize="36sp"
+                tools:padding="10px"
+                android:textSize="30sp"
+                tools:gravity="left|center_vertical" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="100dp"
+            android:layout_height="100dp" >
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:text=" Date"
+                    android:id="@+id/tvNumberDate"
+                    android:layout_height="75dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                    tools:textSize="18sp"
+                    android:textSize="18sp"
+                    android:layout_width="130dp" />
+
+                <EditText
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+
+                    android:id="@+id/etInputMonth"
+                    android:hint="mm"
+                    android:layout_width="50dp"
+                    tools:textAlignment="center"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:text="/"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvBPSlash"
+                    android:textAppearance="@style/TextAppearance.AppCompat" />
+
+                <EditText
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+
+                    android:id="@+id/etInputDay"
+                    android:hint="dd"
+                    tools:textAlignment="center"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:text="/"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvBPSlash2"
+                    android:textAppearance="@style/TextAppearance.AppCompat" />
+
+                <EditText
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+
+                    android:id="@+id/etInputYear"
+                    android:hint="yy"
+                    android:layout_width="50dp"
+                    tools:textAlignment="center"
+                    android:textSize="24sp" />
+            </TableRow>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="100dp"
+            android:layout_height="100dp" >
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:text=" Weight"
+                    android:layout_height="75dp"
+                    android:id="@+id/tvNumbersWeight"
+                    android:gravity="top"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                    tools:textSize="18sp"
+                    android:textSize="18sp"
+                    android:layout_width="130dp" />
+
+                <EditText
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:id="@+id/etInputWeight"
+                    android:hint="pounds"
+                    tools:textAlignment="center"
+                    android:textSize="24sp" />
+
+            </TableRow>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
+            >
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:text=" Blood\n Pressure  "
+                    android:layout_height="75dp"
+                    android:id="@+id/tvNumbersBP"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                    tools:textSize="18sp"
+                    android:textSize="18sp"
+                    android:layout_width="130dp" />
+
+                <EditText
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:id="@+id/etInputSystolic"
+                    android:hint="systolic"
+                    android:layout_width="100dp"
+                    tools:textAlignment="center"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:text="/"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvBPSlash3"
+                    android:textAppearance="@style/TextAppearance.AppCompat" />
+
+                <EditText
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/etInputDiastolic"
+                    android:hint="diastolic"
+                    tools:textAlignment="center"
+                    android:textSize="24sp" />
+            </TableRow>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="100dp" >
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:text=" Heart\n Rate"
+                    android:layout_height="75dp"
+                    android:id="@+id/tvNumbersHR"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                    tools:textSize="18sp"
+                    android:textSize="18sp"
+                    android:layout_width="130dp" />
+
+                <EditText
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:id="@+id/etInputHR"
+                    android:hint="bpm"
+                    tools:textAlignment="center"
+                    android:textSize="24sp" />
+            </TableRow>
+
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:text="Done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnNumbersInput"
+        android:onClick="writeNumbers"
+        android:textSize="24sp"
+        />
+
+</LinearLayout>
