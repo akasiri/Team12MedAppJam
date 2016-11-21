@@ -53,8 +53,8 @@
     <string name="prompt_login_password">Enter your password:</string>
     <string name="warning_incorrect_login_cred">Incorrect Username or Password</string>
 
-    <string name="offer_add_provider">Add Provider</string>
-    <string name="offer_add_provider_message">Sign up successful. Would you like to also add a care provider at this time?</string>
+    <string name="offer_add_provider">Signup Successful.</string>
+    <string name="offer_add_provider_message">Would you like to add a care provider at this time?</string>
     <string name="offer_add_provider_confirm">Yes</string>
     <string name="offer_add_provider_cancel">No</string>
 
