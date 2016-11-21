@@ -7,6 +7,10 @@
     <string name="profile_type3">Type3</string>
     <string name="logout">Logout</string>
 
+    <string name="sharedPreferenceFile">sessionInfo</string>
+    <string name="user">username</string>
+    <string name="isLoggedIn">isLoggedIn</string>
+
     <string name="action_settings">Settings</string>
     <string name="confirm_delete">Confirm account deletion</string>
     <string name="confirm_delete_message">This action cannot be undone.</string>

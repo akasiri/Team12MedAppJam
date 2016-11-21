@@ -2,10 +2,12 @@ package com.example.medappjam;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -67,6 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
                 DatabaseHandler db = new DatabaseHandler(this);
 
                 if(db.getPatient(username.getText().toString()) != null) {
+                    Log.d("signUp", "username already exists " + username.getText().toString());
                     TextView warning = (TextView) findViewById(R.id.warning_message);
                     warning.setText(R.string.username_warning_already_exists);
 
@@ -78,11 +81,20 @@ public class SignUpActivity extends AppCompatActivity {
                     Patient patient = new Patient(username.getText().toString(), password.getText().toString());
                     db.addPatient(patient);
 
+                    SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
+                    SharedPreferences.Editor edit = sharedPref.edit();
+                    edit.putString(getString(R.string.user), username.getText().toString());
+                    edit.putBoolean(getString(R.string.isLoggedIn), true);
+                    edit.commit();
+
                     promptProvider.show(this.getFragmentManager(), "alert delete");
                     // the prompt will take you to the next activity
                 }
 
-                // for debugging purposes
+
+                /**
+                 * For debugging purposes, log all patients on file
+                 */
                 ArrayList<Patient> patients = db.getAllPatients();
                 for(int i=0; i < patients.size(); i++) {
                     Log.d("patient", patients.get(i).getPatientId() + " " + patients.get(i).getUsername() + " " +  patients.get(i).getPassword());

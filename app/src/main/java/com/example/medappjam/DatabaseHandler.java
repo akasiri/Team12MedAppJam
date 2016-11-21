@@ -16,13 +16,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //Patient table: id, username, & password
     private static final String TABLE_PATIENT = "patient";
-    private static final String PATIENT_ID = "id";
+    //private static final String PATIENT_ID = "id";
     private static final String PATIENT_USERNAME = "username";
     private static final String PATIENT_PASSWORD = "password";
 
     //Provider table: id, name, & phoneNumber
     private static final String TABLE_PROVIDER = "provider";
-    private static final String PROVIDER_ID = "id";
+    //private static final String PROVIDER_ID = "id";
     private static final String PROVIDER_NAME = "name";
     private static final String PROVIDER_PHONE = "phoneNumber";
 
@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //Profiles table: id & profile
     private static final String TABLE_PROFILE = "profile";
-    private static final String PROFILE_ID = "id";
+    //private static final String PROFILE_ID = "id";
     private static final String PROFILE = "profile";
 
     //Patient to profiles relationship table: patientId(PAT_ID) & profileId
@@ -181,12 +181,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_PATIENT, projection, selection, selectionArgs, null, null, null);
 
         //move cursor to first row if found
-        if(cursor != null) {
-            cursor.moveToFirst();
+        if(cursor.moveToFirst()) {
+            //cursor.moveToFirst();
             Patient patient = new Patient(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
             return patient;
         }
         else {
+            Log.d("databaseHandler", "couldn't find patient");
             return null;
         }
     }
@@ -209,12 +210,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return patients;
     }
 
-    public void updatePatient(int patientId) {
-        //update patient info
+    //update patient info; returns # of rows affected
+    public int updatePatient(Patient patient) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(PATIENT_USERNAME, patient.getUsername());
+        values.put(PATIENT_PASSWORD, patient.getPassword());
+
+        String whereClause = PATIENT_USERNAME + " = ?";
+        String[] whereArgs = {patient.getUsername()};
+
+        return db.update(TABLE_PATIENT, values, whereClause, whereArgs);
     }
 
-    public void deletePatient(String username) {
-        //drop database
+    //delete patient; returns # of rows affected
+    public int deletePatient(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String whereClause = PATIENT_USERNAME + " = ?";
+        String[] whereArgs = {username};
+
+        return db.delete(TABLE_PATIENT, whereClause, whereArgs);
     }
 
     public void addProvider(Provider provider) {
@@ -249,8 +266,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Delete the provider related to the patient
-    public void deleteProvider(Provider provider, String patientUsername) {
-        //delete provider
+    public int deleteProvider(Provider provider, Patient patient) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String whereClause = PAT_ID + " = ?" + " AND " + PROV_ID + " = ?";
+        String[] whereArgs = {Integer.toString(patient.getPatientId()), Integer.toString(provider.getProviderId())};
+
+        return db.delete(TABLE_PATIENT_PROVIDER, whereClause, whereArgs);
     }
 
 }
