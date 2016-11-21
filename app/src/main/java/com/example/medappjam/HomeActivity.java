@@ -33,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
         // TODO if this is the first time resuming (includes loading up?) this activity today, switch to the "how do you feel?" activity
         // need to keep a file storing the last time the activity was created?
 
+        //set visibility of buttons depending on whether the user is logged in or not
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
         if(sharedPref.getBoolean(getString(R.string.isLoggedIn), false)) {
             Button loginButton = (Button) findViewById(R.id.button1);
