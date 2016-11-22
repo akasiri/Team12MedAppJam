@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -98,8 +99,9 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     public void writeNumbers() throws IOException {
-        SharedPreferences sp = getSharedPreferences("sessionInfo", Context.MODE_PRIVATE);
-        String user = sp.getString("user", "myNumbers");
+        String user;
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
+        user = sharedPref.getString(getString(R.string.user),"");
 
         filename = user + ".txt";
         FileOutputStream fout = openFileOutput(filename, MODE_APPEND);

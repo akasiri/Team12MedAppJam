@@ -108,7 +108,7 @@ public class RecordsTableActivity extends AppCompatActivity {
 
     public void readToTable() throws IOException {
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
-        String user = sharedPref.getString("user", "");
+        String user = sharedPref.getString(getString(R.string.user),"");
         String data;
         FileInputStream fin = null;
         if(!user.isEmpty()){
@@ -135,7 +135,7 @@ public class RecordsTableActivity extends AppCompatActivity {
 
         catch(IOException e)
         {e.printStackTrace();}
-            int length = showAverages(lines);
+        int length = showAverages(lines);
         TableLayout tl = (TableLayout) findViewById(R.id.mainTable);
         addTableHeader(tl);
         addTableBody(tl, lines);
