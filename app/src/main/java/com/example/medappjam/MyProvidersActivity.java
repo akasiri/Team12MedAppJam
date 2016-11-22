@@ -31,6 +31,11 @@ public class MyProvidersActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         //Get list of providers
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
@@ -45,6 +50,9 @@ public class MyProvidersActivity extends AppCompatActivity {
         }
         else {
             LinearLayout container =(LinearLayout) findViewById(R.id.providers_container);
+
+            container.removeAllViews();
+
             for(int i = 0; i < providers.size(); i++) {
                 TextView providerName = new TextView(this);
                 // get provider name from database
