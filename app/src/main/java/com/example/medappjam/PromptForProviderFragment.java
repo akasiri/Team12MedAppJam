@@ -30,6 +30,9 @@ public class PromptForProviderFragment extends DialogFragment {
                 getActivity().finish();
             }
         });
+
+        // TODO setCanceledOnTouchOutside(false)
+
         AlertDialog dialog = builder.create();
         return dialog;
     }
