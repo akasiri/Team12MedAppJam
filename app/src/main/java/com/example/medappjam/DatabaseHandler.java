@@ -52,20 +52,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + PROVIDER_NAME + " TEXT,"
                 + PROVIDER_PHONE + " TEXT,"
                 + PATIENT_USERNAME + " TEXT,"
-                + "FOREIGN KEY(" + PATIENT_USERNAME + ") REFERENCES " + TABLE_PATIENT + "(" + PATIENT_USERNAME + ")"
+                + "FOREIGN KEY(" + PATIENT_USERNAME + ") REFERENCES " + TABLE_PATIENT + "(" + PATIENT_USERNAME + ") ON DELETE CASCADE"
                 + ");";
 
         String CREATE_PROFILE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PROFILE + "("
                 + PROFILE + " TEXT,"
                 + PATIENT_USERNAME + " TEXT,"
-                + "FOREIGN KEY(" + PATIENT_USERNAME + ") REFERENCES " + TABLE_PATIENT + "(" + PATIENT_USERNAME + ")"
+                + "FOREIGN KEY(" + PATIENT_USERNAME + ") REFERENCES " + TABLE_PATIENT + "(" + PATIENT_USERNAME + ") ON DELETE CASCADE"
                 + ");";
 
         String CREATE_INPUT_DATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_INPUT_DATE + "("
                 + DAY + " INTEGER,"
                 + YEAR + " INTEGER,"
                 + PATIENT_USERNAME + " TEXT,"
-                + "FOREIGN KEY(" + PATIENT_USERNAME + ") REFERENCES " + TABLE_PATIENT + "(" + PATIENT_USERNAME + ")"
+                + "FOREIGN KEY(" + PATIENT_USERNAME + ") REFERENCES " + TABLE_PATIENT + "(" + PATIENT_USERNAME + ") ON DELETE CASCADE"
                 + ");";
 
         db.execSQL(CREATE_PATIENT_TABLE);
@@ -79,6 +79,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys = ON;");
+    }
+
+    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROVIDER);
@@ -88,6 +94,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
         db.setForeignKeyConstraintsEnabled(true);
     }
 
