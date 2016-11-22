@@ -308,6 +308,11 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     public void back(){
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPref.edit();
+        edit.putBoolean(getString(R.string.user) + "_did_vitals", true);
+        edit.commit();
+
         Intent intent = new Intent(this, RecordsTableActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

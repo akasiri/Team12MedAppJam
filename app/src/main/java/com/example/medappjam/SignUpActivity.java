@@ -91,7 +91,8 @@ public class SignUpActivity extends AppCompatActivity {
                     promptProvider.show(this.getFragmentManager(), "alert delete");
                     // the prompt will take you to the next activity
 
-                    // TODO set the starting date of previous login
+                    // set the starting date of previous login
+                    db.addDate(username.getText().toString(), new InputDate(Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1, Calendar.getInstance().get(Calendar.YEAR)));
                 }
 
 
