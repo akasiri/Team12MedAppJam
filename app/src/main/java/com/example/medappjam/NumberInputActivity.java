@@ -152,8 +152,10 @@ public class NumberInputActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(!checkForAlert(lines).isEmpty()) {
-            alertProvider(checkForAlert(lines));
+
+        String message = checkForAlert(lines);
+        if(!message.isEmpty()) {
+            alertProvider(message);
         }
         else{
             back();
