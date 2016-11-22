@@ -1,6 +1,8 @@
 package com.example.medappjam;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,7 +42,7 @@ public class RecordsTableActivity extends AppCompatActivity {
      */
     private GoogleApiClient client;
     TextView weight, hr, bp;
-
+    String filename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +97,7 @@ public class RecordsTableActivity extends AppCompatActivity {
     }
 
     public void deleteRecords() throws IOException {
-
-        FileOutputStream fout = openFileOutput("myNumbers.txt", MODE_PRIVATE);
+        FileOutputStream fout = openFileOutput(filename, MODE_PRIVATE);
         fout.write("".getBytes());
         fout.close();
         Toast.makeText(getBaseContext(), "Data Deleted", Toast.LENGTH_LONG).show();
@@ -106,25 +107,24 @@ public class RecordsTableActivity extends AppCompatActivity {
     }
 
     public void readToTable() throws IOException {
-        int count;
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
+        String user = sharedPref.getString("user", "");
         String data;
-
         FileInputStream fin = null;
-        try {fin = openFileInput("myNumbers.txt");}
+        if(!user.isEmpty()){
+            filename = user + ".txt";}
+        else{
+            filename = "myNumbers.txt";
+        }
+        try {fin = openFileInput(filename);}
         catch(FileNotFoundException e) {e.printStackTrace();}
-            try {fin = openFileInput("myNumbers.txt");}
+            try {fin = openFileInput(filename);}
             catch(FileNotFoundException e) {e.printStackTrace();}
 
         InputStreamReader insr = new InputStreamReader(fin);
         BufferedReader bufferedReader = new BufferedReader(insr);
-        StringBuffer strbuff = new StringBuffer();
-        String[] temp = new String[4];
         ArrayList<String[]> lines = new ArrayList<>();
-
-
         int outCount = 0;
-        int subCount = 0;
-        StringBuffer dataStr = new StringBuffer();
         try {
             while ((data = bufferedReader.readLine()) != null) {
                 String linetemp[] = data.split(",");

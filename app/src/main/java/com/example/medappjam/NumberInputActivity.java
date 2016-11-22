@@ -3,6 +3,7 @@ package com.example.medappjam;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -39,6 +40,7 @@ public class NumberInputActivity extends AppCompatActivity {
     private GoogleApiClient client;
     EditText  weight, hr, systolic, diastolic;
     String strDate, strWeight, strHR, strBP;
+    String filename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,14 +98,18 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     public void writeNumbers() throws IOException {
+        SharedPreferences sp = getSharedPreferences("sessionInfo", Context.MODE_PRIVATE);
+        String user = sp.getString("user", "myNumbers");
+
+        filename = user + ".txt";
+        FileOutputStream fout = openFileOutput(filename, MODE_APPEND);
 
         TextView d = (TextView)findViewById(R.id.tvInputDate);
         String  date = d.getText().toString().split(",")[0] + ",";
         strWeight = weight.getText().toString() + ",";
         strHR = hr.getText().toString() + ",";
         strBP = systolic.getText().toString() + "/" + diastolic.getText() + "\n";
-        FileOutputStream fout = openFileOutput("myNumbers.txt", MODE_APPEND);
-
+            filename = user + ".txt";
         fout.write(date.getBytes());
         fout.write(strWeight.getBytes());
         fout.write(strHR.getBytes());
@@ -114,10 +120,14 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     public void readNumbers() {
+        SharedPreferences sp = getSharedPreferences("sessionInfo", Context.MODE_PRIVATE);
+        String user = sp.getString("user", "myNumbers");
+        System.out.println(user);
+        filename = user +".txt";
         String data;
         FileInputStream fin = null;
         try {
-            fin = openFileInput("myNumbers.txt");
+            fin = openFileInput(filename);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
