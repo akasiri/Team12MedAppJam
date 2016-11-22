@@ -21,6 +21,9 @@
         <Preference
             android:title="@string/delete_account"
             android:key="delete_account" />
+        <Preference
+            android:title="@string/delete_records"
+            android:key="delete_records"/>
 
     </PreferenceCategory>
 </PreferenceScreen>

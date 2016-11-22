@@ -29,9 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.List;
+
 
 
 public class RecordsTableActivity extends AppCompatActivity {
@@ -97,6 +95,9 @@ public class RecordsTableActivity extends AppCompatActivity {
     }
 
     public void deleteRecords() throws IOException {
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
+        String user = sharedPref.getString(getString(R.string.user), "");
+        filename = user +".txt";
         FileOutputStream fout = openFileOutput(filename, MODE_PRIVATE);
         fout.write("".getBytes());
         fout.close();
@@ -108,19 +109,19 @@ public class RecordsTableActivity extends AppCompatActivity {
 
     public void readToTable() throws IOException {
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
-        String user = sharedPref.getString(getString(R.string.user),"");
+        String user = sharedPref.getString(getString(R.string.user), "");
         String data;
         FileInputStream fin = null;
-        if(!user.isEmpty()){
-            filename = user + ".txt";}
-        else{
+        if (!user.isEmpty()) {
+            filename = user + ".txt";
+        } else {
             filename = "myNumbers.txt";
         }
-        try {fin = openFileInput(filename);}
-        catch(FileNotFoundException e) {e.printStackTrace();}
-            try {fin = openFileInput(filename);}
-            catch(FileNotFoundException e) {e.printStackTrace();}
-
+        try {
+            fin = openFileInput(filename);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         InputStreamReader insr = new InputStreamReader(fin);
         BufferedReader bufferedReader = new BufferedReader(insr);
         ArrayList<String[]> lines = new ArrayList<>();
@@ -131,77 +132,77 @@ public class RecordsTableActivity extends AppCompatActivity {
                 lines.add(outCount, linetemp);
                 outCount++;
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        catch(IOException e)
-        {e.printStackTrace();}
         int length = showAverages(lines);
         TableLayout tl = (TableLayout) findViewById(R.id.mainTable);
         addTableHeader(tl);
         addTableBody(tl, lines);
-}
+    }
 
-    public int showAverages(ArrayList<String[]> lines){
-        TextView AveWeight = (TextView)findViewById(R.id.tvAveWeight);
-        TextView AveHR = (TextView)findViewById(R.id.tvAveHR);
-        TextView AveBP = (TextView)findViewById(R.id.tvAveBP);
+    public int showAverages(ArrayList<String[]> lines) {
+        TextView AveWeight = (TextView) findViewById(R.id.tvAveWeight);
+        TextView AveHR = (TextView) findViewById(R.id.tvAveHR);
+        TextView AveBP = (TextView) findViewById(R.id.tvAveBP);
         int wlength = 0;
         int hlength = 0;
         int slength = 0;
-        int dlength=0;
+        int dlength = 0;
         int i = 0;
         float weightCount = 0;
         int systolicCount = 0;
         int diastolicCount = 0;
         int hrCount = 0;
-            while (i < lines.size() && i < 30) {
-                if (lines.get(i) != null) {
-                    String[] temp = lines.get(lines.size() - (i + 1));
-                    if (!temp[1].isEmpty() && !temp[1].contains("-")) {
-                        weightCount += Float.parseFloat(temp[1]);
-                        wlength++;
+        while (i < lines.size() && i < 30) {
+            if (lines.get(i) != null) {
+                String[] temp = lines.get(lines.size() - (i + 1));
+                if (!temp[1].isEmpty() && !temp[1].contains("-")) {
+                    weightCount += Float.parseFloat(temp[1]);
+                    wlength++;
+                }
+                if (!temp[2].isEmpty()) {
+                    hrCount += Integer.parseInt(temp[2].split(" ")[0]);
+                    hlength++;
+                }
+                int index = temp[3].indexOf("/");
+                if (temp[3].length() > 2) {
+                    if (!temp[3].substring(0, index).isEmpty()) {
+                        systolicCount += Integer.parseInt(temp[3].substring(0, index));
+                        slength++;
                     }
-                    if (!temp[2].isEmpty()) {
-                        hrCount += Integer.parseInt(temp[2].split(" ")[0]);
-                        hlength++;
-                    }
-                    int index = temp[3].indexOf("/");
-                    if (temp[3].length() > 2) {
-                        if (!temp[3].substring(0, index).isEmpty()) {
-                            systolicCount += Integer.parseInt(temp[3].substring(0, index));
-                            slength++;
-                        }
-                        if (!temp[3].substring(index + 1).isEmpty()) {
-                            diastolicCount += Integer.parseInt(temp[3].substring(index + 1));
-                            dlength++;
-                        }
+                    if (!temp[3].substring(index + 1).isEmpty()) {
+                        diastolicCount += Integer.parseInt(temp[3].substring(index + 1));
+                        dlength++;
                     }
                 }
-                i++;
             }
-        if(wlength != 0) {
-            AveWeight.setText(String.format("%5.1f", weightCount / wlength));}
-        if(hlength != 0) {
+            i++;
+        }
+        if (wlength != 0) {
+            AveWeight.setText(String.format("%5.1f", weightCount / wlength));
+        }
+        if (hlength != 0) {
             AveHR.setText(String.format("%d", hrCount / hlength));
         }
-        if(dlength != 0 && slength != 0) {
+        if (dlength != 0 && slength != 0) {
             AveBP.setText(String.format("%d/%d", (systolicCount / slength), (diastolicCount / dlength)));
         }
 
         return wlength;
     }
 
-    public void backClick(View view){
+    public void backClick(View view) {
         Intent intent = new Intent(this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
-    public void deleteClick(View view){
+    public void deleteClick(View view) {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                switch (which){
+                switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         try {
                             deleteRecords();
@@ -222,7 +223,7 @@ public class RecordsTableActivity extends AppCompatActivity {
                 .setNegativeButton("No", dialogClickListener).show();
     }
 
-    public void addTableHeader(TableLayout tl){
+    public void addTableHeader(TableLayout tl) {
         tl.setBackgroundColor(Color.WHITE);
 
         TableRow tr_head = new TableRow(this);
@@ -239,7 +240,7 @@ public class RecordsTableActivity extends AppCompatActivity {
         label_date.setText("Date");
         label_date.setTextColor(Color.WHITE);
         label_date.setTextSize(headerTextSize);
-        label_date.setPadding(10,10,10,10);
+        label_date.setPadding(10, 10, 10, 10);
         tr_head.addView(label_date);// add the column to the table row here
 
         TextView label_weight = new TextView(this);
@@ -248,7 +249,7 @@ public class RecordsTableActivity extends AppCompatActivity {
         // label_weight.setId(22);// define id that must be unique
         label_weight.setText("Weight"); // set the text for the header
         label_weight.setTextColor(Color.WHITE); // set the color
-        label_weight.setPadding(10,10,10,10); // set the padding (if required)
+        label_weight.setPadding(10, 10, 10, 10); // set the padding (if required)
         label_weight.setTextSize(headerTextSize);
         tr_head.addView(label_weight); // add the column to the table row here
 
@@ -259,7 +260,7 @@ public class RecordsTableActivity extends AppCompatActivity {
         //  label_bp.setId(23);// define id that must be unique
         label_hr.setText("HR"); // set the text for the header
         label_hr.setTextColor(Color.WHITE); // set the color
-        label_hr.setPadding(10,10,10,10); // set the padding (if required)
+        label_hr.setPadding(10, 10, 10, 10); // set the padding (if required)
         label_hr.setTextSize(headerTextSize);
         tr_head.addView(label_hr); // add the column to the table ro
 
@@ -270,47 +271,43 @@ public class RecordsTableActivity extends AppCompatActivity {
         //   label_hr.setId(24);// define id that must be unique
         label_bp.setText("BP"); // set the text for the header
         label_bp.setTextColor(Color.WHITE); // set the color
-        label_bp.setPadding(10,10,10,10); // set the padding (if required)
+        label_bp.setPadding(10, 10, 10, 10); // set the padding (if required)
         label_bp.setTextSize(headerTextSize);
         tr_head.addView(label_bp); // add the column to the table ro
 
 
-        tl.addView(tr_head,new TableLayout.LayoutParams(
+        tl.addView(tr_head, new TableLayout.LayoutParams(
                 TableLayout.LayoutParams.WRAP_CONTENT,
                 TableLayout.LayoutParams.WRAP_CONTENT
         ));
     }
 
-    public void addTableBody(TableLayout tl, ArrayList<String[]> lines){
+    public void addTableBody(TableLayout tl, ArrayList<String[]> lines) {
         String weight, date, hr, bp;
-        int count=0;
+        int count = 0;
         int length = lines.size();
-        while(count<length) {
+        while (count < length) {
             if (lines.size() > count) {
                 String[] temp2 = lines.get(length - (count + 1));
                 if (!temp2[0].isEmpty()) {
                     date = temp2[0];
-                }
-                else{
+                } else {
                     date = "";
                 }
                 if (!temp2[1].isEmpty()) {
                     weight = temp2[1];
                     System.out.println(weight);
-                }
-                else{
+                } else {
                     weight = "";
                 }
                 if (!temp2[2].isEmpty()) {
                     bp = temp2[2];
-                }
-                else{
+                } else {
                     bp = "";
                 }
                 if (!temp2[2].isEmpty()) {
                     hr = temp2[3];
-                }
-                else{
+                } else {
                     hr = "";
                 }
 
@@ -368,4 +365,38 @@ public class RecordsTableActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NumberInputActivity.class);
         startActivity(intent);
     }
+
+//    public void editToday() throws IOException {
+//        String user;
+//        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
+//        user = sharedPref.getString(getString(R.string.user), "");
+//        String data;
+//        filename = user + ".txt";
+//        FileOutputStream fout = openFileOutput(filename, MODE_APPEND);
+//        FileInputStream fin = null;
+//        try {
+//            fin = openFileInput(filename);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        fin.close();
+//        InputStreamReader insr = new InputStreamReader(fin);
+//        BufferedReader bufferedReader = new BufferedReader(insr);
+//        ArrayList<String> lines = new ArrayList<>();
+//        int outCount = 0;
+//        try{
+//            while ((data = bufferedReader.readLine()) != null) {
+//                lines.add(outCount, data);
+//                outCount++;
+//            }}catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        int k=0;
+//        while(k < lines.size()-1) {
+//            fout.write(lines.get(k).getBytes());
+//            fout.close();
+//            k++;
+//        }
+//    }
+
 }

@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -151,7 +152,12 @@ public class NumberInputActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        alertProvider(checkForAlert(lines));
+        if(!checkForAlert(lines).isEmpty()) {
+            alertProvider(checkForAlert(lines));
+        }
+        else{
+            back();
+        }
     }
 
     public String checkWeightAlert(ArrayList<String[]> lines){
@@ -163,7 +169,7 @@ public class NumberInputActivity extends AppCompatActivity {
                 if (lines.size() >= 2) {
                     int wthreshday;
                     if (!lines.get(lines.size() - 2)[1].isEmpty() && !lines.get(lines.size() - 2)[1].equals("0-806")) {
-                        wthreshday = Integer.parseInt(lines.get(lines.size() - 2)[1]) + 3;
+                        wthreshday = Integer.parseInt(lines.get(lines.size() - 2)[1]);
                     } else {
                         wthreshday = cw;
                     }
@@ -191,7 +197,7 @@ public class NumberInputActivity extends AppCompatActivity {
                         }
                         j++;
                     }
-                    if (cw >= wthreshday) {
+                    if (cw >= wthreshday + 3) {
                         strbuffer.append("Weight gain is over 3 pounds since yesterday.\n");
                     }
                     if (cw > highWeight + 5) {
@@ -224,7 +230,7 @@ public class NumberInputActivity extends AppCompatActivity {
 
     public String checkForAlert(ArrayList<String[]> lines) {
         StringBuffer strbuffer = new StringBuffer();
-        int chr, dia, sys;
+        int dia, sys;
         String message = "";
 
 
@@ -289,7 +295,6 @@ public class NumberInputActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         readNumbers();
-
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
