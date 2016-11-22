@@ -69,8 +69,8 @@ public class NumberInputActivity extends AppCompatActivity {
      */
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
-                .setName("myNumbers") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
+                .setName("myNumbers") // Define a title for the content shown.
+                // Make sure this auto-generated URL is correct.
                 .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
                 .build();
         return new Action.Builder(Action.TYPE_VIEW)

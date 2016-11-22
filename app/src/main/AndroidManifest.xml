@@ -23,6 +23,7 @@
         <activity android:name=".NumberInputActivity"></activity>
         <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".HowYouFeelActivity"></activity>
 
         <meta-data android:name="com.google.android.gms.version" />
 

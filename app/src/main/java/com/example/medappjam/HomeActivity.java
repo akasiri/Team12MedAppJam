@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -22,7 +23,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.Calendar;
 
-
+/*
+ * SHUOLD NOT BE ABLE TO ENTER HOME ACTIVITY WITHOUT LOGGING IN FIRST
+ */
 public class HomeActivity extends AppCompatActivity {
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -45,15 +48,17 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_logout:
-                startActivity(new Intent(this, LoginActivity.class));
+//                startActivity(new Intent(this, LoginActivity.class));
+                logout(new View(this));
                 return true;
 
-            case R.id.action_about:
-                startActivity(new Intent(this, About.class));
-                return true;
+//            case R.id.action_about:
+//                startActivity(new Intent(this, About.class));
+//                return true;
 
             case R.id.action_setting:
-                startActivity(new Intent(this, SettingsActivity.class));
+//                startActivity(new Intent(this, SettingsActivity.class));
+                settingsScreen(new View(this));
                 return true;
         }
 
@@ -66,6 +71,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
+        String username = sharedPref.getString(getString(R.string.user), "");
+
+        TextView greeting = (TextView) findViewById(R.id.home_greeting);
+        greeting.setText(getString(R.string.home_activity_greeting) + " " + username);
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -76,35 +86,56 @@ public class HomeActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        // TODO if this is the first time resuming (includes loading up?) this activity today, switch to the "how do you feel?" activity
-        // need to keep a file storing the last time the activity was created?
-
-        //set visibility of buttons depending on whether the user is logged in or not
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
-        if(sharedPref.getBoolean(getString(R.string.isLoggedIn), false)) {
-            // User is logged in, now check to see if its the first time resuming in today
 
-//            Calendar currentCalendar = Calendar.getInstance();
-//            Calendar fileCalendar = Calendar.getInstance();
-//
-//                sharedPref.getS
-//
-//                fileCalendar.setTime(date2);
-//                boolean sameDay = currentCalendar.get(Calendar.YEAR) == fileCalendar.get(Calendar.YEAR) &&
-//                        currentCalendar.get(Calendar.DAY_OF_YEAR) == fileCalendar.get(Calendar.DAY_OF_YEAR);
-//
-//
-//            Button button = (Button) findViewById(R.id.button2);
-//            button.setText("");
+        // if logged in...
+        if(sharedPref.getBoolean(getString(R.string.isLoggedIn), false)) {
+           String username = sharedPref.getString(getString(R.string.user), "");
+
+            // TODO replace sharedPref right here with database
+            int prevDate = sharedPref.getInt(getString(R.string.user) +"_day", -1);
+
+            Calendar calendar = Calendar.getInstance();
+            int currentDate = calendar.get(Calendar.DAY_OF_YEAR);
+
+            // TODO assumes that the calendar will never move back. If a date becomes smaller that is only because it looped.
+            // TODO causes bug where if they user opens the app a year later on the same day, it will not prompt for vitals. (Can be resolved by also keeping track of previous year)
+
+            // if not the first time running today...
+            if (currentDate != prevDate) {
+                SharedPreferences.Editor edit = sharedPref.edit();
+                edit.putBoolean(username + "_did_feel", false);
+                edit.putBoolean(username + "_did_vitals", false);
+                edit.putInt(username + "_day", currentDate);
+                edit.commit();
+            }
+            else {
+                // use while loops here to make sure you don't load vitals before feeling is done
+                while (sharedPref.getBoolean(username + "_did_feel", false)) {
+
+                    Button button = (Button) findViewById(R.id.button1);
+                    button.setText("ugghhh");
+
+                    Intent feelingIntent = new Intent(this, HowYouFeelActivity.class);
+                    startActivity(feelingIntent);
+                }
+                while (sharedPref.getBoolean(username + "_did_vitals", false)) {
+                    Intent feelingIntent = new Intent(this, NumberInputActivity.class);
+                    startActivity(feelingIntent);
+                }
+            }
         }
         else {
 
             // user is not logged in, should redirect to login screen
 
-            Button logoutButton = (Button) findViewById(R.id.button5);
-            logoutButton.setVisibility(View.GONE);
-        }
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
 
+            super.finish();
+            finish();
+
+        }
     }
 
     public void launchLogin(View view) {
@@ -132,7 +163,8 @@ public class HomeActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
         sharedPref.edit().clear().commit();
 
-        this.deleteDatabase("patientProviderInfo");
+        // for debug database purging
+//        this.deleteDatabase("patientProviderInfo");
 
         onResume();
         /**
@@ -176,8 +208,6 @@ public class HomeActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
-
-
     }
 }
 

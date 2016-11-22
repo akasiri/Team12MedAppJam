@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -89,6 +90,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                     promptProvider.show(this.getFragmentManager(), "alert delete");
                     // the prompt will take you to the next activity
+
+                    // TODO set the starting date of previous login
                 }
 
 

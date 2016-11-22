@@ -47,7 +47,7 @@ public class MyProvidersActivity extends AppCompatActivity {
             LinearLayout container =(LinearLayout) findViewById(R.id.providers_container);
             for(int i = 0; i < providers.size(); i++) {
                 TextView providerName = new TextView(this);
-                // TODO get provider name from database
+                // get provider name from database
                 providerName.setText(providers.get(i).getName());
 
                 LinearLayout phonenumberContainer = new LinearLayout(this);
@@ -56,7 +56,7 @@ public class MyProvidersActivity extends AppCompatActivity {
                 TextView phonenumPrompt = new TextView(this);
                 phonenumPrompt.setText("Phone Number: ");
                 TextView phonenumber = new TextView(this);
-                // TODO get provider number from database
+                // get provider number from database
                 phonenumber.setText(providers.get(i).getPhoneNumber());
 
                 phonenumberContainer.addView(phonenumPrompt);
