@@ -101,13 +101,10 @@ public class HomeActivity extends AppCompatActivity {
 
             // user is not logged in, should redirect to login screen
 
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-
-            super.finish();
-            finish();
-
+            Button logoutButton = (Button) findViewById(R.id.button5);
+            logoutButton.setVisibility(View.GONE);
         }
+
     }
 
     public void launchLogin(View view) {
@@ -134,6 +131,8 @@ public class HomeActivity extends AppCompatActivity {
     public void logout(View view) {
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
         sharedPref.edit().clear().commit();
+
+        this.deleteDatabase("patientProviderInfo");
 
         onResume();
         /**
@@ -177,6 +176,8 @@ public class HomeActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+
+
     }
 }
 

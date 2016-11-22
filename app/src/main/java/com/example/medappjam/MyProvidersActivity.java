@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MyProvidersActivity extends AppCompatActivity {
     private Button mAddProvider;
 
@@ -30,31 +32,42 @@ public class MyProvidersActivity extends AppCompatActivity {
             }
         });
 
+        //Get list of providers
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
+        String username = sharedPref.getString(getString(R.string.user), "");
+        DatabaseHandler db = new DatabaseHandler(this);
+        ArrayList<Provider> providers = db.getAllProviders(username);
+
         // auto generate providers
-        LinearLayout container =(LinearLayout) findViewById(R.id.providers_container);
-        for(int i = 0; i < 5; i++) {
-            TextView providerName = new TextView(this);
-            // TODO get provider name from database
-            providerName.setText("Provider "+i);
+        if(providers.isEmpty()) {
+            //no providers yet. add provider.
+            Log.d("myProviders", "no provider yet");
+        }
+        else {
+            LinearLayout container =(LinearLayout) findViewById(R.id.providers_container);
+            for(int i = 0; i < providers.size(); i++) {
+                TextView providerName = new TextView(this);
+                // TODO get provider name from database
+                providerName.setText(providers.get(i).getName());
 
-            LinearLayout phonenumberContainer = new LinearLayout(this);
-            phonenumberContainer.setOrientation(LinearLayout.HORIZONTAL);
+                LinearLayout phonenumberContainer = new LinearLayout(this);
+                phonenumberContainer.setOrientation(LinearLayout.HORIZONTAL);
 
-            TextView phonenumPrompt = new TextView(this);
-            phonenumPrompt.setText("Phone Number: ");
-            TextView phonenumber = new TextView(this);
-            // TODO get provider number from database
-            phonenumber.setText("");
+                TextView phonenumPrompt = new TextView(this);
+                phonenumPrompt.setText("Phone Number: ");
+                TextView phonenumber = new TextView(this);
+                // TODO get provider number from database
+                phonenumber.setText(providers.get(i).getPhoneNumber());
 
-            phonenumberContainer.addView(phonenumPrompt);
-            phonenumberContainer.addView(phonenumber);
+                phonenumberContainer.addView(phonenumPrompt);
+                phonenumberContainer.addView(phonenumber);
 
-            TextView blank = new TextView(this);
+                TextView blank = new TextView(this);
 
-            container.addView(providerName);
-            container.addView(phonenumberContainer);
-            container.addView(blank);
-
+                container.addView(providerName);
+                container.addView(phonenumberContainer);
+                container.addView(blank);
+            }
         }
     }
 

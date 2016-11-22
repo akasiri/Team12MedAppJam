@@ -22,16 +22,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <!--
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/provider_name"/>
+         -->
 
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:text="@string/provider_type"/>-->
 
+        <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:text="111-111-1111"/>
         </LinearLayout>
+        -->
     </LinearLayout>
 
     <Button android:id="@+id/add_provider"

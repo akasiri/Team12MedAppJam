@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_add_provider"
@@ -9,9 +9,20 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.medappjam.AddProviderActivity">
+    tools:context="com.example.medappjam.AddProviderActivity"
+    android:orientation="vertical">
 
-    <EditText android:id="@+id/povider_name_input"
+    <TextView android:id="@+id/prompt_provider_name"
+              android:text="@string/prompt_provider_name"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_alignBottom="@+id/imageView3"
+              android:layout_alignParentLeft="true"
+              android:layout_alignParentStart="true"
+              android:layout_marginLeft="24dp"
+              android:layout_marginStart="24dp" />
+
+    <EditText android:id="@+id/provider_name_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
@@ -33,17 +44,17 @@
         android:layout_marginLeft="22dp"
         android:layout_marginTop="15dp" />
 
-    <EditText android:id="@+id/provider_phonenumber_input"
+    <EditText android:id="@+id/provider_phone_number_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
         android:ems="10"
         android:gravity="center"
         android:layout_marginTop="17dp"
         android:layout_alignTop="@+id/prompt_provider_phonenumber"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="@string/hint_provider_phonenumber" />
+        android:hint="@string/hint_provider_phonenumber"
+        android:inputType="phone"/>
 
     <Button android:id="@+id/button_add_provider"
         android:text="Submit"
@@ -65,15 +76,4 @@
         android:layout_marginTop="5dp" />
      -->
 
-    <TextView android:id="@+id/prompt_provider_name"
-        android:text="@string/prompt_provider_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
-        android:layout_alignBottom="@+id/imageView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp" />
-
-</RelativeLayout>
+</LinearLayout>

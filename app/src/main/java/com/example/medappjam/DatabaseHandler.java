@@ -14,31 +14,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "patientProviderInfo";
 
-    //Patient table: id, username, & password
+    //Patient table: username & password
     private static final String TABLE_PATIENT = "patient";
-    //private static final String PATIENT_ID = "id";
     private static final String PATIENT_USERNAME = "username";
     private static final String PATIENT_PASSWORD = "password";
 
-    //Provider table: id, name, & phoneNumber
+    //Provider table: name & phoneNumber
     private static final String TABLE_PROVIDER = "provider";
-    //private static final String PROVIDER_ID = "id";
     private static final String PROVIDER_NAME = "name";
     private static final String PROVIDER_PHONE = "phoneNumber";
 
-    //Patient to provider relationship table: patientId & providerId
-    private static final String TABLE_PATIENT_PROVIDER = "patientToProvider";
-    private static final String PAT_ID = "patientId";
-    private static final String PROV_ID = "providerId";
+    //Profiles table: patient username(PATIENT_USERNAME) & condition
+    private static final String TABLE_PROFILE = "condition";
+    private static final String PROFILE = "condition";
 
-    //Profiles table: id & profile
-    private static final String TABLE_PROFILE = "profile";
-    //private static final String PROFILE_ID = "id";
-    private static final String PROFILE = "profile";
-
-    //Patient to profiles relationship table: patientId(PAT_ID) & profileId
-    private static final String TABLE_PATIENT_PROFILE = "patientToProfile";
-    private static final String PROF_ID = "profileId";
 
 
     public DatabaseHandler(Context context) {
@@ -55,94 +44,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + "PRIMARY KEY(" + PATIENT_USERNAME +")"
                 + ");";
 
-        /**
-        String CREATE_PATIENT_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PATIENT + "("
-                + PATIENT_ID + " INTEGER,"
-                + PATIENT_USERNAME + " TEXT,"
-                + PATIENT_PASSWORD + " TEXT,"
-                + "PRIMARY KEY(" + PATIENT_ID + ", " + PATIENT_USERNAME +")"
-                + ");";
-         */
 
         String CREATE_PROVIDER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PROVIDER + "("
-                + PROVIDER_NAME + " TEXT,"
-                + PROVIDER_PHONE + " TEXT"
-                + ");";
-
-        /**
-        String CREATE_PROVIDER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PROVIDER + "("
-                + PROVIDER_ID + " INTEGER,"
                 + PROVIDER_NAME + " TEXT,"
                 + PROVIDER_PHONE + " TEXT,"
-                + "PRIMARY KEY(" + PROVIDER_ID + ")"
-                + ");";
-         */
-
-        String CREATE_PATIENT_PROVIDER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PATIENT_PROVIDER + "("
-                + PAT_ID + " INTEGER,"
-                + PROV_ID + " INTEGER,"
-                + "PRIMARY KEY(" + PAT_ID + ", " + PROV_ID + "),"
-                + "FOREIGN KEY(" + PAT_ID + ") REFERENCES " + TABLE_PATIENT + "(ROWID),"
-                + "FOREIGN KEY(" + PROV_ID + ") REFERENCES " + TABLE_PROVIDER + "(ROWID)"
+                + PATIENT_USERNAME + " TEXT,"
+                + "FOREIGN KEY(" + PATIENT_USERNAME + ") REFERENCES " + TABLE_PATIENT + "(" + PATIENT_USERNAME + ")"
                 + ");";
 
-        /**
-        String CREATE_PATIENT_PROVIDER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PATIENT_PROVIDER + "("
-                + PAT_ID + " INTEGER,"
-                + PROV_ID + " INTEGER,"
-                + "PRIMARY KEY(" + PAT_ID + ", " + PROV_ID + "),"
-                + "FOREIGN KEY(" + PAT_ID + ") REFERENCES " + TABLE_PATIENT + "(" + PATIENT_ID + "),"
-                + "FOREIGN KEY(" + PROV_ID + ") REFERENCES " + TABLE_PROVIDER + "(" + PROVIDER_ID + ")"
-                + ");";
-         */
 
         String CREATE_PROFILE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PROFILE + "("
-                + PROFILE + " TEXT"
-                + ");";
-
-        /**
-        String CREATE_PROFILE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PROFILE + "("
-                + PROFILE_ID + " INTEGER,"
                 + PROFILE + " TEXT,"
-                + "PRIMARY KEY(" + PROFILE_ID + ")"
-                + ");";
-         */
-
-        String CREATE_PATIENT_PROFILE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PATIENT_PROFILE + "("
-                + PAT_ID + " INTEGER,"
-                + PROF_ID + " INTEGER,"
-                + "PRIMARY KEY(" + PAT_ID + ", " + PROF_ID + "),"
-                + "FOREIGN KEY(" + PAT_ID + ") REFERENCES " + TABLE_PATIENT + "(ROWID),"
-                + "FOREIGN KEY(" + PROF_ID + ") REFERENCES " + TABLE_PROFILE + "(ROWID)"
+                + PATIENT_USERNAME + " TEXT,"
+                + "FOREIGN KEY(" + PATIENT_USERNAME + ") REFERENCES " + TABLE_PATIENT + "(" + PATIENT_USERNAME + ")"
                 + ");";
 
-        /**
-        String CREATE_PATIENT_PROFILE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PATIENT_PROFILE + "("
-                + PAT_ID + " INTEGER,"
-                + PROF_ID + " INTEGER,"
-                + "PRIMARY KEY(" + PAT_ID + ", " + PROF_ID + "),"
-                + "FOREIGN KEY(" + PAT_ID + ") REFERENCES " + TABLE_PATIENT + "(" + PATIENT_ID + "),"
-                + "FOREIGN KEY(" + PROF_ID + ") REFERENCES " + TABLE_PROFILE + "(" + PROFILE_ID + ")"
-                + ");";
-         */
 
         db.execSQL(CREATE_PATIENT_TABLE);
         Log.d("tag", "created patient table");
         db.execSQL(CREATE_PROVIDER_TABLE);
         Log.d("tag", "created provider table");
-        db.execSQL(CREATE_PATIENT_PROVIDER_TABLE);
-        Log.d("tag", "created patient provider table");
         db.execSQL(CREATE_PROFILE_TABLE);
         Log.d("tag", "created profile table");
-        db.execSQL(CREATE_PATIENT_PROFILE_TABLE);
-        Log.d("tag", "created patient profile table");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENT);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROVIDER);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENT_PROVIDER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILE);
         onCreate(db);
     }
@@ -156,7 +85,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        //values.put(PATIENT_ID, patient.getPatientId());
         values.put(PATIENT_USERNAME, patient.getUsername());
         values.put(PATIENT_PASSWORD, patient.getPassword());
 
@@ -187,7 +115,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return patient;
         }
         else {
-            Log.d("databaseHandler", "couldn't find patient");
             return null;
         }
     }
@@ -234,30 +161,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return db.delete(TABLE_PATIENT, whereClause, whereArgs);
     }
 
-    public void addProvider(Provider provider) {
+    public void addProvider(Provider provider, String username) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(PROVIDER_NAME, provider.getName());
         values.put(PROVIDER_PHONE, provider.getPhoneNumber());
+        values.put(PATIENT_USERNAME, username);
 
         db.insert(TABLE_PROVIDER, null, values);
         db.close();
     }
 
     //Get all providers of the patient
-    public ArrayList<Provider> getAllProviders(int patientId) {
+    public ArrayList<Provider> getAllProviders(String username) {
         ArrayList<Provider> providers = new ArrayList<>();
 
-        String selectQuery = "SELECT " + PROV_ID + ", " + PROVIDER_NAME + ", " + PROVIDER_PHONE
-                + " FROM " + TABLE_PATIENT_PROVIDER + ", " + TABLE_PROVIDER
-                + " WHERE " + PAT_ID + " = " + patientId;
+        String selectQuery = "SELECT " + PROVIDER_NAME + ", " + PROVIDER_PHONE
+                + " FROM " + TABLE_PROVIDER
+                + " WHERE " + PATIENT_USERNAME + " = ?";
+
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = db.rawQuery(selectQuery, new String[] {username});
 
         if(cursor.moveToFirst()) {
             do{
-                Provider provider = new Provider(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
+                Provider provider = new Provider(cursor.getString(0), cursor.getString(1));
                 providers.add(provider);
             } while(cursor.moveToNext());
         }
@@ -266,13 +195,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Delete the provider related to the patient
-    public int deleteProvider(Provider provider, Patient patient) {
+    public int deleteProvider(Provider provider, String username) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String whereClause = PAT_ID + " = ?" + " AND " + PROV_ID + " = ?";
-        String[] whereArgs = {Integer.toString(patient.getPatientId()), Integer.toString(provider.getProviderId())};
+        String whereClause = PATIENT_USERNAME + " = ? AND " + PROVIDER_NAME + " = ? AND " + PROVIDER_PHONE + " = ?";
+        String[] whereArgs = {username, provider.getName(), provider.getPhoneNumber()};
 
-        return db.delete(TABLE_PATIENT_PROVIDER, whereClause, whereArgs);
+        return db.delete(TABLE_PROVIDER, whereClause, whereArgs);
     }
 
 }
