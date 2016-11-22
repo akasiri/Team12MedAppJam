@@ -77,7 +77,8 @@
                 android:layout_height="65dp"
                 android:id="@+id/btnAdd"
                 android:onClick="launchNumbersInput"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="18sp" />
 
             <Button
                 android:text="Back"
@@ -85,7 +86,8 @@
                 android:layout_height="65dp"
                 android:id="@+id/btnRecordsBack"
                 android:onClick="backClick"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="18sp" />
 <!-->
             <Button
                 android:text="Delete Records"

@@ -229,7 +229,6 @@ public class NumberInputActivity extends AppCompatActivity {
 
 
         strbuffer.append(checkWeightAlert(lines));
-        strbuffer.append(checkHR(lines));
 
         if (!diastolic.getText().toString().isEmpty() && !systolic.getText().toString().isEmpty()) {
             dia = Integer.parseInt(diastolic.getText().toString());
@@ -239,9 +238,8 @@ public class NumberInputActivity extends AppCompatActivity {
             } else if (sys > 160 || dia > 90) {
                 strbuffer.append("Blood pressure is dangerously high.\n");
             }
-        } else {
-            back();
         }
+        strbuffer.append(checkHR(lines));
         message = strbuffer.toString();
 
         try {
@@ -252,11 +250,23 @@ public class NumberInputActivity extends AppCompatActivity {
         return message;
     }
 
-
-
     public void alertProvider(String message){
         if(!message.isEmpty()){
-            System.out.println(message);
+            new AlertDialog.Builder(this)
+                    .setTitle("Please contact health services!")
+                    .setMessage(message)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            back();
+
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .create()
+                    .show();
+        }
+        else{
         }
 
     }
@@ -270,7 +280,7 @@ public class NumberInputActivity extends AppCompatActivity {
         String systolic = sET.getText().toString();
         EditText dET = (EditText)findViewById(R.id.etInputDiastolic);
         String diastolic = dET.getText().toString();
-        final String message = "Weight: "+  weight +"\nHeart Rate: " + hr + "\nBlood Pressure: " + systolic + "/" + diastolic;
+        final String message = "Weight: "+  weight + "\nBlood Pressure: " + systolic + "/" + diastolic +"\nHeart Rate: " + hr;
 
         new AlertDialog.Builder(this)
                 .setTitle("Is the input correct?")
@@ -293,7 +303,7 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     public void back(){
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, RecordsTableActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
