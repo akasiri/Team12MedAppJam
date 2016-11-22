@@ -68,4 +68,5 @@
     <string name="About">About</string>
     <string name="Settings">Settings</string>
 
+    <string name="home_activity_greeting">Hello,</string>
 </resources>

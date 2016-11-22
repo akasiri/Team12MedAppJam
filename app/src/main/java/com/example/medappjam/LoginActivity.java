@@ -38,6 +38,9 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("login", "logged in!");
 
                 //return to homepage
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+
                 finish();
             }
             else {
@@ -59,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
 
 
-        // TODO should we be calling finish()?
+        // this is now handled above.
         super.finish();
         finish();
         // }
@@ -74,9 +77,9 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
 
-        // TODO should we be calling finish()?
-        super.finish();
-        finish();
+        // TODO should we be calling finish()? I don't think we should here should be able to come back from signup
+//        super.finish();
+//        finish();
     }
 
 
