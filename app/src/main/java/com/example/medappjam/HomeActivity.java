@@ -90,7 +90,40 @@ public class HomeActivity extends AppCompatActivity {
 
         // if logged in...
         if(sharedPref.getBoolean(getString(R.string.isLoggedIn), false)) {
+           String username = sharedPref.getString(getString(R.string.user), "");
 
+            // TODO replace sharedPref right here with database
+            int prevDate = sharedPref.getInt(getString(R.string.user) +"_day", -1);
+
+            Calendar calendar = Calendar.getInstance();
+            int currentDate = calendar.get(Calendar.DAY_OF_YEAR);
+
+            // TODO assumes that the calendar will never move back. If a date becomes smaller that is only because it looped.
+            // TODO causes bug where if they user opens the app a year later on the same day, it will not prompt for vitals. (Can be resolved by also keeping track of previous year)
+
+            // if not the first time running today...
+            if (currentDate != prevDate) {
+                SharedPreferences.Editor edit = sharedPref.edit();
+                edit.putBoolean(username + "_did_feel", false);
+                edit.putBoolean(username + "_did_vitals", false);
+                edit.putInt(username + "_day", currentDate);
+                edit.commit();
+            }
+            else {
+                // use while loops here to make sure you don't load vitals before feeling is done
+                while (sharedPref.getBoolean(username + "_did_feel", false)) {
+
+                    Button button = (Button) findViewById(R.id.button1);
+                    button.setText("ugghhh");
+
+                    Intent feelingIntent = new Intent(this, HowYouFeelActivity.class);
+                    startActivity(feelingIntent);
+                }
+                while (sharedPref.getBoolean(username + "_did_vitals", false)) {
+                    Intent feelingIntent = new Intent(this, NumberInputActivity.class);
+                    startActivity(feelingIntent);
+                }
+            }
         }
         else {
 

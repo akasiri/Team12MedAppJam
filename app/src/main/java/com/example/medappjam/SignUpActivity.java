@@ -90,6 +90,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                     promptProvider.show(this.getFragmentManager(), "alert delete");
                     // the prompt will take you to the next activity
+
+                    // TODO set the starting date of previous login
                 }
 
 
