@@ -133,11 +133,6 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void launchNumbersInput(View view) {
-        Intent intent = new Intent(this, NumberInputActivity.class);
-        startActivity(intent);
-    }
-
     public void settingsScreen(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);

@@ -363,4 +363,9 @@ public class RecordsTableActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void launchNumbersInput(View view) {
+        Intent intent = new Intent(this, NumberInputActivity.class);
+        startActivity(intent);
+    }
 }

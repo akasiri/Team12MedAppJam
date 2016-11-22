@@ -38,34 +38,23 @@
 
         <Button
             android:text="Login"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="launchLogin"
             android:id="@+id/button1"
             android:layout_above="@+id/button4"
             android:layout_alignLeft="@+id/button4"
-            android:layout_alignStart="@+id/button4" />
-
-        <Button
-            android:text="myNumbers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="launchNumbersInput"
-            android:id="@+id/button2"
-            tools:visibility="visible"
-            android:layout_above="@+id/recordsTable"
-            android:layout_alignLeft="@+id/recordsTable"
-            android:layout_alignStart="@+id/recordsTable" />
+            android:layout_alignStart="@+id/button4"
+            android:layout_width="130dp" />
 
         <Button
             android:text="MyProviders"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:onClick="myProvidersScreen"
             android:id="@+id/button3" />
 
         <Button
-                android:text="myRecords"
+                android:text="myNumbers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="launchRecordsTable"
@@ -75,7 +64,7 @@
 
         <Button
                 android:text="LOG OUT!"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/button5"
                 android:layout_alignParentBottom="true"
