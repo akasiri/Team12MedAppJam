@@ -15,6 +15,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private Button mCancel;
     private EditText mCurrentPassword;
     private EditText mNewPassword;
+    private EditText mNewPasswordRetyped;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
         mCurrentPassword = (EditText) findViewById(R.id.current_password);
         mNewPassword = (EditText) findViewById(R.id.new_password);
+        mNewPasswordRetyped = (EditText) findViewById(R.id.new_password_retyped);
 
         mSubmit = (Button) findViewById(R.id.submit_password_change);
         mSubmit.setOnClickListener(new Button.OnClickListener() {
@@ -42,25 +44,35 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 DatabaseHandler db = new DatabaseHandler(getApplicationContext());
                 Patient patient = db.getPatient(username);
 
-                if(mCurrentPassword.getText().toString().equals(patient.getPassword())) {
-                    patient.setPassword(mNewPassword.getText().toString());
-                    db.updatePatient(patient);
+                if(mNewPassword.getText().toString().equals(mNewPasswordRetyped.getText().toString())) {
+                    if(mCurrentPassword.getText().toString().equals(patient.getPassword())) {
+                        patient.setPassword(mNewPassword.getText().toString());
+                        db.updatePatient(patient);
 
-                    Context context = getApplicationContext();
-                    CharSequence text = "Updated password!";
-                    int duration = Toast.LENGTH_SHORT;
+                        Context context = getApplicationContext();
+                        CharSequence text = "Updated password!";
+                        int duration = Toast.LENGTH_SHORT;
 
-                    Toast.makeText(context, text, duration).show();
+                        Toast.makeText(context, text, duration).show();
 
-                    finish();
+                        finish();
+                    }
+                    else {
+                        Context context = getApplicationContext();
+                        CharSequence text = "Incorrect password. Please try again.";
+                        int duration = Toast.LENGTH_LONG;
+
+                        Toast.makeText(context, text, duration).show();
+                    }
                 }
                 else {
                     Context context = getApplicationContext();
-                    CharSequence text = "Incorrect password. Please try again.";
+                    CharSequence text = "New password and retyped password do not match. Please try again.";
                     int duration = Toast.LENGTH_LONG;
 
                     Toast.makeText(context, text, duration).show();
                 }
+
             }
         });
     }
