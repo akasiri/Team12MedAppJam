@@ -256,7 +256,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(DAY, date.getDay());
         values.put(YEAR, date.getYear());
-        values.put(PATIENT_USERNAME, username);
 
         String whereClause = PATIENT_USERNAME + " = ?";
         String[] whereArgs = {username};
