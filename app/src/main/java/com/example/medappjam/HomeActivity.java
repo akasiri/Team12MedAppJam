@@ -108,10 +108,6 @@ public class HomeActivity extends AppCompatActivity {
 
             // if not the first time running today...
             if (prevDate != null && prevDate.getDay() != currentDate.getDay() /*&& prevDate.getYear() == currentDate.getYear()*/) {
-
-                TextView greeting = (TextView) findViewById(R.id.home_greeting);
-                greeting.setText(Integer.toString(prevDate.getDay()) + Integer.toString(currentDate.getDay()));
-
                 SharedPreferences.Editor edit = sharedPref.edit();
                 edit.putBoolean(getString(R.string.user) + "_did_feel", false);
                 edit.putBoolean(getString(R.string.user) + "_did_vitals", false);

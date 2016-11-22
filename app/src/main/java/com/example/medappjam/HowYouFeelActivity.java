@@ -77,7 +77,7 @@ public class HowYouFeelActivity extends AppCompatActivity {
 
     public void buttonDone(View view) {
 
-        Toast.makeText(this, "In done", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "In done", Toast.LENGTH_SHORT).show();
 
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sharedPref.edit();
