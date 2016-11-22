@@ -20,6 +20,8 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.util.Calendar;
+
 
 public class HomeActivity extends AppCompatActivity {
     /**
@@ -80,48 +82,33 @@ public class HomeActivity extends AppCompatActivity {
         //set visibility of buttons depending on whether the user is logged in or not
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
         if(sharedPref.getBoolean(getString(R.string.isLoggedIn), false)) {
-            Button loginButton = (Button) findViewById(R.id.button1);
-            loginButton.setVisibility(View.GONE);
+            // User is logged in, now check to see if its the first time resuming in today
 
-            Button settingsButton = (Button) findViewById(R.id.button4);
-            settingsButton.setVisibility(View.VISIBLE);
-
-            Button logoutButton = (Button) findViewById(R.id.button5);
-            logoutButton.setVisibility(View.VISIBLE);
+//            Calendar currentCalendar = Calendar.getInstance();
+//            Calendar fileCalendar = Calendar.getInstance();
+//
+//                sharedPref.getS
+//
+//                fileCalendar.setTime(date2);
+//                boolean sameDay = currentCalendar.get(Calendar.YEAR) == fileCalendar.get(Calendar.YEAR) &&
+//                        currentCalendar.get(Calendar.DAY_OF_YEAR) == fileCalendar.get(Calendar.DAY_OF_YEAR);
+//
+//
+//            Button button = (Button) findViewById(R.id.button2);
+//            button.setText("");
         }
         else {
-            Button loginButton = (Button) findViewById(R.id.button1);
-            loginButton.setVisibility(View.VISIBLE);
 
-            Button settingsButton = (Button) findViewById(R.id.button4);
-            settingsButton.setVisibility(View.GONE);
+            // user is not logged in, should redirect to login screen
 
-            Button logoutButton = (Button) findViewById(R.id.button5);
-            logoutButton.setVisibility(View.GONE);
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+
+            super.finish();
+            finish();
+
         }
     }
-
-
-//        Button fab = (Button) findViewById(R.id.btnRecordsTable);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                launchRecordsTable(view);
-//
-//            }
-//
-//
-//        });
-//
-//        Button btnNumbersInput = (Button) findViewById(R.id.btnNumbersInput);
-//        btnNumbersInput.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                launchNumbersInput(view);
-//            }
-//
-//
-//        });
 
     public void launchLogin(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
