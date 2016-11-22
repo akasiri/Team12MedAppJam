@@ -13,4 +13,5 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 .commit();
 
     }
+
 }

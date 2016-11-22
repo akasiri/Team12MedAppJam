@@ -66,21 +66,39 @@
         android:background="@color/white"
         android:gravity="center" >
 
-        <Button
-            android:text="Back"
-            android:layout_width="100dp"
-            android:layout_height="65dp"
-            android:id="@+id/btnRecordsBack"
-            android:onClick="backClick"
-            />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="65dp">
 
-        <Button
-            android:text="Delete Records"
-            android:layout_width="100dp"
-            android:id="@+id/btnDeleteRecords"
-            android:layout_toRightOf="@id/btnRecordsBack"
-            android:layout_height="65dp"
-            android:onClick="deleteClick"/>
+            <Button
+                android:text="ADD"
+                android:layout_width="100dp"
+                android:layout_height="65dp"
+                android:id="@+id/btnAdd"
+                android:onClick="launchNumbersInput"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+
+            <Button
+                android:text="Back"
+                android:layout_width="100dp"
+                android:layout_height="65dp"
+                android:id="@+id/btnRecordsBack"
+                android:onClick="backClick"
+                android:layout_weight="1"
+                android:textSize="18sp" />
+<!-->
+            <Button
+                android:text="Delete Records"
+                android:layout_width="100dp"
+                android:id="@+id/btnDeleteRecords"
+                android:layout_toRightOf="@id/btnRecordsBack"
+                android:layout_height="65dp"
+                android:onClick="deleteClick"
+                android:layout_weight="1" />
+-->
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -116,4 +134,5 @@
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
+
 </RelativeLayout>

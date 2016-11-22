@@ -12,6 +12,7 @@ public class SettingsFragment extends PreferenceFragment {
     private Preference mPreferenceChangePassword;
     private Preference mPreferenceEditProfiles;
     private Preference mPreferenceEditProviderInfo;
+    private Preference mPreferenceDeleteRecords;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,5 +59,16 @@ public class SettingsFragment extends PreferenceFragment {
                 return true;
             }
         });
+        mPreferenceDeleteRecords = (Preference) getPreferenceManager().findPreference("delete_records");
+        mPreferenceDeleteRecords.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent = new Intent(getActivity(), DeleteRecordsActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+
+
     }
 }
