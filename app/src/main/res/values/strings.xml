@@ -18,6 +18,7 @@
     <string name="cancel">Cancel</string>
     <string name="manage_account">Manage Account</string>
     <string name="delete_account">Delete Account</string>
+    <string name="delete_records">Delete Records</string>
     <string name="change_password">Change Password</string>
     <string name="edit_profiles">Add/Remove Profiles</string>
     <string name="select_profiles">Select Profiles</string>
@@ -53,8 +54,8 @@
     <string name="prompt_login_password">Enter your password:</string>
     <string name="warning_incorrect_login_cred">Incorrect Username or Password</string>
 
-    <string name="offer_add_provider">Add Provider</string>
-    <string name="offer_add_provider_message">Sign up successful. Would you like to also add a care provider at this time?</string>
+    <string name="offer_add_provider">Signup Successful.</string>
+    <string name="offer_add_provider_message">Would you like to add a care provider at this time?</string>
     <string name="offer_add_provider_confirm">Yes</string>
     <string name="offer_add_provider_cancel">No</string>
 
@@ -67,5 +68,4 @@
     <string name="About">About</string>
     <string name="Settings">Settings</string>
 
-    <array name="record_data"></array>
 </resources>

@@ -3,10 +3,12 @@ package com.example.medappjam;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,6 +42,7 @@ public class NumberInputActivity extends AppCompatActivity {
     private GoogleApiClient client;
     EditText  weight, hr, systolic, diastolic;
     String strDate, strWeight, strHR, strBP;
+    String filename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,14 +100,19 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     public void writeNumbers() throws IOException {
+        String user;
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
+        user = sharedPref.getString(getString(R.string.user),"");
+
+        filename = user + ".txt";
+        FileOutputStream fout = openFileOutput(filename, MODE_APPEND);
 
         TextView d = (TextView)findViewById(R.id.tvInputDate);
         String  date = d.getText().toString().split(",")[0] + ",";
         strWeight = weight.getText().toString() + ",";
         strHR = hr.getText().toString() + ",";
         strBP = systolic.getText().toString() + "/" + diastolic.getText() + "\n";
-        FileOutputStream fout = openFileOutput("myNumbers.txt", MODE_APPEND);
-
+            filename = user + ".txt";
         fout.write(date.getBytes());
         fout.write(strWeight.getBytes());
         fout.write(strHR.getBytes());
@@ -114,10 +123,14 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     public void readNumbers() {
+        SharedPreferences sp = getSharedPreferences("sessionInfo", Context.MODE_PRIVATE);
+        String user = sp.getString("user", "myNumbers");
+        System.out.println(user);
+        filename = user +".txt";
         String data;
         FileInputStream fin = null;
         try {
-            fin = openFileInput("myNumbers.txt");
+            fin = openFileInput(filename);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -139,29 +152,34 @@ public class NumberInputActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        alertProvider(checkForAlert(lines));
+        if(!checkForAlert(lines).isEmpty()) {
+            alertProvider(checkForAlert(lines));
+        }
+        else{
+            back();
+        }
     }
 
     public String checkWeightAlert(ArrayList<String[]> lines){
-        int cw;
+        float cw;
         StringBuffer strbuffer = new StringBuffer();
         if(lines.size() > 0) {
             if (!weight.getText().toString().isEmpty() && !weight.getText().toString().equals("0-806")) {
-                cw = (Integer.parseInt(weight.getText().toString()));
+                cw = (Float.parseFloat(weight.getText().toString()));
                 if (lines.size() >= 2) {
-                    int wthreshday;
+                    float wthreshday;
                     if (!lines.get(lines.size() - 2)[1].isEmpty() && !lines.get(lines.size() - 2)[1].equals("0-806")) {
-                        wthreshday = Integer.parseInt(lines.get(lines.size() - 2)[1]) + 3;
+                        wthreshday = Float.parseFloat(lines.get(lines.size() - 2)[1]);
                     } else {
                         wthreshday = cw;
                     }
 
                     int j = 0;
-                    int w = 0;
-                    int lowWeight, highWeight;
+                    float w = 0;
+                    float lowWeight, highWeight;
                     highWeight = 0;
                     if (!lines.get(lines.size() - 2)[1].isEmpty() && !lines.get(lines.size() - 2)[1].equals("0-806")) {
-                        lowWeight = Integer.parseInt(lines.get(lines.size() - 2)[1]);
+                        lowWeight = Float.parseFloat(lines.get(lines.size() - 2)[1]);
                     } else {
                         lowWeight = cw + 10;
                     }
@@ -169,7 +187,7 @@ public class NumberInputActivity extends AppCompatActivity {
                         String[] weekWeight = new String[7];
                         if (lines.size() > 5) {
                             if (!lines.get(lines.size() - (3 + j))[1].isEmpty()) {
-                                w = Integer.parseInt(lines.get(lines.size() - (3 + j))[1]);
+                                w = Float.parseFloat(lines.get(lines.size() - (3 + j))[1]);
                             }
                         }
                         if (w > highWeight) {
@@ -179,7 +197,7 @@ public class NumberInputActivity extends AppCompatActivity {
                         }
                         j++;
                     }
-                    if (cw >= wthreshday) {
+                    if (cw >= wthreshday + 3) {
                         strbuffer.append("Weight gain is over 3 pounds since yesterday.\n");
                     }
                     if (cw > highWeight + 5) {
@@ -212,12 +230,11 @@ public class NumberInputActivity extends AppCompatActivity {
 
     public String checkForAlert(ArrayList<String[]> lines) {
         StringBuffer strbuffer = new StringBuffer();
-        int chr, dia, sys;
+        int dia, sys;
         String message = "";
 
 
         strbuffer.append(checkWeightAlert(lines));
-        strbuffer.append(checkHR(lines));
 
         if (!diastolic.getText().toString().isEmpty() && !systolic.getText().toString().isEmpty()) {
             dia = Integer.parseInt(diastolic.getText().toString());
@@ -227,9 +244,8 @@ public class NumberInputActivity extends AppCompatActivity {
             } else if (sys > 160 || dia > 90) {
                 strbuffer.append("Blood pressure is dangerously high.\n");
             }
-        } else {
-            back();
         }
+        strbuffer.append(checkHR(lines));
         message = strbuffer.toString();
 
         try {
@@ -240,11 +256,23 @@ public class NumberInputActivity extends AppCompatActivity {
         return message;
     }
 
-
-
     public void alertProvider(String message){
         if(!message.isEmpty()){
-            System.out.println(message);
+            new AlertDialog.Builder(this)
+                    .setTitle("Please contact health services!")
+                    .setMessage(message)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            back();
+
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .create()
+                    .show();
+        }
+        else{
         }
 
     }
@@ -258,7 +286,7 @@ public class NumberInputActivity extends AppCompatActivity {
         String systolic = sET.getText().toString();
         EditText dET = (EditText)findViewById(R.id.etInputDiastolic);
         String diastolic = dET.getText().toString();
-        final String message = "Weight: "+  weight +"\nHeart Rate: " + hr + "\nBlood Pressure: " + systolic + "/" + diastolic;
+        final String message = "Weight: "+  weight + "\nBlood Pressure: " + systolic + "/" + diastolic +"\nHeart Rate: " + hr;
 
         new AlertDialog.Builder(this)
                 .setTitle("Is the input correct?")
@@ -267,7 +295,6 @@ public class NumberInputActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         readNumbers();
-
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -281,7 +308,7 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     public void back(){
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, RecordsTableActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

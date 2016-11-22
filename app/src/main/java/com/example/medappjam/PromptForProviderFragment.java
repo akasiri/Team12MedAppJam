@@ -18,14 +18,21 @@ public class PromptForProviderFragment extends DialogFragment {
             public void onClick(DialogInterface dialog, int id) {
                 Intent intent = new Intent(getActivity(), AddProviderActivity.class);
                 startActivity(intent);
+
+                getActivity().finish();
             }
         });
         builder.setNegativeButton(R.string.offer_add_provider_cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
                 startActivity(intent);
+
+                getActivity().finish();
             }
         });
+
+        // TODO setCanceledOnTouchOutside(false)
+
         AlertDialog dialog = builder.create();
         return dialog;
     }
