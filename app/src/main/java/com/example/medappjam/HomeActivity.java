@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -93,58 +94,43 @@ public class HomeActivity extends AppCompatActivity {
         if(sharedPref.getBoolean(getString(R.string.isLoggedIn), false)) {
            String username = sharedPref.getString(getString(R.string.user), "");
 
-            // TODO replace sharedPref right here with database
-            //int prevDate = sharedPref.getInt(getString(R.string.user) +"_day", -1);
-
-
             Calendar calendar = Calendar.getInstance();
             int currentDay = calendar.get(Calendar.DAY_OF_YEAR);
             int currentYear = calendar.get(Calendar.YEAR);
 
+            DatabaseHandler db = new DatabaseHandler(this);
+
+            InputDate prevDate = db.getDate(username);
             InputDate currentDate = new InputDate(currentDay, currentYear);
 
-            DatabaseHandler db = new DatabaseHandler(this);
-            InputDate prevDate = db.getDate(username);
-
-
-            if(prevDate != null && prevDate.getDay() == currentDate.getDay() && prevDate.getYear() == currentDate.getYear()) {
-                //already filled out form
-                Log.d("home", "already filled out for today");
-            }
-            else {
-                Log.d("home", "start activity");
-                Intent feelingIntent = new Intent(this, HowYouFeelActivity.class);
-                startActivity(feelingIntent);
-            }
-
-            // TODO assumes that the calendar will never move back. If a date becomes smaller that is only because it looped.
-            // TODO causes bug where if they user opens the app a year later on the same day, it will not prompt for vitals. (Can be resolved by also keeping track of previous year)
+            // assumes that the calendar will never move back. If a date becomes smaller that is only because it looped.
+            // causes bug where if they user opens the app a year later on the same day, it will not prompt for vitals. (Can be resolved by also keeping track of previous year)
 
             // if not the first time running today...
-            /**
-            if (currentDate != prevDate) {
+            if (prevDate != null && prevDate.getDay() != currentDate.getDay() /*&& prevDate.getYear() == currentDate.getYear()*/) {
+
+                TextView greeting = (TextView) findViewById(R.id.home_greeting);
+                greeting.setText(Integer.toString(prevDate.getDay()) + Integer.toString(currentDate.getDay()));
+
                 SharedPreferences.Editor edit = sharedPref.edit();
-                edit.putBoolean(username + "_did_feel", false);
-                edit.putBoolean(username + "_did_vitals", false);
-                edit.putInt(username + "_day", currentDate);
+                edit.putBoolean(getString(R.string.user) + "_did_feel", false);
+                edit.putBoolean(getString(R.string.user) + "_did_vitals", false);
                 edit.commit();
+
+                db.updateDate(username, currentDate);
             }
             else {
-                // use while loops here to make sure you don't load vitals before feeling is done
-                while (sharedPref.getBoolean(username + "_did_feel", false)) {
-
-                    Button button = (Button) findViewById(R.id.button1);
-                    button.setText("ugghhh");
-
-                    Intent feelingIntent = new Intent(this, HowYouFeelActivity.class);
-                    startActivity(feelingIntent);
-                }
-                while (sharedPref.getBoolean(username + "_did_vitals", false)) {
-                    Intent feelingIntent = new Intent(this, NumberInputActivity.class);
-                    startActivity(feelingIntent);
-                }
+                // all good, forms should already be completed for the day
             }
-             */
+
+            // the latter view is seen first since it loads ontop of the first view
+            if (!sharedPref.getBoolean(getString(R.string.user) + "_did_vitals", true)) {
+                startActivity(new Intent(this, NumberInputActivity.class));
+            }
+            if (!sharedPref.getBoolean(getString(R.string.user) + "_did_feel", true)) {
+//                Toast.makeText(this, "Loading Feel", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, HowYouFeelActivity.class));
+            }
         }
         else {
 
@@ -184,7 +170,7 @@ public class HomeActivity extends AppCompatActivity {
         sharedPref.edit().clear().commit();
 
         // for debug database purging
-        //this.deleteDatabase("patientProviderInfo");
+//        this.deleteDatabase("patientProviderInfo");
 
         onResume();
         /**
