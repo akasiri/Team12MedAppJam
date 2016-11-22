@@ -132,9 +132,8 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
 
-            super.finish();
-            finish();
-
+            // we shouldn't finish() here. We want to be able to return once loginng in or signing up is complete
+//            finish();
         }
     }
 
