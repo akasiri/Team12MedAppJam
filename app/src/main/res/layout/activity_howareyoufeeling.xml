@@ -22,94 +22,119 @@
         android:id="@+id/Chest_pain"
         android:text="Chest Pain"
         android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        />
+        <!--
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true" />
+        -->
+
 
     <CheckBox
         android:id="@+id/Dizziness"
         android:text="Dizziness"
         android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/checkBox4"
+        />
+        <!--
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/checkBox4" />
+        -->
+
 
     <CheckBox
         android:id="@+id/Swollen_legs"
         android:text="Swollen Legs"
         android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/checkBox4"
+        android:layout_centerHorizontal="true"
+        />
+        <!--
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/checkBox4"
-        android:layout_centerHorizontal="true" />
+        -->
+
 
     <CheckBox
         android:id="@+id/REALLY_Tired"
         android:text="REALLY Tired"
         android:textSize="20sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/checkBox4"
         android:layout_alignLeft="@+id/checkBox4"
-        android:layout_alignStart="@+id/checkBox4" />
+        android:layout_alignStart="@+id/checkBox4"
+        />
+        <!--
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="20dp"
+        -->
+
 
     <CheckBox
         android:id="@+id/Short_of_Breath"
         android:text="Short of Breath"
         android:textSize="20sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/checkBox2"
         android:layout_alignLeft="@+id/checkBox2"
-        android:layout_alignStart="@+id/checkBox2" />
+        android:layout_alignStart="@+id/checkBox2"
+        />
+        <!--
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="20dp"
+        -->
 
     <CheckBox
         android:id="@+id/Feeling_Good"
         android:text="Feeling Good"
         android:textSize="20sp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button"
         android:layout_alignLeft="@+id/checkBox5"
-        android:layout_alignStart="@+id/checkBox5" />
+        android:layout_alignStart="@+id/checkBox5"
+        />
+        <!--
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="20dp"
+        -->
+
 
 
     <Button
         android:text="DONE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:id="@+id/done_button"
+        />
+        <!--
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="150dp"
         android:layout_marginRight="150dp"
-        android:id="@+id/button"
-        android:onClick="done"/>
+        -->
+
 
 
 </LinearLayout>

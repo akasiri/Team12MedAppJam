@@ -3,6 +3,7 @@ package com.example.medappjam;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -93,15 +94,34 @@ public class HomeActivity extends AppCompatActivity {
            String username = sharedPref.getString(getString(R.string.user), "");
 
             // TODO replace sharedPref right here with database
-            int prevDate = sharedPref.getInt(getString(R.string.user) +"_day", -1);
+            //int prevDate = sharedPref.getInt(getString(R.string.user) +"_day", -1);
+
 
             Calendar calendar = Calendar.getInstance();
-            int currentDate = calendar.get(Calendar.DAY_OF_YEAR);
+            int currentDay = calendar.get(Calendar.DAY_OF_YEAR);
+            int currentYear = calendar.get(Calendar.YEAR);
+
+            InputDate currentDate = new InputDate(currentDay, currentYear);
+
+            DatabaseHandler db = new DatabaseHandler(this);
+            InputDate prevDate = db.getDate(username);
+
+
+            if(prevDate != null && prevDate.getDay() == currentDate.getDay() && prevDate.getYear() == currentDate.getYear()) {
+                //already filled out form
+                Log.d("home", "already filled out for today");
+            }
+            else {
+                Log.d("home", "start activity");
+                Intent feelingIntent = new Intent(this, HowYouFeelActivity.class);
+                startActivity(feelingIntent);
+            }
 
             // TODO assumes that the calendar will never move back. If a date becomes smaller that is only because it looped.
             // TODO causes bug where if they user opens the app a year later on the same day, it will not prompt for vitals. (Can be resolved by also keeping track of previous year)
 
             // if not the first time running today...
+            /**
             if (currentDate != prevDate) {
                 SharedPreferences.Editor edit = sharedPref.edit();
                 edit.putBoolean(username + "_did_feel", false);
@@ -124,6 +144,7 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(feelingIntent);
                 }
             }
+             */
         }
         else {
 
@@ -163,7 +184,7 @@ public class HomeActivity extends AppCompatActivity {
         sharedPref.edit().clear().commit();
 
         // for debug database purging
-//        this.deleteDatabase("patientProviderInfo");
+        //this.deleteDatabase("patientProviderInfo");
 
         onResume();
         /**
