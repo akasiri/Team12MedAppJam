@@ -161,7 +161,7 @@ public class HomeActivity extends AppCompatActivity {
     public void logout(View view) {
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
         sharedPref.edit().clear().commit();
-        
+
         // for debug database purging
 //        this.deleteDatabase("patientProviderInfo");
 
