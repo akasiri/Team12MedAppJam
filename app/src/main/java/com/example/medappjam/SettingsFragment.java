@@ -54,7 +54,7 @@ public class SettingsFragment extends PreferenceFragment {
         mPreferenceEditProviderInfo.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Intent intent = new Intent(getActivity(), EditProviderInfoActivity.class);
+                Intent intent = new Intent(getActivity(), MyProvidersActivity.class);
                 startActivity(intent);
                 return true;
             }

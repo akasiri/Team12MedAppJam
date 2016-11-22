@@ -14,13 +14,14 @@
 
     <TextView android:id="@+id/prompt_provider_name"
               android:text="@string/prompt_provider_name"
+              android:textSize="20sp"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_alignBottom="@+id/imageView3"
               android:layout_alignParentLeft="true"
               android:layout_alignParentStart="true"
               android:layout_marginLeft="24dp"
-              android:layout_marginStart="24dp" />
+              android:layout_marginStart="24dp"/>
 
     <EditText android:id="@+id/provider_name_input"
         android:layout_width="match_parent"
@@ -36,6 +37,7 @@
 
     <TextView android:id="@+id/prompt_provider_phonenumber"
         android:text="@string/prompt_provider_phonenumber"
+        android:textSize="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/povider_name_input"
@@ -58,11 +60,12 @@
 
     <Button android:id="@+id/button_add_provider"
         android:text="Submit"
+        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="50dp"
         android:layout_below="@+id/imageView3"
-        android:layout_centerHorizontal="true" />
+        android:layout_gravity="center"/>
 
 
     <!--
