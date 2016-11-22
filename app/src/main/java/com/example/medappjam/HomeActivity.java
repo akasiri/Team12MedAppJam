@@ -1,13 +1,19 @@
 package com.example.medappjam;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -58,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -69,6 +76,29 @@ public class HomeActivity extends AppCompatActivity {
 
         // TODO if this is the first time resuming (includes loading up?) this activity today, switch to the "how do you feel?" activity
         // need to keep a file storing the last time the activity was created?
+
+        //set visibility of buttons depending on whether the user is logged in or not
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
+        if(sharedPref.getBoolean(getString(R.string.isLoggedIn), false)) {
+            Button loginButton = (Button) findViewById(R.id.button1);
+            loginButton.setVisibility(View.GONE);
+
+            Button settingsButton = (Button) findViewById(R.id.button4);
+            settingsButton.setVisibility(View.VISIBLE);
+
+            Button logoutButton = (Button) findViewById(R.id.button5);
+            logoutButton.setVisibility(View.VISIBLE);
+        }
+        else {
+            Button loginButton = (Button) findViewById(R.id.button1);
+            loginButton.setVisibility(View.VISIBLE);
+
+            Button settingsButton = (Button) findViewById(R.id.button4);
+            settingsButton.setVisibility(View.GONE);
+
+            Button logoutButton = (Button) findViewById(R.id.button5);
+            logoutButton.setVisibility(View.GONE);
+        }
     }
 
 
@@ -116,6 +146,19 @@ public class HomeActivity extends AppCompatActivity {
     public void myProvidersScreen(View view) {
         Intent intent = new Intent(this, MyProvidersActivity.class);
         startActivity(intent);
+    }
+
+
+    public void logout(View view) {
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
+        sharedPref.edit().clear().commit();
+
+        onResume();
+        /**
+         SharedPreferences.Editor editor = sharedPref.edit();
+         editor.clear();
+         editor.commit();
+         */
     }
 
     /**
