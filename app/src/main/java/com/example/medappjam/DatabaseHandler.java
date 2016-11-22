@@ -28,6 +28,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_PROFILE = "condition";
     private static final String PROFILE = "condition";
 
+    //Date table(for filling out "How are you doing today?" form): patient username(PATIENT_USERNAME), day, year
+    private static final String TABLE_INPUT_DATE = "dayOfLastInput";
+    private static final String DAY = "day";
+    private static final String YEAR = "year";
 
 
     public DatabaseHandler(Context context) {
@@ -44,7 +48,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + "PRIMARY KEY(" + PATIENT_USERNAME +")"
                 + ");";
 
-
         String CREATE_PROVIDER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PROVIDER + "("
                 + PROVIDER_NAME + " TEXT,"
                 + PROVIDER_PHONE + " TEXT,"
@@ -52,13 +55,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + "FOREIGN KEY(" + PATIENT_USERNAME + ") REFERENCES " + TABLE_PATIENT + "(" + PATIENT_USERNAME + ")"
                 + ");";
 
-
         String CREATE_PROFILE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_PROFILE + "("
                 + PROFILE + " TEXT,"
                 + PATIENT_USERNAME + " TEXT,"
                 + "FOREIGN KEY(" + PATIENT_USERNAME + ") REFERENCES " + TABLE_PATIENT + "(" + PATIENT_USERNAME + ")"
                 + ");";
 
+        String CREATE_INPUT_DATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_INPUT_DATE + "("
+                + DAY + " INTEGER,"
+                + YEAR + " INTEGER,"
+                + PATIENT_USERNAME + " TEXT,"
+                + "FOREIGN KEY(" + PATIENT_USERNAME + ") REFERENCES " + TABLE_PATIENT + "(" + PATIENT_USERNAME + ")"
+                + ");";
 
         db.execSQL(CREATE_PATIENT_TABLE);
         Log.d("tag", "created patient table");
@@ -66,6 +74,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("tag", "created provider table");
         db.execSQL(CREATE_PROFILE_TABLE);
         Log.d("tag", "created profile table");
+        db.execSQL(CREATE_INPUT_DATE_TABLE);
+        Log.d("databaseHandler", "created all tables");
     }
 
     @Override
@@ -80,6 +90,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onConfigure(SQLiteDatabase db) {
         db.setForeignKeyConstraintsEnabled(true);
     }
+
 
     public void addPatient(Patient patient) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -202,6 +213,55 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String[] whereArgs = {username, provider.getName(), provider.getPhoneNumber()};
 
         return db.delete(TABLE_PROVIDER, whereClause, whereArgs);
+    }
+
+    public void addDate(String username, InputDate date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DAY, date.getDay());
+        values.put(YEAR, date.getYear());
+        values.put(PATIENT_USERNAME, username);
+
+        db.insert(TABLE_INPUT_DATE, null, values);
+        db.close();
+    }
+
+    public InputDate getDate(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                DAY,
+                YEAR,
+                PATIENT_USERNAME
+        };
+
+        String selection = PATIENT_USERNAME + " = ?";
+        String[] selectionArgs = {username};
+
+        Cursor cursor = db.query(TABLE_INPUT_DATE, projection, selection, selectionArgs, null, null, null);
+
+        if(cursor.moveToFirst()) {
+            InputDate date = new InputDate(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)));
+            return date;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public int updateDate(String username, InputDate date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DAY, date.getDay());
+        values.put(YEAR, date.getYear());
+        values.put(PATIENT_USERNAME, username);
+
+        String whereClause = PATIENT_USERNAME + " = ?";
+        String[] whereArgs = {username};
+
+        return db.update(TABLE_INPUT_DATE, values, whereClause, whereArgs);
     }
 
 }
