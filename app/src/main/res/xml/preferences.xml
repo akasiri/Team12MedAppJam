@@ -25,5 +25,9 @@
             android:title="@string/delete_records"
             android:key="delete_records"/>
 
+        <Preference
+            android:title="@string/logout"
+            android:key="@string/logout" />
+
     </PreferenceCategory>
 </PreferenceScreen>

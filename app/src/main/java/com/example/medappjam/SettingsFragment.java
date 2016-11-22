@@ -1,6 +1,8 @@
 package com.example.medappjam;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -13,6 +15,7 @@ public class SettingsFragment extends PreferenceFragment {
     private Preference mPreferenceEditProfiles;
     private Preference mPreferenceEditProviderInfo;
     private Preference mPreferenceDeleteRecords;
+    private Preference mPreferenceLogout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,17 @@ public class SettingsFragment extends PreferenceFragment {
             }
         });
 
+        mPreferenceLogout = (Preference) getPreferenceManager().findPreference(getString(R.string.logout));
+        mPreferenceLogout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
+                sharedPref.edit().clear().commit();
+                Intent intent = new Intent(getActivity(), HomeActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
 
     }
 }

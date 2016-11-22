@@ -46,7 +46,6 @@ public class MyProvidersActivity extends AppCompatActivity {
         // auto generate providers
         if(providers.isEmpty()) {
             //no providers yet. add provider.
-            Log.d("myProviders", "no provider yet");
         }
         else {
             LinearLayout container =(LinearLayout) findViewById(R.id.providers_container);
