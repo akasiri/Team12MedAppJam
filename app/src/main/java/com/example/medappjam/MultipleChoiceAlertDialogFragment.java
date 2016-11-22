@@ -27,7 +27,14 @@ public class MultipleChoiceAlertDialogFragment extends DialogFragment {
                 .setMultiChoiceItems(R.array.profile_array, mAlreadySelected, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int selectedItem, boolean isChecked) {
-                //do something with the items
+                /** Currently only CHF condition available
+                if(isChecked) {
+                    mSelectedItems.add(selectedItem);
+                }
+                else if(mSelectedItems.contains(selectedItem)) {
+                    mSelectedItems.remove(Integer.valueOf(selectedItem));
+                }
+                 */
             }
         })
                 .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {

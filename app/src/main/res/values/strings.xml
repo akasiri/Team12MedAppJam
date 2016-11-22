@@ -20,8 +20,8 @@
     <string name="delete_account">Delete Account</string>
     <string name="delete_records">Delete Records</string>
     <string name="change_password">Change Password</string>
-    <string name="edit_profiles">Add/Remove Profiles</string>
-    <string name="select_profiles">Select Profiles</string>
+    <string name="edit_profiles">Add/Remove Conditions</string>
+    <string name="select_profiles">Select Conditions</string>
     <string name="edit_provider_info">Edit Provider Information</string>
     <string name="provider_information">My Providers</string>
     <string name="provider_name">Name</string>
