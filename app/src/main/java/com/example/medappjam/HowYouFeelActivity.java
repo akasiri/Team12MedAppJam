@@ -6,13 +6,17 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.util.Calendar;
 
 
 /**
@@ -32,6 +36,35 @@ public class HowYouFeelActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        Button doneButton = (Button) findViewById(R.id.done_button);
+        doneButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("howFeeling", "clicked done");
+                SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
+                String username = sharedPref.getString(getString(R.string.user), "");
+
+                Calendar calendar = Calendar.getInstance();
+                int currentDay = calendar.get(Calendar.DAY_OF_YEAR);
+                int currentYear = calendar.get(Calendar.YEAR);
+
+                InputDate currentDate = new InputDate(currentDay, currentYear);
+
+                DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+                if(db.getDate(username) == null) {
+                    db.addDate(username, currentDate);
+                }
+                else {
+                    db.updateDate(username, currentDate);
+                }
+
+                Log.d("how are you feeling", "added date to db");
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 //    public void onClick(View view) {
@@ -41,10 +74,11 @@ public class HowYouFeelActivity extends AppCompatActivity {
 //        }
 //    }
 
+    /**
     public void done() {
 
-        finish();
     }
+    */
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
