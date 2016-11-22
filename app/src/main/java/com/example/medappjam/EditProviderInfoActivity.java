@@ -1,7 +1,10 @@
 package com.example.medappjam;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,6 +21,8 @@ public class EditProviderInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //add provider
+                SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
+                String username = sharedPref.getString(getString(R.string.user), "");
             }
         });
     }

@@ -99,6 +99,7 @@ public class HomeActivity extends AppCompatActivity {
             Button logoutButton = (Button) findViewById(R.id.button5);
             logoutButton.setVisibility(View.GONE);
         }
+
     }
 
 
@@ -153,6 +154,8 @@ public class HomeActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
         sharedPref.edit().clear().commit();
 
+        this.deleteDatabase("patientProviderInfo");
+
         onResume();
         /**
          SharedPreferences.Editor editor = sharedPref.edit();
@@ -195,6 +198,8 @@ public class HomeActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+
+
     }
 }
 
