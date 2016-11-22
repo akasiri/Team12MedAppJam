@@ -94,19 +94,6 @@ public class RecordsTableActivity extends AppCompatActivity {
         client.disconnect();
     }
 
-    public void deleteRecords() throws IOException {
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
-        String user = sharedPref.getString(getString(R.string.user), "");
-        filename = user +".txt";
-        FileOutputStream fout = openFileOutput(filename, MODE_PRIVATE);
-        fout.write("".getBytes());
-        fout.close();
-        Toast.makeText(getBaseContext(), "Data Deleted", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, HomeActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
-
     public void readToTable() throws IOException {
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.sharedPreferenceFile), Context.MODE_PRIVATE);
         String user = sharedPref.getString(getString(R.string.user), "");
@@ -196,31 +183,6 @@ public class RecordsTableActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-    }
-
-    public void deleteClick(View view) {
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        try {
-                            deleteRecords();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        //No button clicked
-                        break;
-                }
-            }
-        };
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-        builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
-                .setNegativeButton("No", dialogClickListener).show();
     }
 
     public void addTableHeader(TableLayout tl) {

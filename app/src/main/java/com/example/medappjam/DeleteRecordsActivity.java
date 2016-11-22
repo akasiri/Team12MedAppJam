@@ -38,7 +38,7 @@ public class DeleteRecordsActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
-    public void deleteClick(View view) {
+    public void deleteClick() {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -58,7 +58,7 @@ public class DeleteRecordsActivity extends AppCompatActivity {
             }
         };
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getBaseContext());
         builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
     }

@@ -161,25 +161,25 @@ public class NumberInputActivity extends AppCompatActivity {
     }
 
     public String checkWeightAlert(ArrayList<String[]> lines){
-        int cw;
+        float cw;
         StringBuffer strbuffer = new StringBuffer();
         if(lines.size() > 0) {
             if (!weight.getText().toString().isEmpty() && !weight.getText().toString().equals("0-806")) {
-                cw = (Integer.parseInt(weight.getText().toString()));
+                cw = (Float.parseFloat(weight.getText().toString()));
                 if (lines.size() >= 2) {
-                    int wthreshday;
+                    float wthreshday;
                     if (!lines.get(lines.size() - 2)[1].isEmpty() && !lines.get(lines.size() - 2)[1].equals("0-806")) {
-                        wthreshday = Integer.parseInt(lines.get(lines.size() - 2)[1]);
+                        wthreshday = Float.parseFloat(lines.get(lines.size() - 2)[1]);
                     } else {
                         wthreshday = cw;
                     }
 
                     int j = 0;
-                    int w = 0;
-                    int lowWeight, highWeight;
+                    float w = 0;
+                    float lowWeight, highWeight;
                     highWeight = 0;
                     if (!lines.get(lines.size() - 2)[1].isEmpty() && !lines.get(lines.size() - 2)[1].equals("0-806")) {
-                        lowWeight = Integer.parseInt(lines.get(lines.size() - 2)[1]);
+                        lowWeight = Float.parseFloat(lines.get(lines.size() - 2)[1]);
                     } else {
                         lowWeight = cw + 10;
                     }
@@ -187,7 +187,7 @@ public class NumberInputActivity extends AppCompatActivity {
                         String[] weekWeight = new String[7];
                         if (lines.size() > 5) {
                             if (!lines.get(lines.size() - (3 + j))[1].isEmpty()) {
-                                w = Integer.parseInt(lines.get(lines.size() - (3 + j))[1]);
+                                w = Float.parseFloat(lines.get(lines.size() - (3 + j))[1]);
                             }
                         }
                         if (w > highWeight) {
